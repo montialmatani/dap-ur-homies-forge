@@ -2478,6 +2478,7 @@ public class ChargedDapHandler {
         }
 
         float finalDiff = diff;
+        float startYaw = currentYaw;
         int steps = 10;
         long delayPerStep = 50L;
         new Thread(() -> {
@@ -2488,7 +2489,7 @@ public class ChargedDapHandler {
                     Thread.sleep(50L);
                     player.getServer().execute(() -> {
                         float progress = step / 10.0F;
-                        float newYaw = currentYaw + finalDiff * progress;
+                        float newYaw = startYaw + finalDiff * progress;
                         player.setYaw(newYaw);
                         player.networkHandler.sendPacket(new EntityPositionS2CPacket(player));
                     });
