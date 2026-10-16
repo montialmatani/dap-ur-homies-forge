@@ -7,10 +7,10 @@
     "PlayerEntityPassengerOffsetMixin",
     "GrabbedPlayerControlMixin",
     "CraftingScreenMixin",
-    "SpinYeetCameraRollMixin",
     "CraftingResultSlotMixin"
   ],
   "client": [
+    "SpinYeetCameraRollMixin",
     "PlayerModelMixin",
     "client.PlayerEntityRendererMixin",
     "client.MovementFreezeMixin",

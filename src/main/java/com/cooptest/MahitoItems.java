@@ -11,13 +11,14 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 
 public class MahitoItems {
-    public static final Item BLACK_HOOD = new Item(new Item.Settings().maxCount(1));
+    /** Created inside Forge's registry event: 1.20.1 items must not be constructed while registries are frozen. */
+    public static Item BLACK_HOOD;
     public static Potion MAHITO_POTION;
     public static Potion TODO_POTION;
 
     public static void register() {
-        CoopRegistries.item("black_hood", BLACK_HOOD);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> entries.add(BLACK_HOOD));
+        CoopRegistries.ITEMS.register("black_hood", () -> BLACK_HOOD = new Item(new Item.Settings().maxCount(1)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> { if (BLACK_HOOD != null) entries.add(BLACK_HOOD); });
         MAHITO_POTION = CoopRegistries.potion("mahito_stuff", new Potion(new StatusEffectInstance(ModEffects.MAHITO, 1200, 0)));
         TODO_POTION = CoopRegistries.potion("todo_potion", new Potion(new StatusEffectInstance(ModEffects.TODO, 2400, 0)));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {

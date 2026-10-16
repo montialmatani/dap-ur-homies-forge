@@ -115,6 +115,10 @@ jobs:
           import -window root -display :99 desktop_final.png || true
           sleep 15
           pkill -KILL -f "net.minecraftforge|dev.architectury|DevLaunchInjector" || true
+      - name: Verify smoke results
+        run: |
+          grep -q "Done (" server.log || { echo "::error::dedicated server did not start"; exit 1; }
+          grep -q "SMOKE_DONE" client.log || { echo "::error::client smoke test did not finish"; exit 1; }
       - name: Publish smoke results to ci-smoke branch
         if: always()
         run: |
