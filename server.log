@@ -1,0 +1,114 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Architectury Loom: 1.7.435
+You are using an outdated version of Architectury Loom! This version will not receive any support, please consider updating!
+
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :generateLog4jConfig
+> Task :generateRemapClasspath
+> Task :generateDLIConfig
+> Task :configureLaunch
+
+> Task :runServer
+[21:55:33] [main/INFO] (Launcher) ModLauncher running: args [--launchTarget, forgeserveruserdev, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, -mixin.config, coopmod.mixins.json, -mixin.config, coopmoves-shim.mixins.json, -mixin.config, coopmoves-anim.mixins.json, nogui]
+[21:55:33] [main/INFO] (Launcher) ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.20.1 by Eclipse Adoptium; OS Linux arch amd64 version 6.17.0-1022-azure
+[21:55:33] [main/WARN] (FMLConfig) Configuration file /home/runner/work/dap-ur-homies-forge/dap-ur-homies-forge/run-server/config/fml.toml is not correct. Correcting
+[21:55:33] [main/INFO] (FMLConfig) Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[21:55:33] [main/INFO] (FMLConfig) Incorrect key [earlyWindowSquir] was corrected from null to false
+[21:55:33] [main/INFO] (FMLConfig) Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[21:55:33] [main/INFO] (ImmediateWindowHandler) ImmediateWindowProvider not loading because launch target is forgeserveruserdev
+[21:55:33] [main/INFO] (mixin) SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/home/runner/.gradle/caches/modules-2/files-2.1/dev.architectury/mixin-patched/0.8.5.12/cf1f787f58d3b08b0cb53ecbba7928c09a1893c8/mixin-patched-0.8.5.12.jar%23113!/ Service=ModLauncher Env=SERVER
+[21:55:34] [main/WARN] (ModFileParser) Mod file /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.3.0/d7ebc62120f202109e300e084ca1a31a7b946a62/javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[21:55:34] [main/WARN] (ModFileParser) Mod file /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.3.0/1bf3e845ea0ce750096da8c71c8364b188ab74d4/lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[21:55:34] [main/WARN] (ModFileParser) Mod file /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.3.0/6093682e943ddccbabf70539319d7f2fe64db2e7/mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[21:55:34] [main/WARN] (ModFileParser) Mod file /home/runner/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.3.0/3b6be96aba3e323f3c918e8ef6a96312d82d76ad/fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file javafmllanguage-1.20.1-47.3.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file lowcodelanguage-1.20.1-47.3.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file mclanguage-1.20.1-47.3.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file fmlcore-1.20.1-47.3.0.jar of type LIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file forge-1.20.1-47.3.0-minecraft-merged-1.20.1-net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2-forge-1.20.1-47.3.0.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file main of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file  of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2b58f754
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file mixinextras-forge-0.4.1.jar of type GAMELIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@4152d38d
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file mixinextras-forge-0.4.1.jar of type GAMELIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@4152d38d
+[21:55:34] [main/INFO] (JarInJarDependencyLocator) Found 1 dependencies adding them to mods collection
+[21:55:34] [main/INFO] (ModDiscoverer) Found mod file MixinExtras-0.4.1.jar of type GAMELIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@2e185cd7
+[21:55:35] [main/INFO] (mixin) Compatibility level set to JAVA_17
+[21:55:35] [main/INFO] (LaunchServiceHandler) Launching target 'forgeserveruserdev' with arguments [--gameDir, ., nogui]
+[21:55:35] [main/INFO] (mixin) Remapping refMap coopmoves.refmap.json using RemapperChain (Architectury Patched)
+[21:55:35] [main/INFO] (mixin) Remapping refMap coopmoves.refmap.json using RemapperChain (Architectury Patched)
+[21:55:35] [main/INFO] (mixin) Remapping refMap coopmoves.refmap.json using RemapperChain (Architectury Patched)
+[21:55:35] [main/INFO] (unprotect) Found 7431 Minecraft classes
+2026-10-16 21:55:36,150 main WARN Advanced terminal features are not available in this environment
+[21:55:36] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
+[21:55:39] [modloading-worker-0/INFO] [ne.mi.co.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[21:55:39] [modloading-worker-0/INFO] [ne.mi.co.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[21:55:40] [Forge Version Check/INFO] [ne.mi.fm.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[21:55:41] [Forge Version Check/INFO] [ne.mi.fm.VersionChecker/]: [forge] Found status: OUTDATED Current: 47.3.0 Target: 47.4.10
+[21:55:41] [main/INFO] [mojang/YggdrasilAuthenticationService]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[21:55:41] [main/WARN] [minecraft/DefaultResourcePackBuilder]: Assets URL 'union:/home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/forge-1.20.1-47.3.0-minecraft-merged/1.20.1-net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2-forge-1.20.1-47.3.0/forge-1.20.1-47.3.0-minecraft-merged-1.20.1-net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2-forge-1.20.1-47.3.0.jar%23185!/assets/.mcassetsroot' uses unexpected schema
+[21:55:41] [main/WARN] [minecraft/DefaultResourcePackBuilder]: Assets URL 'union:/home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/forge-1.20.1-47.3.0-minecraft-merged/1.20.1-net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2-forge-1.20.1-47.3.0/forge-1.20.1-47.3.0-minecraft-merged-1.20.1-net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2-forge-1.20.1-47.3.0.jar%23185!/data/.mcassetsroot' uses unexpected schema
+[21:55:42] [main/INFO] [minecraft/RecipeManager]: Loaded 7 recipes
+[21:55:42] [main/INFO] [minecraft/AdvancementManager]: Loaded 1271 advancements
+[21:55:42] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Starting minecraft server version 1.20.1
+[21:55:42] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Loading properties
+[21:55:42] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Default game type: SURVIVAL
+[21:55:42] [Server thread/INFO] [minecraft/MinecraftServer]: Generating keypair
+[21:55:42] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Starting Minecraft server on *:25565
+[21:55:42] [Server thread/INFO] [minecraft/ServerNetworkIo]: Using epoll channel type
+[21:55:42] [Server thread/WARN] [minecraft/MinecraftDedicatedServer]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[21:55:42] [Server thread/WARN] [minecraft/MinecraftDedicatedServer]: The server will make no attempt to authenticate usernames. Beware.
+[21:55:42] [Server thread/WARN] [minecraft/MinecraftDedicatedServer]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[21:55:42] [Server thread/WARN] [minecraft/MinecraftDedicatedServer]: To change this, set "online-mode" to "true" in the server.properties file.
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file ./world/serverconfig/forge-server.toml is not correct. Correcting
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server was corrected from null to its default, SimpleCommentedConfig:{}. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringBlockEntities was corrected from null to its default, false. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringEntities was corrected from null to its default, false. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.fullBoundingBoxLadders was corrected from null to its default, false. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.zombieBaseSummonChance was corrected from null to its default, 0.1. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.zombieBabyChance was corrected from null to its default, 0.05. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.permissionHandler was corrected from null to its default, forge:default_handler. 
+[21:55:43] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.advertiseDedicatedServerToLan was corrected from null to its default, true. 
+[21:55:43] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Preparing level "world"
+[21:55:46] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[21:55:46] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 0%
+[21:55:47] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 0%
+[21:55:47] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 0%
+[21:55:48] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 0%
+[21:55:48] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 2%
+[21:55:49] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 3%
+[21:55:49] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 5%
+[21:55:50] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 7%
+[21:55:50] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 10%
+[21:55:51] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 11%
+[21:55:51] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 15%
+[21:55:52] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 18%
+[21:55:52] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 22%
+[21:55:53] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 25%
+[21:55:53] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 30%
+[21:55:54] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 33%
+[21:55:54] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 37%
+[21:55:55] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 41%
+[21:55:55] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 44%
+[21:55:56] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 49%
+[21:55:56] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 54%
+[21:55:57] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 57%
+[21:55:57] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 61%
+[21:55:58] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 66%
+[21:55:58] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 70%
+[21:55:59] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 74%
+[21:55:59] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 79%
+[21:56:00] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 83%
+[21:56:00] [Worker-Main-2/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 87%
+[21:56:01] [Worker-Main-3/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 91%
+[21:56:01] [Worker-Main-1/INFO] [minecraft/WorldGenerationProgressLogger]: Preparing spawn area: 96%
+[21:56:01] [Server thread/INFO] [minecraft/WorldGenerationProgressLogger]: Time elapsed: 15309 ms
+[21:56:01] [Server thread/INFO] [minecraft/MinecraftDedicatedServer]: Done (18.851s)! For help, type "help"
+[21:56:01] [Server thread/INFO] [ne.mi.ga.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
+[21:56:01] [Server thread/INFO] [ne.mi.se.pe.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[21:56:42] [Server thread/INFO] [minecraft/PlayerManager]: Alice[/[::1]:34556] logged in with entity id 318 at (-1.5, 64.0, 3.5)
+[21:56:42] [Server thread/INFO] [minecraft/MinecraftServer]: Alice joined the game
