@@ -166,25 +166,41 @@ jobs:
           for p in Alice Bob; do
             printf 'onboardAccessibility:false\ntutorialStep:none\npauseOnLostFocus:false\nnarrator:0\nrenderDistance:6\nsimulationDistance:6\njoinedFirstServer:true\nskipMultiplayerWarning:true\n' > run-$p/options.txt
           done
-          gradle writeLaunchScripts -Ptrace --no-daemon
-          gradle writeLaunchScripts -Pduo=Alice --no-daemon -q
-          gradle writeLaunchScripts -Pduo=Bob --no-daemon -q
-          ls build/launch-*.sh .gradle/loom-cache/launch.cfg
-          head -c 600 build/launch-runClient-Bob.sh; echo
+          # Capture the exact java command Gradle uses for each run (from --info), then kill it.
+          # Running all three later as plain processes avoids concurrent Gradle builds blocking each other.
+          capture() {
+            gradle $1 $2 --info --no-daemon > /tmp/capture.log 2>&1 &
+            gp=$!
+            for i in $(seq 1 150); do grep -q "Starting process 'command" /tmp/capture.log && break; sleep 2; done
+            sleep 3
+            pkill -KILL -f devlaunchinjector || true
+            kill $gp 2>/dev/null; wait $gp 2>/dev/null || true
+            line=$(grep "Starting process 'command" /tmp/capture.log | head -1)
+            wd=$(echo "$line" | sed -E 's/.*Working directory: (.*) Command: .*/\1/')
+            cmd=$(echo "$line" | sed -E 's/.*Command: //')
+            printf '#!/bin/bash\ncd %s\nexec %s\n' "$wd" "$cmd" > "$3"
+            chmod +x "$3"
+            echo "captured $3 (wd=$wd, $(echo "$cmd" | wc -c) chars)"
+          }
+          mkdir -p build
+          capture runServer -Ptrace build/launch-server.sh
+          capture runClient -Pduo=Alice build/launch-alice.sh
+          capture runClient -Pduo=Bob build/launch-bob.sh
+          rm -rf run-server/world
       - name: Two-player dap test
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
           MESA_GL_VERSION_OVERRIDE: "4.5"
         run: |
-          build/launch-runServer.sh > server.log 2>&1 &
+          build/launch-server.sh > server.log 2>&1 &
           for i in $(seq 1 120); do grep -q "Done (" server.log && break; sleep 5; done
           grep -q "Done (" server.log || { echo "::error::server did not start"; tail -50 server.log; exit 1; }
           Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
           Xvfb :98 -screen 0 1280x720x24 > /dev/null 2>&1 &
           sleep 2
-          DISPLAY=:99 build/launch-runClient-Alice.sh > alice.log 2>&1 &
+          DISPLAY=:99 build/launch-alice.sh > alice.log 2>&1 &
           sleep 15
-          DISPLAY=:98 build/launch-runClient-Bob.sh > bob.log 2>&1 &
+          DISPLAY=:98 build/launch-bob.sh > bob.log 2>&1 &
           for i in $(seq 1 150); do
             a=$(grep -c "SMOKE_DONE" alice.log 2>/dev/null); b=$(grep -c "SMOKE_DONE" bob.log 2>/dev/null)
             if [ "$a" -ge 1 ] && [ "$b" -ge 1 ]; then echo "both done"; break; fi
