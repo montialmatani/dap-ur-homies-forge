@@ -166,10 +166,10 @@ jobs:
           for p in Alice Bob; do
             printf 'onboardAccessibility:false\ntutorialStep:none\npauseOnLostFocus:false\nnarrator:0\nrenderDistance:6\nsimulationDistance:6\njoinedFirstServer:true\nskipMultiplayerWarning:true\n' > run-$p/options.txt
           done
-          gradle writeLaunchScripts -Ptrace --no-daemon -q
+          gradle writeLaunchScripts -Ptrace --no-daemon
           gradle writeLaunchScripts -Pduo=Alice --no-daemon -q
           gradle writeLaunchScripts -Pduo=Bob --no-daemon -q
-          ls build/launch-*.sh
+          ls build/launch-*.sh .gradle/loom-cache/launch.cfg
           head -c 600 build/launch-runClient-Bob.sh; echo
       - name: Two-player dap test
         env:
