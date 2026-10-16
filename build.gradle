@@ -30,6 +30,9 @@ loom {
             }
         }
         client {
+            if (project.hasProperty("duo")) {
+                runDir "run-${project.duo}"
+            }
             if (project.hasProperty("smoke")) {
                 vmArgs "-Dcoopmoves.smoke=true"
                 programArgs "--quickPlaySingleplayer", "world"
@@ -72,4 +75,23 @@ processResources {
 jar {
     from("LICENSE_coopmod")
     from("NOTICE.md")
+}
+
+// CI helper: write plain java launch scripts for the run configs, so several game instances
+// can run at once without concurrent Gradle builds fighting over Loom's cache lock.
+tasks.register("writeLaunchScripts") {
+    dependsOn "classes", "configureClientLaunch", "configureLaunch"
+    doLast {
+        def suffix = project.hasProperty("duo") ? "-" + project.duo : ""
+        ["runClient", "runServer"].each { n ->
+            def t = tasks.getByName(n)
+            def java = t.javaLauncher.get().executablePath.asFile.absolutePath
+            def cmd = [java] + t.allJvmArgs + ["-cp", t.classpath.asPath, t.mainClass.get()] + t.args
+            def quoted = cmd.collect { "'" + it.toString().replace("'", "'\\''") + "'" }.join(" ")
+            def f = file("build/launch-${n}${suffix}.sh")
+            f.text = "#!/bin/bash\nmkdir -p '${t.workingDir}'\ncd '${t.workingDir}'\nexec ${quoted}\n"
+            f.setExecutable(true)
+            println "wrote ${f}"
+        }
+    }
 }

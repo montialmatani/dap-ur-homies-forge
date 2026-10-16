@@ -151,7 +151,7 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq xvfb mesa-utils x11-utils imagemagick > /dev/null
       - name: Prepare server and client dirs
         run: |
-          mkdir -p run run-server
+          mkdir -p run-server run-Alice run-Bob
           echo "eula=true" > run-server/eula.txt
           printf 'online-mode=false\nlevel-seed=4242\nspawn-protection=0\nlevel-name=world\nenforce-secure-profile=false\n' > run-server/server.properties
           python3 - <<'PY'
@@ -163,40 +163,44 @@ jobs:
               return str(uuid.UUID(bytes=bytes(h)))
           json.dump([{"uuid": off(n), "name": n, "level": 4, "bypassesPlayerLimit": False} for n in ("Alice", "Bob")], open("run-server/ops.json", "w"))
           PY
-          printf 'onboardAccessibility:false\ntutorialStep:none\npauseOnLostFocus:false\nnarrator:0\nrenderDistance:6\nsimulationDistance:6\njoinedFirstServer:true\nskipMultiplayerWarning:true\n' > run/options.txt
-          gradle classes --no-daemon -q
-          mkdir -p /tmp/bob && cp -r . /tmp/bob/
+          for p in Alice Bob; do
+            printf 'onboardAccessibility:false\ntutorialStep:none\npauseOnLostFocus:false\nnarrator:0\nrenderDistance:6\nsimulationDistance:6\njoinedFirstServer:true\nskipMultiplayerWarning:true\n' > run-$p/options.txt
+          done
+          gradle writeLaunchScripts -Ptrace --no-daemon -q
+          gradle writeLaunchScripts -Pduo=Alice --no-daemon -q
+          gradle writeLaunchScripts -Pduo=Bob --no-daemon -q
+          ls build/launch-*.sh
+          head -c 600 build/launch-runClient-Bob.sh; echo
       - name: Two-player dap test
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
           MESA_GL_VERSION_OVERRIDE: "4.5"
         run: |
-          gradle runServer -Ptrace --no-daemon > server.log 2>&1 &
+          build/launch-runServer.sh > server.log 2>&1 &
           for i in $(seq 1 120); do grep -q "Done (" server.log && break; sleep 5; done
-          grep -q "Done (" server.log || { echo "::error::server did not start"; exit 1; }
+          grep -q "Done (" server.log || { echo "::error::server did not start"; tail -50 server.log; exit 1; }
           Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
           Xvfb :98 -screen 0 1280x720x24 > /dev/null 2>&1 &
           sleep 2
-          (DISPLAY=:99 gradle runClient -Pduo=Alice --no-daemon > alice.log 2>&1 &)
-          sleep 20
-          (cd /tmp/bob && DISPLAY=:98 gradle runClient -Pduo=Bob --no-daemon > /tmp/bob/bob.log 2>&1 &)
-          for i in $(seq 1 120); do
-            a=$(grep -c "SMOKE_DONE" alice.log 2>/dev/null); b=$(grep -c "SMOKE_DONE" /tmp/bob/bob.log 2>/dev/null)
+          DISPLAY=:99 build/launch-runClient-Alice.sh > alice.log 2>&1 &
+          sleep 15
+          DISPLAY=:98 build/launch-runClient-Bob.sh > bob.log 2>&1 &
+          for i in $(seq 1 150); do
+            a=$(grep -c "SMOKE_DONE" alice.log 2>/dev/null); b=$(grep -c "SMOKE_DONE" bob.log 2>/dev/null)
             if [ "$a" -ge 1 ] && [ "$b" -ge 1 ]; then echo "both done"; break; fi
-            if grep -qE "Minecraft Crash Report|MixinApplyError" alice.log /tmp/bob/bob.log server.log; then echo "crash"; sleep 5; break; fi
+            if grep -qE "Minecraft Crash Report|MixinApplyError" alice.log bob.log server.log; then echo "crash"; sleep 5; break; fi
             sleep 5
           done
           sleep 10
-          pkill -KILL -f "net.minecraftforge|dev.architectury|DevLaunchInjector" || true
+          pkill -KILL java || true
+          grep -q "SMOKE_DONE" alice.log && grep -q "SMOKE_DONE" bob.log || { echo "::error::duo test did not finish"; exit 1; }
       - name: Publish duo results to ci-duo branch
         if: always()
         run: |
           mkdir -p /tmp/duo
-          cp server.log alice.log /tmp/duo/ 2>/dev/null || true
-          cp /tmp/bob/bob.log /tmp/duo/ 2>/dev/null || true
-          cp run/screenshots/*.png /tmp/duo/ 2>/dev/null || true
-          cp /tmp/bob/run/screenshots/*.png /tmp/duo/ 2>/dev/null || true
-          mkdir -p /tmp/duo/crash && cp run/crash-reports/* run-server/crash-reports/* /tmp/bob/run/crash-reports/* /tmp/duo/crash/ 2>/dev/null || true
+          cp server.log alice.log bob.log /tmp/duo/ 2>/dev/null || true
+          cp run-Alice/screenshots/*.png run-Bob/screenshots/*.png /tmp/duo/ 2>/dev/null || true
+          mkdir -p /tmp/duo/crash && cp run-Alice/crash-reports/* run-Bob/crash-reports/* run-server/crash-reports/* /tmp/duo/crash/ 2>/dev/null || true
           echo "${{ github.sha }} run ${{ github.run_id }}" > /tmp/duo/RUN.txt
           cd /tmp/duo
           git init -q -b ci-duo
