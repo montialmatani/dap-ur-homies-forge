@@ -166,42 +166,28 @@ jobs:
           for p in Alice Bob; do
             printf 'onboardAccessibility:false\ntutorialStep:none\npauseOnLostFocus:false\nnarrator:0\nrenderDistance:6\nsimulationDistance:6\njoinedFirstServer:true\nskipMultiplayerWarning:true\n' > run-$p/options.txt
           done
-          # Capture the exact java command Gradle uses for each run (from --info), then kill it.
-          # Running all three later as plain processes avoids concurrent Gradle builds blocking each other.
-          capture() {
-            gradle $1 $2 --info --no-daemon > /tmp/capture.log 2>&1 &
-            gp=$!
-            for i in $(seq 1 150); do grep "Starting process 'command" /tmp/capture.log | grep -qi devlaunchinjector && break; sleep 2; done
-            sleep 3
-            pkill -KILL -f devlaunchinjector || true
-            kill $gp 2>/dev/null; wait $gp 2>/dev/null || true
-            line=$(grep "Starting process 'command" /tmp/capture.log | grep -i devlaunchinjector | head -1)
-            wd=$(echo "$line" | sed -E 's/.*Working directory: (.*) Command: .*/\1/')
-            cmd=$(echo "$line" | sed -E 's/.*Command: //')
-            mc="coopmoves%%$GITHUB_WORKSPACE/build/classes/java/main:coopmoves%%$GITHUB_WORKSPACE/build/resources/main"
-            printf '#!/bin/bash\nexport MOD_CLASSES="%s"\ncd %s\nexec %s\n' "$mc" "$wd" "$cmd" > "$3"
-            chmod +x "$3"
-            echo "captured $3 (wd=$wd, $(echo "$cmd" | wc -c) chars)"
-          }
-          mkdir -p build
-          capture runServer -Ptrace build/launch-server.sh
-          capture runClient -Pduo=Alice build/launch-alice.sh
-          capture runClient -Pduo=Bob build/launch-bob.sh
-          rm -rf run-server/world
+          # Each game instance gets its own project copy and Gradle home, so the three Gradle runs
+          # share no locks at all (shared caches made the second/third run block).
+          gradle classes --no-daemon -q
+          for p in Alice Bob; do
+            cp -r "$GITHUB_WORKSPACE" "/tmp/proj-$p"
+            cp -r ~/.gradle "/tmp/gh-$p"
+          done
+          du -sh ~/.gradle
       - name: Two-player dap test
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
           MESA_GL_VERSION_OVERRIDE: "4.5"
         run: |
-          build/launch-server.sh > server.log 2>&1 &
+          gradle runServer -Ptrace --no-daemon > server.log 2>&1 &
           for i in $(seq 1 120); do grep -q "Done (" server.log && break; sleep 5; done
           grep -q "Done (" server.log || { echo "::error::server did not start"; tail -50 server.log; exit 1; }
           Xvfb :99 -screen 0 1280x720x24 > /dev/null 2>&1 &
           Xvfb :98 -screen 0 1280x720x24 > /dev/null 2>&1 &
           sleep 2
-          DISPLAY=:99 build/launch-alice.sh > alice.log 2>&1 &
-          sleep 15
-          DISPLAY=:98 build/launch-bob.sh > bob.log 2>&1 &
+          (cd /tmp/proj-Alice && DISPLAY=:99 GRADLE_USER_HOME=/tmp/gh-Alice gradle runClient -Pduo=Alice --no-daemon > "$GITHUB_WORKSPACE/alice.log" 2>&1 &)
+          sleep 30
+          (cd /tmp/proj-Bob && DISPLAY=:98 GRADLE_USER_HOME=/tmp/gh-Bob gradle runClient -Pduo=Bob --no-daemon > "$GITHUB_WORKSPACE/bob.log" 2>&1 &)
           for i in $(seq 1 150); do
             a=$(grep -c "SMOKE_DONE" alice.log 2>/dev/null); b=$(grep -c "SMOKE_DONE" bob.log 2>/dev/null)
             if [ "$a" -ge 1 ] && [ "$b" -ge 1 ]; then echo "both done"; break; fi
@@ -216,8 +202,10 @@ jobs:
         run: |
           mkdir -p /tmp/duo
           cp server.log alice.log bob.log /tmp/duo/ 2>/dev/null || true
-          cp run-Alice/screenshots/*.png run-Bob/screenshots/*.png /tmp/duo/ 2>/dev/null || true
-          mkdir -p /tmp/duo/crash && cp run-Alice/crash-reports/* run-Bob/crash-reports/* run-server/crash-reports/* /tmp/duo/crash/ 2>/dev/null || true
+          cp /tmp/proj-Alice/run-Alice/screenshots/*.png /tmp/proj-Bob/run-Bob/screenshots/*.png /tmp/duo/ 2>/dev/null || true
+          cp /tmp/proj-Alice/run-Alice/logs/latest.log /tmp/duo/alice-latest.log 2>/dev/null || true
+          cp /tmp/proj-Bob/run-Bob/logs/latest.log /tmp/duo/bob-latest.log 2>/dev/null || true
+          mkdir -p /tmp/duo/crash && cp /tmp/proj-Alice/run-Alice/crash-reports/* /tmp/proj-Bob/run-Bob/crash-reports/* run-server/crash-reports/* /tmp/duo/crash/ 2>/dev/null || true
           echo "${{ github.sha }} run ${{ github.run_id }}" > /tmp/duo/RUN.txt
           cd /tmp/duo
           git init -q -b ci-duo
