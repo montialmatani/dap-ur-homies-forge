@@ -25,7 +25,7 @@ public class CarryingSlowdown {
     private static void updateSlowdown(ServerPlayerEntity player) {
         PoseState pose = PoseNetworking.poseStates.getOrDefault(player.getUuid(), PoseState.NONE);
         boolean isCarrying = pose == PoseState.GRAB_HOLDING;
-        EntityAttributeInstance speedAttr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance speedAttr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (speedAttr != null) {
             EntityAttributeModifier existingModifier = speedAttr.getModifier(MODIFIER_ID);
             if (isCarrying) {

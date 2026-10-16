@@ -92,7 +92,7 @@ public class BlackHoodHandler {
         UseEntityCallback.EVENT.register((UseEntityCallback)(player, world, hand, entity, hitResult) -> {
             if (world.isClient) {
                 return ActionResult.PASS;
-            } else if (hand != Hand.field_5808) {
+            } else if (hand != Hand.MAIN_HAND) {
                 return ActionResult.PASS;
             } else if (!(player instanceof ServerPlayerEntity clicker)) {
                 return ActionResult.PASS;
@@ -140,7 +140,7 @@ public class BlackHoodHandler {
             .getPlayers()
             .forEach(
                 p -> p.networkHandler
-                    .sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.field_6169, new ItemStack(MahitoItems.BLACK_HOOD)))))
+                    .sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.HEAD, new ItemStack(MahitoItems.BLACK_HOOD)))))
             );
         if (!equiper.isCreative()) {
             equiper.getStackInHand(hand).decrement(1);
@@ -170,7 +170,7 @@ public class BlackHoodHandler {
 
         target.getServerWorld()
             .getPlayers()
-            .forEach(p -> p.networkHandler.sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.field_6169, ItemStack.EMPTY)))));
+            .forEach(p -> p.networkHandler.sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.HEAD, ItemStack.EMPTY)))));
         if (server != null) {
             BlackHoodNetworking.broadcastHoodState(server, targetId, false);
         }
@@ -193,7 +193,7 @@ public class BlackHoodHandler {
 
         target.getServerWorld()
             .getPlayers()
-            .forEach(p -> p.networkHandler.sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.field_6169, ItemStack.EMPTY)))));
+            .forEach(p -> p.networkHandler.sendPacket(new EntityEquipmentUpdateS2CPacket(target.getId(), List.of(new Pair(EquipmentSlot.HEAD, ItemStack.EMPTY)))));
         if (server != null) {
             BlackHoodNetworking.broadcastHoodState(server, targetId, false);
         }
@@ -227,7 +227,7 @@ public class BlackHoodHandler {
                                             p -> p.networkHandler
                                                 .sendPacket(
                                                     new EntityEquipmentUpdateS2CPacket(
-                                                        player.getId(), List.of(new Pair(EquipmentSlot.field_6169, new ItemStack(MahitoItems.BLACK_HOOD)))
+                                                        player.getId(), List.of(new Pair(EquipmentSlot.HEAD, new ItemStack(MahitoItems.BLACK_HOOD)))
                                                     )
                                                 )
                                         );

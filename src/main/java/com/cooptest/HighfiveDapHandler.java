@@ -128,8 +128,8 @@ public class HighfiveDapHandler {
             sendToAll(hfPlayer.getServer(), new HighfiveDapHandler.HfDapStartPayload(hfId, dapId, 1));
             PoseNetworking.broadcastAnimState(hfPlayer, 108);
             PoseNetworking.broadcastAnimState(dapPlayer, 109);
-            hfPlayer.swingHand(Hand.field_5808);
-            dapPlayer.swingHand(Hand.field_5808);
+            hfPlayer.swingHand(Hand.MAIN_HAND);
+            dapPlayer.swingHand(Hand.MAIN_HAND);
             return true;
         }
     }
@@ -500,8 +500,8 @@ public class HighfiveDapHandler {
             b.setYaw(yawA + 180.0F);
             b.setBodyYaw(yawA + 180.0F);
             b.setHeadYaw(yawA + 180.0F);
-            a.swingHand(Hand.field_5808);
-            b.swingHand(Hand.field_5808);
+            a.swingHand(Hand.MAIN_HAND);
+            b.swingHand(Hand.MAIN_HAND);
         }
     }
 
@@ -556,13 +556,13 @@ public class HighfiveDapHandler {
     private static void spawnImpactEffects(ServerPlayerEntity hf, ServerPlayerEntity dap) {
         Vec3d pos = hf.getPos().add(dap.getPos()).multiply(0.5).add(0.0, 1.4, 0.0);
         ServerWorld world = hf.getServerWorld();
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 1.5F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 1.1F);
-        world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 3, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 40, 0.3, 0.3, 0.3, 0.18);
-        world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 25, 0.25, 0.25, 0.25, 0.14);
-        world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, 20, 0.2, 0.2, 0.2, 0.1);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 12, 0.15, 0.15, 0.15, 0.1);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 1.5F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 1.1F);
+        world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 3, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 40, 0.3, 0.3, 0.3, 0.18);
+        world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 25, 0.25, 0.25, 0.25, 0.14);
+        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 20, 0.2, 0.2, 0.2, 0.1);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 12, 0.15, 0.15, 0.15, 0.1);
         double groundY = hf.getY() + 0.1;
 
         for (double angle = 0.0; angle < 360.0; angle += 15.0) {
@@ -570,7 +570,7 @@ public class HighfiveDapHandler {
 
             for (double r = 0.4; r <= 2.0; r += 0.6) {
                 world.spawnParticles(
-                    ParticleTypes.field_11207, pos.x + Math.cos(rad) * r, groundY, pos.z + Math.sin(rad) * r, 1, 0.02, 0.03, 0.02, 0.01
+                    ParticleTypes.END_ROD, pos.x + Math.cos(rad) * r, groundY, pos.z + Math.sin(rad) * r, 1, 0.02, 0.03, 0.02, 0.01
                 );
             }
         }

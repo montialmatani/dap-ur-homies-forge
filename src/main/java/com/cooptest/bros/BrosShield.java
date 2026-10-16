@@ -77,32 +77,32 @@ public final class BrosShield {
 
     static void onStart(BrosHandler.Session s) {
         double[] c = center(s);
-        s.world.playSound(null, c[0], c[1], c[2], SoundEvents.field_14703, SoundCategory.field_15248, 0.8F, 1.6F);
-        s.world.playSound(null, c[0], c[1], c[2], SoundEvents.field_26980, SoundCategory.field_15248, 1.0F, 0.8F);
+        s.world.playSound(null, c[0], c[1], c[2], SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.8F, 1.6F);
+        s.world.playSound(null, c[0], c[1], c[2], SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1.0F, 0.8F);
     }
 
     static void onGentleEnd(BrosHandler.Session s) {
         if (s.world instanceof ServerWorld sw) {
             double[] var3 = center(s);
-            sw.playSound(null, var3[0], var3[1], var3[2], SoundEvents.field_19344, SoundCategory.field_15248, 0.7F, 1.5F);
-            sw.spawnParticles(ParticleTypes.field_11204, var3[0], var3[1] + 1.0, var3[2], 8, RADIUS * 0.4, 0.4, RADIUS * 0.4, 0.03);
+            sw.playSound(null, var3[0], var3[1], var3[2], SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 0.7F, 1.5F);
+            sw.spawnParticles(ParticleTypes.CLOUD, var3[0], var3[1] + 1.0, var3[2], 8, RADIUS * 0.4, 0.4, RADIUS * 0.4, 0.03);
         }
     }
 
     static void onShatter(BrosHandler.Session s, boolean penalty) {
         if (s.world instanceof ServerWorld sw) {
             double[] var9 = center(s);
-            sw.playSound(null, var9[0], var9[1], var9[2], SoundEvents.field_15081, SoundCategory.field_15248, 1.2F, 0.7F);
-            sw.playSound(null, var9[0], var9[1], var9[2], SoundEvents.field_26942, SoundCategory.field_15248, 1.0F, 0.9F);
+            sw.playSound(null, var9[0], var9[1], var9[2], SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.2F, 0.7F);
+            sw.playSound(null, var9[0], var9[1], var9[2], SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK, SoundCategory.PLAYERS, 1.0F, 0.9F);
 
             for (int i = 0; i < 48; i++) {
                 double a = (Math.PI * 2) * i / 48.0;
                 sw.spawnParticles(
-                    ParticleTypes.field_29644, var9[0] + Math.cos(a) * RADIUS, var9[1] + 1.0 + i % 4 * 0.5, var9[2] + Math.sin(a) * RADIUS, 2, 0.1, 0.1, 0.1, 0.15
+                    ParticleTypes.ELECTRIC_SPARK, var9[0] + Math.cos(a) * RADIUS, var9[1] + 1.0 + i % 4 * 0.5, var9[2] + Math.sin(a) * RADIUS, 2, 0.1, 0.1, 0.1, 0.15
                 );
             }
 
-            sw.spawnParticles(ParticleTypes.field_11236, var9[0], var9[1] + 1.0, var9[2], 1, 0.0, 0.0, 0.0, 0.0);
+            sw.spawnParticles(ParticleTypes.EXPLOSION, var9[0], var9[1] + 1.0, var9[2], 1, 0.0, 0.0, 0.0, 0.0);
             pushApart(s.a, var9);
             pushApart(s.b, var9);
             if (penalty) {
@@ -124,9 +124,9 @@ public final class BrosShield {
                 if (insideDome(var8, proj) && !(proj.getVelocity().lengthSquared() < 0.0025)) {
                     Entity owner = proj.getOwner();
                     if (owner == null || owner instanceof Monster || !insideDome(var8, owner)) {
-                        sw.spawnParticles(ParticleTypes.field_29644, proj.getX(), proj.getY(), proj.getZ(), 10, 0.1, 0.1, 0.1, 0.12);
+                        sw.spawnParticles(ParticleTypes.ELECTRIC_SPARK, proj.getX(), proj.getY(), proj.getZ(), 10, 0.1, 0.1, 0.1, 0.12);
                         sw.playSound(
-                            null, proj.getX(), proj.getY(), proj.getZ(), SoundEvents.field_26982, SoundCategory.field_15248, 0.8F, 1.7F
+                            null, proj.getX(), proj.getY(), proj.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.PLAYERS, 0.8F, 1.7F
                         );
                         proj.discard();
                         if (drain(server, s, 2.0F)) {
@@ -142,7 +142,7 @@ public final class BrosShield {
                     if (insideDome(var8, e) && !(e.getHealth() >= e.getMaxHealth())) {
                         e.heal(HEAL_AMOUNT);
                         sw.spawnParticles(
-                            ParticleTypes.field_11201, e.getX(), e.getY() + e.getHeight() + 0.2, e.getZ(), 1, 0.2, 0.1, 0.2, 0.0
+                            ParticleTypes.HEART, e.getX(), e.getY() + e.getHeight() + 0.2, e.getZ(), 1, 0.2, 0.1, 0.2, 0.0
                         );
                     }
                 }
@@ -167,7 +167,7 @@ public final class BrosShield {
                     BrosHandler.shatter(server, s);
                     return true;
                 } else {
-                    boolean projectile = direct instanceof ProjectileEntity || source.isIn(DamageTypeTags.field_42247);
+                    boolean projectile = direct instanceof ProjectileEntity || source.isIn(DamageTypeTags.IS_PROJECTILE);
                     if (projectile) {
                         if (attacker != null && !(attacker instanceof Monster) && insideDome(center(s), attacker)) {
                             return true;
@@ -273,8 +273,8 @@ public final class BrosShield {
     }
 
     private static void hitFeedback(ServerWorld sw, LivingEntity target) {
-        sw.spawnParticles(ParticleTypes.field_29644, target.getX(), target.getY() + 1.0, target.getZ(), 8, 0.3, 0.3, 0.3, 0.1);
-        sw.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.field_26982, SoundCategory.field_15248, 0.9F, 1.4F);
+        sw.spawnParticles(ParticleTypes.ELECTRIC_SPARK, target.getX(), target.getY() + 1.0, target.getZ(), 8, 0.3, 0.3, 0.3, 0.1);
+        sw.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.PLAYERS, 0.9F, 1.4F);
     }
 
     private static void pushApart(LivingEntity e, double[] c) {

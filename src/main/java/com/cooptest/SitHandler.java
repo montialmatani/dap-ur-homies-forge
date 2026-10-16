@@ -152,7 +152,7 @@ public class SitHandler {
         sitter.setYaw(sitterYaw);
         sitter.setBodyYaw(sitterYaw);
         sitter.setHeadYaw(sitterYaw);
-        helper.swingHand(Hand.field_5808, true);
+        helper.swingHand(Hand.MAIN_HAND, true);
         ServerPlayNetworking.send(helper, new ChargedDapHandler.PerfectDapFreezePayload(true));
         ServerPlayNetworking.send(sitter, new ChargedDapHandler.PerfectDapFreezePayload(true));
         PoseNetworking.broadcastAnimState(helper, CoopAnimationHandler.AnimState.REACH_PICKUP.ordinal());
@@ -164,10 +164,10 @@ public class SitHandler {
             if (h != null && s != null) {
                 Vec3d dir = s.getPos().subtract(h.getPos()).normalize();
                 Vec3d mid = h.getPos().add(0.0, 1.2, 0.0).add(dir.multiply(0.5));
-                h.getServerWorld().playSound(null, mid.x, mid.y, mid.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 1.2F, 0.8F);
-                h.getServerWorld().playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.0F);
-                h.getServerWorld().spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, 8, 0.15, 0.15, 0.15, 0.06);
-                h.getServerWorld().spawnParticles(ParticleTypes.field_11208, mid.x, mid.y, mid.z, 4, 0.1, 0.1, 0.1, 0.04);
+                h.getServerWorld().playSound(null, mid.x, mid.y, mid.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 1.2F, 0.8F);
+                h.getServerWorld().playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                h.getServerWorld().spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, 8, 0.15, 0.15, 0.15, 0.06);
+                h.getServerWorld().spawnParticles(ParticleTypes.ENCHANTED_HIT, mid.x, mid.y, mid.z, 4, 0.1, 0.1, 0.1, 0.04);
             }
         });
         long LIFT_START_MS = 3880L;

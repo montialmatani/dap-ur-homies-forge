@@ -11,7 +11,7 @@ public class PoseEffects {
     public static void playIdleEffects(ServerPlayerEntity player) {
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos();
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 1.2F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.2F);
     }
 
     public static void playActionEffects(ServerPlayerEntity pusher, ServerPlayerEntity target) {
@@ -31,21 +31,21 @@ public class PoseEffects {
         double rightHandZ = pusherPos.z + forwardZ + rightZ;
         double leftHandX = pusherPos.x + forwardX + leftX;
         double leftHandZ = pusherPos.z + forwardZ + leftZ;
-        world.playSound(null, pusherPos.x, pusherPos.y, pusherPos.z, SoundEvents.field_14840, SoundCategory.field_15248, 1.0F, 0.8F);
-        world.playSound(null, pusherPos.x, pusherPos.y, pusherPos.z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 1.0F);
+        world.playSound(null, pusherPos.x, pusherPos.y, pusherPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.0F, 0.8F);
+        world.playSound(null, pusherPos.x, pusherPos.y, pusherPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
         for (int i = 0; i < 5; i++) {
-            world.spawnParticles(ParticleTypes.field_11204, rightHandX, handY, rightHandZ, 1, 0.1, 0.1, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.CLOUD, rightHandX, handY, rightHandZ, 1, 0.1, 0.1, 0.1, 0.02);
         }
 
         for (int i = 0; i < 5; i++) {
-            world.spawnParticles(ParticleTypes.field_11204, leftHandX, handY, leftHandZ, 1, 0.1, 0.1, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.CLOUD, leftHandX, handY, leftHandZ, 1, 0.1, 0.1, 0.1, 0.02);
         }
 
-        world.spawnParticles(ParticleTypes.field_11203, rightHandX, handY, rightHandZ, 3, 0.1, 0.1, 0.1, 0.02);
-        world.spawnParticles(ParticleTypes.field_11203, leftHandX, handY, leftHandZ, 3, 0.1, 0.1, 0.1, 0.02);
-        world.playSound(null, targetPos.x, targetPos.y, targetPos.z, SoundEvents.field_14706, SoundCategory.field_15248, 0.8F, 1.5F);
-        world.spawnParticles(ParticleTypes.field_11203, targetPos.x, targetPos.y + 0.5, targetPos.z, 3, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.POOF, rightHandX, handY, rightHandZ, 3, 0.1, 0.1, 0.1, 0.02);
+        world.spawnParticles(ParticleTypes.POOF, leftHandX, handY, leftHandZ, 3, 0.1, 0.1, 0.1, 0.02);
+        world.playSound(null, targetPos.x, targetPos.y, targetPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 0.8F, 1.5F);
+        world.spawnParticles(ParticleTypes.POOF, targetPos.x, targetPos.y + 0.5, targetPos.z, 3, 0.2, 0.2, 0.2, 0.02);
         pusher.setVelocity(pusher.getVelocity().add(0.0, -0.15, 0.0));
         pusher.velocityModified = true;
     }
@@ -53,6 +53,6 @@ public class PoseEffects {
     public static void playLaunchTrailEffects(ServerPlayerEntity target) {
         ServerWorld world = target.getServerWorld();
         Vec3d pos = target.getPos();
-        world.spawnParticles(ParticleTypes.field_11204, pos.x, pos.y + 0.5, pos.z, 2, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.CLOUD, pos.x, pos.y + 0.5, pos.z, 2, 0.2, 0.2, 0.2, 0.02);
     }
 }

@@ -154,12 +154,12 @@ public class FallCatchHandler {
         double x = (caught.getX() + catcher.getX()) / 2.0;
         double y = catcher.getY() + 1.5;
         double z = (caught.getZ() + catcher.getZ()) / 2.0;
-        world.playSound(null, x, y, z, SoundEvents.field_14840, SoundCategory.field_15248, 1.2F, 0.7F);
-        world.playSound(null, x, y, z, SoundEvents.field_14627, SoundCategory.field_15248, 1.0F, 1.2F);
-        world.playSound(null, x, y, z, SoundEvents.field_15048, SoundCategory.field_15248, 1.0F, 0.8F);
-        world.spawnParticles(ParticleTypes.field_11204, x, y, z, 12, 0.4, 0.3, 0.4, 0.02);
-        world.spawnParticles(ParticleTypes.field_11205, x, y, z, 8, 0.3, 0.3, 0.3, 0.1);
-        world.spawnParticles(ParticleTypes.field_29642, x, y, z, 6, 0.2, 0.2, 0.2, 0.02);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.2F, 0.7F);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0F, 1.2F);
+        world.playSound(null, x, y, z, SoundEvents.BLOCK_WOOL_FALL, SoundCategory.PLAYERS, 1.0F, 0.8F);
+        world.spawnParticles(ParticleTypes.CLOUD, x, y, z, 12, 0.4, 0.3, 0.4, 0.02);
+        world.spawnParticles(ParticleTypes.CRIT, x, y, z, 8, 0.3, 0.3, 0.3, 0.1);
+        world.spawnParticles(ParticleTypes.WAX_ON, x, y, z, 6, 0.2, 0.2, 0.2, 0.02);
         caught.setVelocity(0.0, 0.0, 0.0);
         caught.velocityModified = true;
         FallCatchHandler.CatchAnimPayload payload = new FallCatchHandler.CatchAnimPayload(catcher.getUuid(), caught.getUuid());

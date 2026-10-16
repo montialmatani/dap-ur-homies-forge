@@ -273,9 +273,9 @@ public class HandSpinHandler {
         ServerPlayNetworking.send(p1, startPayload);
         ServerPlayNetworking.send(p2, startPayload);
         ServerWorld world = (ServerWorld)p1.getWorld();
-        world.playSound(null, center.x, center.y + 1.0, center.z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 1.3F);
-        world.spawnParticles(ParticleTypes.field_11204, center.x, center.y + 1.0, center.z, 14, 0.5, 0.4, 0.5, 0.03);
-        world.spawnParticles(ParticleTypes.field_11205, center.x, center.y + 1.0, center.z, 10, 0.4, 0.3, 0.4, 0.05);
+        world.playSound(null, center.x, center.y + 1.0, center.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.3F);
+        world.spawnParticles(ParticleTypes.CLOUD, center.x, center.y + 1.0, center.z, 14, 0.5, 0.4, 0.5, 0.03);
+        world.spawnParticles(ParticleTypes.CRIT, center.x, center.y + 1.0, center.z, 10, 0.4, 0.3, 0.4, 0.05);
     }
 
     private static void sendSyncIfDue(HandSpinHandler.Session s, ServerPlayerEntity p1, ServerPlayerEntity p2) {
@@ -307,7 +307,7 @@ public class HandSpinHandler {
     private static void playLoopEffects(HandSpinHandler.Session s, ServerPlayerEntity p1, ServerPlayerEntity p2, long tick) {
         ServerWorld world = (ServerWorld)p1.getWorld();
         double t = Math.min(1.0, s.angularVel / 0.2);
-        world.spawnParticles(ParticleTypes.field_11205, s.center.x, s.center.y + 1.0, s.center.z, 2, 0.5, 0.4, 0.5, 0.02);
+        world.spawnParticles(ParticleTypes.CRIT, s.center.x, s.center.y + 1.0, s.center.z, 2, 0.5, 0.4, 0.5, 0.02);
         long whooshInterval = 14L - Math.round(t * 8.0);
         if (tick % whooshInterval == 0L) {
             world.playSound(
@@ -315,8 +315,8 @@ public class HandSpinHandler {
                 s.center.x,
                 s.center.y + 1.0,
                 s.center.z,
-                SoundEvents.field_14706,
-                SoundCategory.field_15248,
+                SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+                SoundCategory.PLAYERS,
                 0.45F,
                 0.9F + (float)t * 0.8F
             );
@@ -529,7 +529,7 @@ public class HandSpinHandler {
     }
 
     private static boolean hasStrengthTwo(ServerPlayerEntity p) {
-        StatusEffectInstance effect = p.getStatusEffect(StatusEffects.field_5910);
+        StatusEffectInstance effect = p.getStatusEffect(StatusEffects.STRENGTH);
         return effect != null && effect.getAmplifier() >= 1;
     }
 
@@ -552,8 +552,8 @@ public class HandSpinHandler {
         long tick = server.getTicks();
         if (s.lastHandSwingTick == -1L || tick - s.lastHandSwingTick >= 4L) {
             s.lastHandSwingTick = tick;
-            p1.swingHand(Hand.field_5808, true);
-            p2.swingHand(Hand.field_5808, true);
+            p1.swingHand(Hand.MAIN_HAND, true);
+            p2.swingHand(Hand.MAIN_HAND, true);
         }
     }
 
@@ -584,7 +584,7 @@ public class HandSpinHandler {
         PoseNetworking.broadcastAnimState(p2, 0);
         ServerWorld world = (ServerWorld)p1.getWorld();
         world.playSound(
-            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.field_14840, SoundCategory.field_15248, 1.2F, 0.7F
+            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.2F, 0.7F
         );
         s.endAnimStartTick = server.getTicks();
     }
@@ -610,14 +610,14 @@ public class HandSpinHandler {
         PoseNetworking.broadcastAnimState(p2, 122);
         s.endAnimStartTick = server.getTicks();
         ServerWorld world = (ServerWorld)p1.getWorld();
-        world.spawnParticles(ParticleTypes.field_11204, s.center.x, s.center.y + 1.0, s.center.z, 8, 0.25, 0.15, 0.25, 0.1);
+        world.spawnParticles(ParticleTypes.CLOUD, s.center.x, s.center.y + 1.0, s.center.z, 8, 0.25, 0.15, 0.25, 0.1);
         world.playSound(
             null,
             s.center.x,
             s.center.y + 1.0,
             s.center.z,
-            SoundEvents.field_14706,
-            SoundCategory.field_15248,
+            SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+            SoundCategory.PLAYERS,
             1.0F,
             0.75F + (float)t * 0.4F
         );
@@ -641,9 +641,9 @@ public class HandSpinHandler {
         ServerPlayNetworking.send(strong, new HandSpinHandler.HandSpinStopPayload(strong.getUuid()));
         fHeld.remove(strong.getUuid());
         ServerWorld world = (ServerWorld)weak.getWorld();
-        world.spawnParticles(ParticleTypes.field_11204, s.center.x, s.center.y + 1.0, s.center.z, 8, 0.25, 0.15, 0.25, 0.1);
+        world.spawnParticles(ParticleTypes.CLOUD, s.center.x, s.center.y + 1.0, s.center.z, 8, 0.25, 0.15, 0.25, 0.1);
         world.playSound(
-            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 0.6F
+            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 0.6F
         );
         s.flyTicks = 0;
         s.stage = HandSpinHandler.Stage.MONKE_FLY;

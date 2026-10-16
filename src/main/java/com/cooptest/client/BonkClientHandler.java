@@ -16,7 +16,7 @@ public class BonkClientHandler {
     private static boolean jerkPending = false;
 
     public static void register() {
-        keyBonk = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.cooptest.bonk", Type.field_1668, 76, "category.cooptest"));
+        keyBonk = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.cooptest.bonk", Type.KEYSYM, 76, "category.cooptest"));
         ClientPlayNetworking.registerGlobalReceiver(
             BonkHandler.BonkMoveLockPayload.ID, (payload, context) -> context.client().execute(() -> movementLocked = payload.locked())
         );

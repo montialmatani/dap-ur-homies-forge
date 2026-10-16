@@ -13,7 +13,7 @@ public class DivineFlamComboClient {
     private static long divineFlameEndTime = 0L;
 
     public static void register() {
-        divineFlameKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.cooptest.divine_flame", Type.field_1668, 74, "category.cooptest"));
+        divineFlameKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.cooptest.divine_flame", Type.KEYSYM, 74, "category.cooptest"));
         ClientTickEvents.END_CLIENT_TICK.register((EndTick)client -> {
             if (divineFlameKey.wasPressed()) {
                 ClientPlayNetworking.send(new DivineFlamCombo.DivineJPressPayload());

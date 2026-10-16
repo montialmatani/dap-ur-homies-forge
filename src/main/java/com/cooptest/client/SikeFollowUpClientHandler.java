@@ -156,7 +156,7 @@ public class SikeFollowUpClientHandler {
             if (code == InputUtil.UNKNOWN_KEY.getCode()) {
                 return false;
             } else {
-                return key.getCategory() == Type.field_1672 ? GLFW.glfwGetMouseButton(win, code) == 1 : InputUtil.isKeyPressed(win, code);
+                return key.getCategory() == Type.MOUSE ? GLFW.glfwGetMouseButton(win, code) == 1 : InputUtil.isKeyPressed(win, code);
             }
         }
     }

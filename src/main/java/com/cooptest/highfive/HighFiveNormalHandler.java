@@ -165,7 +165,7 @@ public class HighFiveNormalHandler {
     }
 
     private static void applyFastSlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(FAST_SLOW_ID);
             attr.addTemporaryModifier(new EntityAttributeModifier(FAST_SLOW_ID, -0.35, Operation.MULTIPLY_TOTAL));
@@ -173,7 +173,7 @@ public class HighFiveNormalHandler {
     }
 
     private static void removeFastSlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(FAST_SLOW_ID);
         }

@@ -75,7 +75,7 @@ public class TrajectoryRenderer {
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(DrawMode.field_27382, VertexFormats.POSITION_COLOR);
+        buffer.begin(DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         int r = (int)(charge * 255.0F);
         int g = (int)((1.0F - charge) * 255.0F);

@@ -42,20 +42,20 @@ public final class DapHearts {
             float target = Math.min(maxHp, before + addHp);
             int amp = Math.max(0, (int)Math.ceil(target / 4.0F) - 1);
             int ticks = Math.max(1, c.dapHeartsSeconds) * 20;
-            p.removeStatusEffect(StatusEffects.field_5898);
-            p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, ticks, amp, false, true));
+            p.removeStatusEffect(StatusEffects.ABSORPTION);
+            p.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, ticks, amp, false, true));
             p.setAbsorptionAmount(target);
             if (p.getWorld() instanceof ServerWorld w) {
                 w.spawnParticles(
-                    ParticleTypes.field_29642, p.getX(), p.getY() + 1.9, p.getZ(), 4 + (int)(target / 2.0F), 0.3, 0.15, 0.3, 0.02
+                    ParticleTypes.WAX_ON, p.getX(), p.getY() + 1.9, p.getZ(), 4 + (int)(target / 2.0F), 0.3, 0.15, 0.3, 0.02
                 );
                 w.playSound(
                     null,
                     p.getX(),
                     p.getY(),
                     p.getZ(),
-                    SoundEvents.field_14627,
-                    SoundCategory.field_15248,
+                    SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,
+                    SoundCategory.PLAYERS,
                     0.5F,
                     0.9F + Math.min(1.0F, target / 20.0F)
                 );

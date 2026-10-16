@@ -93,7 +93,7 @@ public class PlayerModelMixin<T extends LivingEntity> {
     private static final float SUPERMAN_LEG_ROLL = 5.0F;
 
     @Inject(
-        method = {"method_17087"},
+        method = {"setAngles"},
         at = {@At("TAIL")}
     )
     private void injectPose(T entity, float f, float g, float h, float i, float j, CallbackInfo ci) {

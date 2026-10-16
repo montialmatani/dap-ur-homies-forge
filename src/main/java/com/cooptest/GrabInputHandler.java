@@ -101,9 +101,9 @@ public class GrabInputHandler {
     }
 
     public static void register() {
-        grabKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.grab", Type.field_1668, 82, "category.coopmoves"));
-        throwKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.throw", Type.field_1668, 84, "category.coopmoves"));
-        shieldKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.shield", Type.field_1668, 86, "category.coopmoves"));
+        grabKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.grab", Type.KEYSYM, 82, "category.coopmoves"));
+        throwKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.throw", Type.KEYSYM, 84, "category.coopmoves"));
+        shieldKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.shield", Type.KEYSYM, 86, "category.coopmoves"));
         ClientPlayNetworking.registerGlobalReceiver(GrabMechanic.ShieldModePayload.ID, (payload, context) -> context.client().execute(() -> {
             clientShieldMode.put(payload.holderId(), payload.enabled());
             if (!payload.enabled()) {
@@ -121,7 +121,7 @@ public class GrabInputHandler {
                             && !wasJumpPressed
                             && pose == PoseState.GRABBED
                             && !client.player.hasVehicle()
-                            && client.player.getEquippedStack(EquipmentSlot.field_6174).getItem() instanceof ElytraItem) {
+                            && client.player.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ElytraItem) {
                             ClientPlayNetworking.send(new GrabNetworking.ElytraBoostRequestPayload());
                         }
 

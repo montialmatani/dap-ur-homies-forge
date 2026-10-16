@@ -50,7 +50,7 @@ public class CoopShockwaveRenderer {
                     float ringAlpha = alpha * (1.0F - ring * 0.25F);
                     if (!(ringAlpha <= 0.0F)) {
                         BufferBuilder buf = tess.getBuffer();
-                        buf.begin(DrawMode.field_29345, VertexFormats.POSITION_COLOR);
+                        buf.begin(DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
 
                         for (int i = 0; i <= 48; i++) {
                             double angle = i / 48.0 * Math.PI * 2.0;

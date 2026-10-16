@@ -92,10 +92,10 @@ public class HeavenWhiteOverlay {
         if (!soundsMuted) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.options != null && client.getSoundManager() != null) {
-                originalMasterVolume = ((Double)client.options.getSoundVolumeOption(SoundCategory.field_15250).getValue()).floatValue();
-                originalMusicVolume = ((Double)client.options.getSoundVolumeOption(SoundCategory.field_15253).getValue()).floatValue();
+                originalMasterVolume = ((Double)client.options.getSoundVolumeOption(SoundCategory.MASTER).getValue()).floatValue();
+                originalMusicVolume = ((Double)client.options.getSoundVolumeOption(SoundCategory.MUSIC).getValue()).floatValue();
                 client.getSoundManager().stopAll();
-                client.options.getSoundVolumeOption(SoundCategory.field_15250).setValue(0.0);
+                client.options.getSoundVolumeOption(SoundCategory.MASTER).setValue(0.0);
                 soundsMuted = true;
             }
         }
@@ -105,8 +105,8 @@ public class HeavenWhiteOverlay {
         if (soundsMuted) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.options != null) {
-                client.options.getSoundVolumeOption(SoundCategory.field_15250).setValue((double)originalMasterVolume);
-                client.options.getSoundVolumeOption(SoundCategory.field_15253).setValue((double)originalMusicVolume);
+                client.options.getSoundVolumeOption(SoundCategory.MASTER).setValue((double)originalMasterVolume);
+                client.options.getSoundVolumeOption(SoundCategory.MUSIC).setValue((double)originalMusicVolume);
                 soundsMuted = false;
             }
         }

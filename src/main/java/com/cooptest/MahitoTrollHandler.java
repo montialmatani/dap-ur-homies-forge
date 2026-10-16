@@ -84,20 +84,20 @@ public class MahitoTrollHandler {
 
     private static void startTroll(ServerPlayerEntity victim, ServerPlayerEntity troller) {
         ServerWorld world = victim.getServerWorld();
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 100, 255, false, false));
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5902, 100, 1, false, false));
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5913, 100, 128, false, false));
-        world.playSound(null, victim.getX(), victim.getY(), victim.getZ(), ModSounds.MAHITO, SoundCategory.field_15248, 2.0F, 1.0F);
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 255, false, false));
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 100, 1, false, false));
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 100, 128, false, false));
+        world.playSound(null, victim.getX(), victim.getY(), victim.getZ(), ModSounds.MAHITO, SoundCategory.PLAYERS, 2.0F, 1.0F);
 
         for (ServerPlayerEntity player : world.getPlayers()) {
             ServerPlayNetworking.send(player, new MahitoTrollHandler.MahitoAnimPayload(victim.getUuid()));
         }
 
-        world.spawnParticles(ParticleTypes.field_23114, victim.getX(), victim.getY() + 1.0, victim.getZ(), 20, 0.5, 1.0, 0.5, 0.02);
-        world.spawnParticles(ParticleTypes.field_11251, victim.getX(), victim.getY() + 1.0, victim.getZ(), 15, 0.4, 0.8, 0.4, 0.01);
+        world.spawnParticles(ParticleTypes.SOUL, victim.getX(), victim.getY() + 1.0, victim.getZ(), 20, 0.5, 1.0, 0.5, 0.02);
+        world.spawnParticles(ParticleTypes.SMOKE, victim.getX(), victim.getY() + 1.0, victim.getZ(), 15, 0.4, 0.8, 0.4, 0.01);
         victim.sendMessage(Text.literal("§4§l☠ MAHITO'S CURSE! ☠"), true);
         world.playSound(
-            null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.field_14792, SoundCategory.field_15248, 0.5F, 1.5F
+            null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.PLAYERS, 0.5F, 1.5F
         );
     }
 
@@ -106,14 +106,14 @@ public class MahitoTrollHandler {
         double x = victim.getX();
         double y = victim.getY();
         double z = victim.getZ();
-        world.spawnParticles(ParticleTypes.field_11221, x, y + 2.0, z, 1, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_11248, x, y + 2.0, z, 50, 0.5, 0.5, 0.5, 0.3);
-        world.spawnParticles(ParticleTypes.field_17909, x, y + 2.0, z, 3, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_22246, x, y + 2.0, z, 30, 0.4, 0.4, 0.4, 0.15);
-        world.spawnParticles(ParticleTypes.field_11216, x, y + 2.0, z, 20, 0.3, 0.3, 0.3, 0.1);
-        world.playSound(null, x, y, z, SoundEvents.field_15188, SoundCategory.field_15248, 2.0F, 1.0F);
-        world.playSound(null, x, y, z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 1.5F, 1.2F);
-        world.playSound(null, x, y, z, SoundEvents.field_15115, SoundCategory.field_15248, 1.0F, 0.5F);
+        world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, x, y + 2.0, z, 1, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.FIREWORK, x, y + 2.0, z, 50, 0.5, 0.5, 0.5, 0.3);
+        world.spawnParticles(ParticleTypes.FLASH, x, y + 2.0, z, 3, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, x, y + 2.0, z, 30, 0.4, 0.4, 0.4, 0.15);
+        world.spawnParticles(ParticleTypes.DRAGON_BREATH, x, y + 2.0, z, 20, 0.3, 0.3, 0.3, 0.1);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 2.0F, 1.0F);
+        world.playSound(null, x, y, z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.2F);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.5F);
         victim.damage(world.getDamageSources().magic(), Float.MAX_VALUE);
 
         for (ServerPlayerEntity player : world.getPlayers()) {

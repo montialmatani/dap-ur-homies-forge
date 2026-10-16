@@ -274,11 +274,11 @@ public class PactHandler {
         }
 
         save();
-        w.playSound(null, m.x, m.y, m.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.0F, 1.2F);
-        w.playSound(null, m.x, m.y, m.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.0F, 1.0F);
-        w.spawnParticles(ParticleTypes.field_11220, m.x, m.y, m.z, 60, 0.5, 0.5, 0.5, 0.35);
-        w.spawnParticles(ParticleTypes.field_11207, m.x, m.y, m.z, 30, 0.3, 0.5, 0.3, 0.3);
-        w.spawnParticles(ParticleTypes.field_11248, m.x, m.y, m.z, 40, 0.4, 0.4, 0.4, 0.28);
+        w.playSound(null, m.x, m.y, m.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.0F, 1.2F);
+        w.playSound(null, m.x, m.y, m.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        w.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, m.x, m.y, m.z, 60, 0.5, 0.5, 0.5, 0.35);
+        w.spawnParticles(ParticleTypes.END_ROD, m.x, m.y, m.z, 30, 0.3, 0.5, 0.3, 0.3);
+        w.spawnParticles(ParticleTypes.FIREWORK, m.x, m.y, m.z, 40, 0.4, 0.4, 0.4, 0.28);
         String word = b.kept > 0 ? "§6§lBROTHER" : "§6§lHOMIE";
         p1.sendMessage(Text.literal(word + " §7— " + p2.getName().getString()), true);
         p2.sendMessage(Text.literal(word + " §7— " + p1.getName().getString()), true);
@@ -371,7 +371,7 @@ public class PactHandler {
                         b.sendMessage(Text.literal(bar), true);
                         Vec3d mid = a.getPos().add(b.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
                         ServerWorld world = (ServerWorld)a.getWorld();
-                        world.spawnParticles(ParticleTypes.field_11207, mid.x, mid.y + progress, mid.z, 2, 0.12, 0.05, 0.12, 0.01);
+                        world.spawnParticles(ParticleTypes.END_ROD, mid.x, mid.y + progress, mid.z, 2, 0.12, 0.05, 0.12, 0.01);
                         if (progress >= 1.0F) {
                             s.done = true;
                             sealPact(server, world, mid, a, b);
@@ -438,7 +438,7 @@ public class PactHandler {
 
                 for (double y = 0.0; y < 3.0; y += 0.5) {
                     world.spawnParticles(
-                        ParticleTypes.field_11207,
+                        ParticleTypes.END_ROD,
                         mid.x + Math.cos(a) * 1.4,
                         mid.y + y,
                         mid.z + Math.sin(a) * 1.4,
@@ -451,16 +451,16 @@ public class PactHandler {
                 }
             }
 
-            world.spawnParticles(ParticleTypes.field_11220, mid.x, mid.y + 1.0, mid.z, 120, 0.6, 0.9, 0.6, 0.5);
-            world.spawnParticles(ParticleTypes.field_11248, mid.x, mid.y + 1.4, mid.z, 80, 0.5, 0.6, 0.5, 0.45);
-            world.playSound(null, mid.x, mid.y, mid.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.3F, 1.0F);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.2F, 1.2F);
+            world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y + 1.0, mid.z, 120, 0.6, 0.9, 0.6, 0.5);
+            world.spawnParticles(ParticleTypes.FIREWORK, mid.x, mid.y + 1.4, mid.z, 80, 0.5, 0.6, 0.5, 0.45);
+            world.playSound(null, mid.x, mid.y, mid.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.3F, 1.0F);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.2F, 1.2F);
         } else {
-            world.spawnParticles(ParticleTypes.field_11237, mid.x, mid.y + 1.0, mid.z, 80, 0.7, 0.7, 0.7, 0.1);
-            world.spawnParticles(ParticleTypes.field_23114, mid.x, mid.y + 1.0, mid.z, 50, 0.5, 0.7, 0.5, 0.18);
-            world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y + 1.2, mid.z, 60, 0.6, 0.6, 0.6, 0.3);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14688, SoundCategory.field_15248, 1.0F, 0.6F);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15081, SoundCategory.field_15248, 1.2F, 0.7F);
+            world.spawnParticles(ParticleTypes.LARGE_SMOKE, mid.x, mid.y + 1.0, mid.z, 80, 0.7, 0.7, 0.7, 0.1);
+            world.spawnParticles(ParticleTypes.SOUL, mid.x, mid.y + 1.0, mid.z, 50, 0.5, 0.7, 0.5, 0.18);
+            world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y + 1.2, mid.z, 60, 0.6, 0.6, 0.6, 0.3);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_WITHER_HURT, SoundCategory.PLAYERS, 1.0F, 0.6F);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.2F, 0.7F);
         }
     }
 
@@ -474,20 +474,20 @@ public class PactHandler {
         pacts.put(b.getUuid(), pact);
 
         for (int y = 0; y < 24; y++) {
-            world.spawnParticles(ParticleTypes.field_11207, mid.x, mid.y + y * 0.4, mid.z, 4, 0.15, 0.03, 0.15, 0.01);
-            world.spawnParticles(ParticleTypes.field_11248, mid.x, mid.y + y * 0.4, mid.z, 3, 0.25, 0.05, 0.25, 0.04);
+            world.spawnParticles(ParticleTypes.END_ROD, mid.x, mid.y + y * 0.4, mid.z, 4, 0.15, 0.03, 0.15, 0.01);
+            world.spawnParticles(ParticleTypes.FIREWORK, mid.x, mid.y + y * 0.4, mid.z, 3, 0.25, 0.05, 0.25, 0.04);
         }
 
         for (int i = 0; i < 90; i++) {
             double ang = (Math.PI * 2) * i / 90.0;
             world.spawnParticles(
-                ParticleTypes.field_11220, mid.x + Math.cos(ang) * 2.5, mid.y, mid.z + Math.sin(ang) * 2.5, 1, 0.0, 0.05, 0.0, 0.02
+                ParticleTypes.TOTEM_OF_UNDYING, mid.x + Math.cos(ang) * 2.5, mid.y, mid.z + Math.sin(ang) * 2.5, 1, 0.0, 0.05, 0.0, 0.02
             );
         }
 
-        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.2F, 1.0F);
-        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15195, SoundCategory.field_15248, 0.9F, 1.0F);
-        world.playSound(null, mid.x, mid.y, mid.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.0F, 1.0F);
+        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.2F, 1.0F);
+        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS, 0.9F, 1.0F);
+        world.playSound(null, mid.x, mid.y, mid.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.0F, 1.0F);
         String tier = tier(bd);
 
         for (ServerPlayerEntity p : new ServerPlayerEntity[]{a, b}) {
@@ -532,14 +532,14 @@ public class PactHandler {
             if (a != null) {
                 ServerWorld w = (ServerWorld)a.getWorld();
                 Vec3d pos = a.getPos().add(0.0, 1.0, 0.0);
-                w.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_MISS, SoundCategory.field_15248, 1.0F, 0.6F);
-                w.spawnParticles(ParticleTypes.field_11251, pos.x, pos.y, pos.z, 60, 0.6, 0.6, 0.6, 0.05);
+                w.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_MISS, SoundCategory.PLAYERS, 1.0F, 0.6F);
+                w.spawnParticles(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 60, 0.6, 0.6, 0.6, 0.05);
             }
 
             if (b != null) {
                 ServerWorld w = (ServerWorld)b.getWorld();
                 Vec3d pos = b.getPos().add(0.0, 1.0, 0.0);
-                w.spawnParticles(ParticleTypes.field_11251, pos.x, pos.y, pos.z, 60, 0.6, 0.6, 0.6, 0.05);
+                w.spawnParticles(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 60, 0.6, 0.6, 0.6, 0.05);
             }
         }
     }

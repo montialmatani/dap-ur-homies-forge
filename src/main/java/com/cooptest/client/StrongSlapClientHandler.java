@@ -113,7 +113,7 @@ public class StrongSlapClientHandler {
             deafened = true;
 
             for (SoundCategory cat : SoundCategory.values()) {
-                if (cat != SoundCategory.field_15250) {
+                if (cat != SoundCategory.MASTER) {
                     double current = (Double)client.options.getSoundVolumeOption(cat).getValue();
                     savedVolumes.put(cat, current);
                     client.options.getSoundVolumeOption(cat).setValue(0.0);
@@ -129,7 +129,7 @@ public class StrongSlapClientHandler {
             deafened = false;
 
             for (SoundCategory cat : SoundCategory.values()) {
-                if (cat != SoundCategory.field_15250) {
+                if (cat != SoundCategory.MASTER) {
                     Double saved = savedVolumes.get(cat);
                     if (saved != null) {
                         client.options.getSoundVolumeOption(cat).setValue(saved);

@@ -141,13 +141,13 @@ public final class BrosAbilities {
             s.shieldHp = Math.max(0.1F, s.shieldHp - BUNKER_DRAIN);
             double by = Math.min(s.ya, s.yb);
             if (!wasBunkering) {
-                bw.playSound(null, s.cx, by + 1.0, s.cz, SoundEvents.field_14891, SoundCategory.field_15248, 0.8F, 0.6F);
+                bw.playSound(null, s.cx, by + 1.0, s.cz, SoundEvents.BLOCK_BEACON_POWER_SELECT, SoundCategory.PLAYERS, 0.8F, 0.6F);
             }
 
             if (s.ticks % 3 == 0) {
                 for (int i = 0; i < 8; i++) {
                     double a = (Math.PI * 2) * i / 8.0 + s.ticks * 0.08;
-                    bw.spawnParticles(ParticleTypes.field_11207, s.cx + Math.cos(a) * 1.4, by + 0.4 + i % 2 * 0.8, s.cz + Math.sin(a) * 1.4, 1, 0.0, 0.0, 0.0, 0.0);
+                    bw.spawnParticles(ParticleTypes.END_ROD, s.cx + Math.cos(a) * 1.4, by + 0.4 + i % 2 * 0.8, s.cz + Math.sin(a) * 1.4, 1, 0.0, 0.0, 0.0, 0.0);
                 }
             }
 
@@ -180,10 +180,10 @@ public final class BrosAbilities {
 
             if (s.shieldHp <= 0.2F) {
                 s.bunkering = false;
-                bw.playSound(null, s.cx, by + 1.0, s.cz, SoundEvents.field_19344, SoundCategory.field_15248, 0.8F, 1.3F);
+                bw.playSound(null, s.cx, by + 1.0, s.cz, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 0.8F, 1.3F);
             }
         } else if (wasBunkering && s.world instanceof ServerWorld bw2) {
-            bw2.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.0, s.cz, SoundEvents.field_19344, SoundCategory.field_15248, 0.6F, 1.2F);
+            bw2.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.0, s.cz, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 0.6F, 1.2F);
         }
 
         boolean dummy = s.b instanceof ArmorStandEntity;
@@ -211,13 +211,13 @@ public final class BrosAbilities {
             double y = Math.min(s.ya, s.yb);
             if (s.ticks % 5 == 0) {
                 float fill = s.shieldHp / BrosShield.SHIELD_HP;
-                sw.spawnParticles(ParticleTypes.field_29644, s.cx, y + 0.2, s.cz, 3, 0.6, 0.05, 0.6, 0.02);
-                sw.playSound(null, s.cx, y + 1.0, s.cz, SoundEvents.field_26980, SoundCategory.field_15248, 0.4F, 0.8F + fill);
+                sw.spawnParticles(ParticleTypes.ELECTRIC_SPARK, s.cx, y + 0.2, s.cz, 3, 0.6, 0.05, 0.6, 0.02);
+                sw.playSound(null, s.cx, y + 1.0, s.cz, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 0.4F, 0.8F + fill);
             }
 
             if (s.shieldHp >= BrosShield.SHIELD_HP) {
-                sw.playSound(null, s.cx, y + 1.0, s.cz, SoundEvents.field_14891, SoundCategory.field_15248, 0.8F, 1.4F);
-                sw.spawnParticles(ParticleTypes.field_11207, s.cx, y + 1.5, s.cz, 10, 0.8, 0.5, 0.8, 0.02);
+                sw.playSound(null, s.cx, y + 1.0, s.cz, SoundEvents.BLOCK_BEACON_POWER_SELECT, SoundCategory.PLAYERS, 0.8F, 1.4F);
+                sw.spawnParticles(ParticleTypes.END_ROD, s.cx, y + 1.5, s.cz, 10, 0.8, 0.5, 0.8, 0.02);
             }
         }
     }
@@ -313,8 +313,8 @@ public final class BrosAbilities {
         s.rushHit.clear();
         if (s.world instanceof ServerWorld sw) {
             double y = Math.min(s.ya, s.yb) + 1.0;
-            sw.playSound(null, s.cx, y, s.cz, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 0.6F);
-            sw.playSound(null, s.cx, y, s.cz, SoundEvents.field_14733, SoundCategory.field_15248, 0.5F, 1.4F);
+            sw.playSound(null, s.cx, y, s.cz, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 0.6F);
+            sw.playSound(null, s.cx, y, s.cz, SoundEvents.ENTITY_RAVAGER_ROAR, SoundCategory.PLAYERS, 0.5F, 1.4F);
         }
     }
 
@@ -331,12 +331,12 @@ public final class BrosAbilities {
             boolean moved = BrosHandler.tryCommit(sw, s, var10, dz, 0.0F);
             if (!moved) {
                 s.rushTicksLeft = 0;
-                sw.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.0, s.cz, SoundEvents.field_14649, SoundCategory.field_15248, 1.0F, 0.7F);
+                sw.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.0, s.cz, SoundEvents.ENTITY_IRON_GOLEM_ATTACK, SoundCategory.PLAYERS, 1.0F, 0.7F);
                 BrosHandler.tryCommit(sw, s, 0.0, 0.0, 0.0F);
             }
 
             double y = Math.min(s.ya, s.yb);
-            sw.spawnParticles(ParticleTypes.field_11204, s.cx - s.rushDx, y + 0.3, s.cz - s.rushDz, 2, 0.4, 0.1, 0.4, 0.01);
+            sw.spawnParticles(ParticleTypes.CLOUD, s.cx - s.rushDx, y + 0.3, s.cz - s.rushDz, 2, 0.4, 0.1, 0.4, 0.01);
             if (s.rushTicksLeft == 0) {
                 s.vx *= 0.3;
                 s.vz *= 0.3;
@@ -400,9 +400,9 @@ public final class BrosAbilities {
                 t.takeKnockback(1.4, -s.rushDx, -s.rushDz);
                 t.addVelocity(0.0, 0.35, 0.0);
                 syncVelocity(t);
-                sw.spawnParticles(ParticleTypes.field_11227, t.getX(), t.getY() + 1.0, t.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
-                sw.spawnParticles(ParticleTypes.field_11205, t.getX(), t.getY() + 1.0, t.getZ(), 8, 0.3, 0.4, 0.3, 0.3);
-                sw.playSound(null, t.getX(), t.getY(), t.getZ(), SoundEvents.field_14840, SoundCategory.field_15248, 1.0F, 0.8F);
+                sw.spawnParticles(ParticleTypes.SWEEP_ATTACK, t.getX(), t.getY() + 1.0, t.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
+                sw.spawnParticles(ParticleTypes.CRIT, t.getX(), t.getY() + 1.0, t.getZ(), 8, 0.3, 0.4, 0.3, 0.3);
+                sw.playSound(null, t.getX(), t.getY(), t.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.0F, 0.8F);
             }
         }
     }
@@ -413,7 +413,7 @@ public final class BrosAbilities {
         if (s.world instanceof ServerWorld sw) {
             double var18 = Math.min(s.ya, s.yb);
             if (s.shieldHp <= PULSE_SHIELD_COST) {
-                sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.field_15102, SoundCategory.field_15248, 0.6F, 1.6F);
+                sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.6F, 1.6F);
 
                 for (LivingEntity e : new LivingEntity[]{s.a, s.b}) {
                     if (e instanceof ServerPlayerEntity p) {
@@ -460,13 +460,13 @@ public final class BrosAbilities {
 
                     for (int i = 0; i < n; i++) {
                         double a = (Math.PI * 2) * i / n;
-                        sw.spawnParticles(ParticleTypes.field_29644, s.cx + Math.cos(a) * r, var18 + 0.6, s.cz + Math.sin(a) * r, 1, 0.0, 0.1, 0.0, 0.02);
+                        sw.spawnParticles(ParticleTypes.ELECTRIC_SPARK, s.cx + Math.cos(a) * r, var18 + 0.6, s.cz + Math.sin(a) * r, 1, 0.0, 0.1, 0.0, 0.02);
                     }
                 }
 
-                sw.spawnParticles(ParticleTypes.field_11236, s.cx, var18 + 1.0, s.cz, 1, 0.0, 0.0, 0.0, 0.0);
-                sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.field_43154, SoundCategory.field_15248, 1.0F, 0.7F);
-                sw.playSound(null, s.cx, var18 + 1.0, s.cz, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 0.5F, 1.6F);
+                sw.spawnParticles(ParticleTypes.EXPLOSION, s.cx, var18 + 1.0, s.cz, 1, 0.0, 0.0, 0.0, 0.0);
+                sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
+                sw.playSound(null, s.cx, var18 + 1.0, s.cz, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 0.5F, 1.6F);
             }
         }
     }

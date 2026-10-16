@@ -107,7 +107,7 @@ public class DapComboChain {
 
                 Vec3d armPos = getRightArmTip(player);
                 session.world
-                    .playSound(null, armPos.x, armPos.y, armPos.z, SoundEvents.field_14625, SoundCategory.field_15248, 0.6F, 1.2F);
+                    .playSound(null, armPos.x, armPos.y, armPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_WEAK, SoundCategory.PLAYERS, 0.6F, 1.2F);
                 int remaining = 3 - pressCount;
                 long windowRemaining = Math.max(100L, (42 - session.ticksInStage) * 50L);
                 if (remaining > 0) {
@@ -191,8 +191,8 @@ public class DapComboChain {
                     s.impactPos.x,
                     s.impactPos.y,
                     s.impactPos.z,
-                    (SoundEvent)SoundEvents.field_14793.comp_349(),
-                    SoundCategory.field_15248,
+                    (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                    SoundCategory.PLAYERS,
                     1.0F,
                     1.8F
                 );
@@ -253,7 +253,7 @@ public class DapComboChain {
             playCritEffects(s);
             s.world
                 .playSound(
-                    null, s.impactPos.x, s.impactPos.y, s.impactPos.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.5F, 1.0F
+                    null, s.impactPos.x, s.impactPos.y, s.impactPos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.5F, 1.0F
                 );
         }
 
@@ -308,8 +308,8 @@ public class DapComboChain {
                     s.impactPos.x,
                     s.impactPos.y,
                     s.impactPos.z,
-                    (SoundEvent)SoundEvents.field_14793.comp_349(),
-                    SoundCategory.field_15248,
+                    (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                    SoundCategory.PLAYERS,
                     0.8F,
                     pitch
                 );
@@ -336,30 +336,30 @@ public class DapComboChain {
     private static void playCritEffects(DapComboChain.ComboSession s) {
         for (ServerPlayerEntity player : List.of(s.p1Ref, s.p2Ref)) {
             Vec3d armPos = getRightArmTip(player);
-            s.world.playSound(null, armPos.x, armPos.y, armPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 1.0F);
-            s.world.spawnParticles(ParticleTypes.field_11205, armPos.x, armPos.y, armPos.z, 8, 0.12, 0.12, 0.12, 0.1);
-            s.world.spawnParticles(ParticleTypes.field_11208, armPos.x, armPos.y, armPos.z, 5, 0.08, 0.08, 0.08, 0.05);
+            s.world.playSound(null, armPos.x, armPos.y, armPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 1.0F);
+            s.world.spawnParticles(ParticleTypes.CRIT, armPos.x, armPos.y, armPos.z, 8, 0.12, 0.12, 0.12, 0.1);
+            s.world.spawnParticles(ParticleTypes.ENCHANTED_HIT, armPos.x, armPos.y, armPos.z, 5, 0.08, 0.08, 0.08, 0.05);
         }
     }
 
     private static void playSmallArmEffect(DapComboChain.ComboSession s) {
         for (ServerPlayerEntity player : List.of(s.p1Ref, s.p2Ref)) {
             Vec3d armPos = getRightArmTip(player);
-            s.world.playSound(null, armPos.x, armPos.y, armPos.z, ModSounds.DAP_WEAK, SoundCategory.field_15248, 0.3F, 0.6F);
-            s.world.spawnParticles(ParticleTypes.field_11205, armPos.x, armPos.y, armPos.z, 4, 0.08, 0.08, 0.08, 0.05);
+            s.world.playSound(null, armPos.x, armPos.y, armPos.z, ModSounds.DAP_WEAK, SoundCategory.PLAYERS, 0.3F, 0.6F);
+            s.world.spawnParticles(ParticleTypes.CRIT, armPos.x, armPos.y, armPos.z, 4, 0.08, 0.08, 0.08, 0.05);
         }
     }
 
     private static void spawnFinishEffect(DapComboChain.ComboSession s) {
         Vec3d mid = s.p1Ref.getPos().add(s.p2Ref.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
-        s.world.spawnParticles(ParticleTypes.field_11220, mid.x, mid.y, mid.z, 40, 0.5, 0.5, 0.5, 0.2);
-        s.world.spawnParticles(ParticleTypes.field_11207, mid.x, mid.y, mid.z, 20, 0.3, 0.8, 0.3, 0.1);
-        s.world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
-        s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 2.0F, 0.8F);
+        s.world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y, mid.z, 40, 0.5, 0.5, 0.5, 0.2);
+        s.world.spawnParticles(ParticleTypes.END_ROD, mid.x, mid.y, mid.z, 20, 0.3, 0.8, 0.3, 0.1);
+        s.world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
+        s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 2.0F, 0.8F);
 
         for (ServerPlayerEntity player : List.of(s.p1Ref, s.p2Ref)) {
             Vec3d armPos = getRightArmTip(player);
-            s.world.spawnParticles(ParticleTypes.field_11220, armPos.x, armPos.y, armPos.z, 15, 0.15, 0.15, 0.15, 0.15);
+            s.world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, armPos.x, armPos.y, armPos.z, 15, 0.15, 0.15, 0.15, 0.15);
         }
     }
 

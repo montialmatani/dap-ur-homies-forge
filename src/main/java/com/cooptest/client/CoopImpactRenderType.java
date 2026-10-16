@@ -93,7 +93,7 @@ public class CoopImpactRenderType {
             : RenderLayer.of(
                 name,
                 VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
-                DrawMode.field_27382,
+                DrawMode.QUADS,
                 1536,
                 false,
                 false,

@@ -46,7 +46,7 @@ public class ImpactFrameOverlay {
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
                 BufferBuilder buf = Tessellator.getInstance().getBuffer();
-                buf.begin(DrawMode.field_27382, VertexFormats.POSITION_TEXTURE);
+                buf.begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
                 buf.vertex(matrix, 0.0F, h, 0.0F).texture(0.0F, 1.0F).next();
                 buf.vertex(matrix, w, h, 0.0F).texture(1.0F, 1.0F).next();
                 buf.vertex(matrix, w, 0.0F, 0.0F).texture(1.0F, 0.0F).next();

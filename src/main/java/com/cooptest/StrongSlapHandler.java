@@ -102,7 +102,7 @@ public class StrongSlapHandler {
                 return TypedActionResult.pass(player.getStackInHand(hand));
             } else {
                 ItemStack stack = player.getStackInHand(hand);
-                boolean isGoldenApple = stack.isOf(Items.field_8463) || stack.isOf(Items.field_8367);
+                boolean isGoldenApple = stack.isOf(Items.GOLDEN_APPLE) || stack.isOf(Items.ENCHANTED_GOLDEN_APPLE);
                 if (isGoldenApple && neckBroken.containsKey(player.getUuid())) {
                     cureNeckBroken((ServerPlayerEntity)player);
                 }
@@ -138,7 +138,7 @@ public class StrongSlapHandler {
                 );
                 sessions.put(attacker.getUuid(), session);
                 victimToAtk.put(victim.getUuid(), attacker.getUuid());
-                attacker.swingHand(Hand.field_5808, true);
+                attacker.swingHand(Hand.MAIN_HAND, true);
                 sendFreeze(attacker, true);
                 if (!CoopMovesConfig.get().enableStrongSlapSmoothTp) {
                     session.tpTick = 5;
@@ -298,9 +298,9 @@ public class StrongSlapHandler {
                     lastTortureMs.put(id, now);
                     ServerPlayerEntity victim = server.getPlayerManager().getPlayer(id);
                     if (victim != null) {
-                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 60, 1, false, false));
-                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 50, 3, false, false));
-                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_38092, 60, 0, false, false));
+                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60, 1, false, false));
+                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 50, 3, false, false));
+                        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 60, 0, false, false));
                         int r = 100 + TORTURE_RNG.nextInt(155);
                         int g = TORTURE_RNG.nextInt(200);
                         int b = 100 + TORTURE_RNG.nextInt(155);
@@ -384,7 +384,7 @@ public class StrongSlapHandler {
                                                                             pos.y,
                                                                             pos.z,
                                                                             ModSounds.FAHH,
-                                                                            SoundCategory.field_15248,
+                                                                            SoundCategory.PLAYERS,
                                                                             4.0F,
                                                                             1.0F
                                                                         );
@@ -456,7 +456,7 @@ public class StrongSlapHandler {
             if (atk != null) {
                 Vec3d pos = atk.getPos();
                 atk.getServerWorld()
-                    .playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14840, SoundCategory.field_15248, 1.0F, 1.0F);
+                    .playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
         }
     }
@@ -481,15 +481,15 @@ public class StrongSlapHandler {
                                     Vec3d l = attacker.getRotationVec(1.0F);
                                     Vec3d r = new Vec3d(-l.z, 0.0, l.x).normalize();
                                     Vec3d tip = attacker.getEyePos().add(l.multiply(0.7)).add(r.multiply(0.45));
-                                    world.spawnParticles(ParticleTypes.field_11240, tip.x, tip.y, tip.z, 6, 0.1, 0.1, 0.1, 0.04);
-                                    world.spawnParticles(ParticleTypes.field_11239, tip.x, tip.y, tip.z, 2, 0.05, 0.05, 0.05, 0.0);
+                                    world.spawnParticles(ParticleTypes.FLAME, tip.x, tip.y, tip.z, 6, 0.1, 0.1, 0.1, 0.04);
+                                    world.spawnParticles(ParticleTypes.LAVA, tip.x, tip.y, tip.z, 2, 0.05, 0.05, 0.05, 0.0);
                                     world.playSound(
                                         null,
                                         tip.x,
                                         tip.y,
                                         tip.z,
-                                        SoundEvents.field_14970,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_BLAZE_SHOOT,
+                                        SoundCategory.PLAYERS,
                                         0.4F,
                                         1.4F + burst * 0.1F
                                     );
@@ -506,16 +506,16 @@ public class StrongSlapHandler {
         ServerPlayerEntity victim = attacker.getServer().getPlayerManager().getPlayer(vicId);
         if (victim != null) {
             Vec3d hitPos = victim.getPos().add(0.0, 1.6, 0.0);
-            world.spawnParticles(ParticleTypes.field_11221, hitPos.x, hitPos.y, hitPos.z, 3, 0.2, 0.2, 0.2, 0.0);
-            world.spawnParticles(ParticleTypes.field_11240, hitPos.x, hitPos.y, hitPos.z, 40, 0.3, 0.3, 0.3, 0.12);
-            world.spawnParticles(ParticleTypes.field_11239, hitPos.x, hitPos.y, hitPos.z, 20, 0.2, 0.2, 0.2, 0.0);
-            world.spawnParticles(ParticleTypes.field_11205, hitPos.x, hitPos.y, hitPos.z, 25, 0.3, 0.3, 0.3, 0.2);
-            world.spawnParticles(ParticleTypes.field_11208, hitPos.x, hitPos.y, hitPos.z, 20, 0.2, 0.2, 0.2, 0.1);
-            world.spawnParticles(ParticleTypes.field_11227, hitPos.x, hitPos.y, hitPos.z, 8, 0.15, 0.1, 0.15, 0.05);
-            world.spawnParticles(ParticleTypes.field_22246, hitPos.x, hitPos.y, hitPos.z, 15, 0.25, 0.25, 0.25, 0.08);
-            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.field_15248, 2.0F, 0.5F);
-            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.field_15152, SoundCategory.field_15248, 1.5F, 0.8F);
-            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 0.4F);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, hitPos.x, hitPos.y, hitPos.z, 3, 0.2, 0.2, 0.2, 0.0);
+            world.spawnParticles(ParticleTypes.FLAME, hitPos.x, hitPos.y, hitPos.z, 40, 0.3, 0.3, 0.3, 0.12);
+            world.spawnParticles(ParticleTypes.LAVA, hitPos.x, hitPos.y, hitPos.z, 20, 0.2, 0.2, 0.2, 0.0);
+            world.spawnParticles(ParticleTypes.CRIT, hitPos.x, hitPos.y, hitPos.z, 25, 0.3, 0.3, 0.3, 0.2);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, hitPos.x, hitPos.y, hitPos.z, 20, 0.2, 0.2, 0.2, 0.1);
+            world.spawnParticles(ParticleTypes.SWEEP_ATTACK, hitPos.x, hitPos.y, hitPos.z, 8, 0.15, 0.1, 0.15, 0.05);
+            world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, hitPos.x, hitPos.y, hitPos.z, 15, 0.25, 0.25, 0.25, 0.08);
+            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.PLAYERS, 2.0F, 0.5F);
+            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 0.8F);
+            world.playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 0.4F);
         }
     }
 
@@ -523,10 +523,10 @@ public class StrongSlapHandler {
         ServerPlayerEntity victim = server.getPlayerManager().getPlayer(vicId);
         ServerPlayerEntity attacker = server.getPlayerManager().getPlayer(atkId);
         if (victim != null) {
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 100, 7, false, false));
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5919, 60, 0, false, false));
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 3600, 1, false, false));
-            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_38092, 100, 0, false, false));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 7, false, false));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 60, 0, false, false));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 3600, 1, false, false));
+            victim.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 100, 0, false, false));
             ServerPlayNetworking.send(victim, new SlapHandler.ScreenClosePayload(vicId));
             long expiry = System.currentTimeMillis() + 180000L;
             neckBroken.put(vicId, expiry);

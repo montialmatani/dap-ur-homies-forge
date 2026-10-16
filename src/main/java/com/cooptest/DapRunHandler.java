@@ -210,7 +210,7 @@ public class DapRunHandler {
         if (p != null && p.isAlive()) {
             CoopMovesConfig c = CoopMovesConfig.get();
             int secs = Math.max(1, c.dapRunFlairBurstSec);
-            p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, secs * 20, Math.max(0, c.dapRunFlairBurstAmp), false, true));
+            p.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, secs * 20, Math.max(0, c.dapRunFlairBurstAmp), false, true));
             legBoost.put(p.getUuid(), System.currentTimeMillis() + secs * 1000L);
             if (p.getWorld() instanceof ServerWorld w) {
                 double var15 = p.getX();
@@ -218,14 +218,14 @@ public class DapRunHandler {
                 double z = p.getZ();
                 Vec3d look = p.getRotationVector();
                 w.spawnParticles(
-                    ParticleTypes.field_38908, var15 + look.x * 1.5, y + 1.0 + look.y * 0.5, z + look.z * 1.5, 1, 0.0, 0.0, 0.0, 0.0
+                    ParticleTypes.SONIC_BOOM, var15 + look.x * 1.5, y + 1.0 + look.y * 0.5, z + look.z * 1.5, 1, 0.0, 0.0, 0.0, 0.0
                 );
-                w.playSound(null, var15, y, z, SoundEvents.field_38830, SoundCategory.field_15248, perfectRun ? 1.2F : 0.8F, perfectRun ? 1.4F : 1.7F);
-                w.playSound(null, var15, y, z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 0.5F);
+                w.playSound(null, var15, y, z, SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.PLAYERS, perfectRun ? 1.2F : 0.8F, perfectRun ? 1.4F : 1.7F);
+                w.playSound(null, var15, y, z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 0.5F);
 
                 for (int i = 0; i < 16; i++) {
                     double a = (Math.PI * 2) * i / 16.0;
-                    w.spawnParticles(ParticleTypes.field_11204, var15 + Math.cos(a) * 0.6, y + 0.05, z + Math.sin(a) * 0.6, 1, 0.0, 0.02, 0.0, 0.02);
+                    w.spawnParticles(ParticleTypes.CLOUD, var15 + Math.cos(a) * 0.6, y + 0.05, z + Math.sin(a) * 0.6, 1, 0.0, 0.02, 0.0, 0.02);
                 }
             }
         }
@@ -247,8 +247,8 @@ public class DapRunHandler {
                         for (byte side = -1; side <= 1; side += 2) {
                             double fx = p.getX() + rx * 0.18 * side;
                             double fz = p.getZ() + rz * 0.18 * side;
-                            w.spawnParticles(ParticleTypes.field_29644, fx, p.getY() + 0.12, fz, 1, 0.03, 0.02, 0.03, 0.01);
-                            w.spawnParticles(ParticleTypes.field_11204, fx, p.getY() + 0.05, fz, 1, 0.05, 0.0, 0.05, 0.005);
+                            w.spawnParticles(ParticleTypes.ELECTRIC_SPARK, fx, p.getY() + 0.12, fz, 1, 0.03, 0.02, 0.03, 0.01);
+                            w.spawnParticles(ParticleTypes.CLOUD, fx, p.getY() + 0.05, fz, 1, 0.05, 0.0, 0.05, 0.005);
                         }
                     } else {
                         lit.remove();
@@ -269,9 +269,9 @@ public class DapRunHandler {
             ServerWorld world = (ServerWorld)a.getWorld();
             Vec3d mid = a.getPos().add(b.getPos()).multiply(0.5).add(0.0, 1.4, 0.0);
             float pitch = 1.0F + tier * 0.12F;
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 0.7F + tier * 0.2F, pitch);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 0.7F + tier * 0.2F, pitch);
             if (tier >= 2) {
-                world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14627, SoundCategory.field_15248, 0.6F, 1.8F);
+                world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.6F, 1.8F);
             }
 
             applyImpactSlow(a, tier);
@@ -286,15 +286,15 @@ public class DapRunHandler {
             }
 
             int count = 4 + tier * 4;
-            world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, count, 0.15, 0.15, 0.15, 0.12);
+            world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, count, 0.15, 0.15, 0.15, 0.12);
             if (tier >= 2) {
-                world.spawnParticles(ParticleTypes.field_11248, mid.x, mid.y, mid.z, tier * 3, 0.1, 0.1, 0.1, 0.06);
+                world.spawnParticles(ParticleTypes.FIREWORK, mid.x, mid.y, mid.z, tier * 3, 0.1, 0.1, 0.1, 0.06);
             }
         }
     }
 
     private static void applyImpactSlow(ServerPlayerEntity p, int tier) {
-        EntityAttributeInstance attr = p.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = p.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             double mult = -0.22 + -0.09 * (tier - 1);
             attr.removeModifier(SLOW_ID);
@@ -304,7 +304,7 @@ public class DapRunHandler {
     }
 
     private static void removeImpactSlow(ServerPlayerEntity p) {
-        EntityAttributeInstance attr = p.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = p.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(SLOW_ID);
         }

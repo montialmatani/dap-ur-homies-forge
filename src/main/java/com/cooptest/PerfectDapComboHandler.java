@@ -57,9 +57,9 @@ public class PerfectDapComboHandler {
             ServerPlayNetworking.send(p2, new DapFusionHandler.FusionQTEPayload(p2.getUuid(), s.button, 0, 0L, 813L, true, 0));
             p1.getServerWorld()
                 .playSound(
-                    null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.field_14793.comp_349(), SoundCategory.field_15248, 0.8F, 1.6F
+                    null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(), SoundCategory.PLAYERS, 0.8F, 1.6F
                 );
-            p1.getServerWorld().playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 0.5F, 1.2F);
+            p1.getServerWorld().playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 0.5F, 1.2F);
         }
     }
 
@@ -162,7 +162,7 @@ public class PerfectDapComboHandler {
                                 double a = s.orbitAngle + (Math.PI * 2) * i / pts;
                                 double r = 0.7 + 0.1 * Math.sin(nowMs / 300.0);
                                 world.spawnParticles(
-                                    ParticleTypes.field_11207,
+                                    ParticleTypes.END_ROD,
                                     tp.x + Math.cos(a) * r,
                                     tp.y,
                                     tp.z + Math.sin(a) * r,
@@ -175,7 +175,7 @@ public class PerfectDapComboHandler {
                                 if (s.count >= 6) {
                                     double a2 = -s.orbitAngle * 1.8 + (Math.PI * 2) * i / pts;
                                     world.spawnParticles(
-                                        ParticleTypes.field_11208,
+                                        ParticleTypes.ENCHANTED_HIT,
                                         tp.x + Math.cos(a2) * 0.4,
                                         tp.y + 0.3,
                                         tp.z + Math.sin(a2) * 0.4,
@@ -216,7 +216,7 @@ public class PerfectDapComboHandler {
                                 mid.y,
                                 mid.z,
                                 ModSounds.DAP_HIT,
-                                SoundCategory.field_15248,
+                                SoundCategory.PLAYERS,
                                 Math.min(1.5F, 0.9F + s.count * 0.04F),
                                 Math.min(2.0F, 1.0F + s.count * 0.07F)
                             );
@@ -244,7 +244,7 @@ public class PerfectDapComboHandler {
                             p1.velocityModified = true;
                             p2.velocityModified = true;
                             Vec3d mid2 = p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
-                            p1.getServerWorld().spawnParticles(ParticleTypes.field_11231, mid2.x, mid2.y, mid2.z, 6, 0.3, 0.3, 0.3, 0.05);
+                            p1.getServerWorld().spawnParticles(ParticleTypes.ANGRY_VILLAGER, mid2.x, mid2.y, mid2.z, 6, 0.3, 0.3, 0.3, 0.05);
                         }
 
                         failCombo(s, server, misser);
@@ -286,8 +286,8 @@ public class PerfectDapComboHandler {
                 s.pos.x,
                 s.pos.y,
                 s.pos.z,
-                (SoundEvent)SoundEvents.field_14793.comp_349(),
-                SoundCategory.field_15248,
+                (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                SoundCategory.PLAYERS,
                 1.0F,
                 Math.min(2.0F, 1.5F + s.count * 0.06F)
             );
@@ -367,7 +367,7 @@ public class PerfectDapComboHandler {
         float pitch = Math.min(2.0F, 1.0F + c * 0.07F);
         float vol = Math.min(1.5F, 0.9F + c * 0.04F);
         if (c >= 5 && isSecond) {
-            LightningEntity bolt = new LightningEntity(EntityType.field_6112, world);
+            LightningEntity bolt = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
             bolt.setPos(pos.x, pos.y, pos.z);
             bolt.setCosmetic(true);
             world.spawnEntity(bolt);
@@ -384,29 +384,29 @@ public class PerfectDapComboHandler {
             }
         }
 
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, vol, pitch);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, vol, pitch);
         if (c <= 2) {
-            world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 10 + c * 2, 0.3, 0.3, 0.3, 0.1);
-            world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, 6 + c, 0.25, 0.25, 0.25, 0.07);
+            world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 10 + c * 2, 0.3, 0.3, 0.3, 0.1);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 6 + c, 0.25, 0.25, 0.25, 0.07);
         } else if (c <= 4) {
-            world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, 14 + c * 3, 0.35, 0.35, 0.35, 0.12);
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 6 + c, 0.3, 0.3, 0.3, 0.07);
-            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 0.8F, pitch);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 14 + c * 3, 0.35, 0.35, 0.35, 0.12);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 6 + c, 0.3, 0.3, 0.3, 0.07);
+            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 0.8F, pitch);
         } else if (c <= 7) {
-            world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 16 + c * 3, 0.4, 0.4, 0.4, 0.18);
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 8 + c, 0.3, 0.3, 0.3, 0.08);
+            world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 16 + c * 3, 0.4, 0.4, 0.4, 0.18);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 8 + c, 0.3, 0.3, 0.3, 0.08);
             if (isSecond) {
-                world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
+                world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
             }
 
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.IMPACT, SoundCategory.field_15248, vol * 0.9F, pitch);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.IMPACT, SoundCategory.PLAYERS, vol * 0.9F, pitch);
         } else {
-            world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 25 + c * 4, 0.5, 0.5, 0.5, 0.22);
-            world.spawnParticles(ParticleTypes.field_11221, pos.x, pos.y, pos.z, 2, 0.2, 0.2, 0.2, 0.0);
-            world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 2, 0.1, 0.1, 0.1, 0.0);
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 12 + c * 2, 0.4, 0.4, 0.4, 0.12);
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, vol, pitch);
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 0.6F, pitch * 0.8F);
+            world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 25 + c * 4, 0.5, 0.5, 0.5, 0.22);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x, pos.y, pos.z, 2, 0.2, 0.2, 0.2, 0.0);
+            world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 2, 0.1, 0.1, 0.1, 0.0);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 12 + c * 2, 0.4, 0.4, 0.4, 0.12);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, vol, pitch);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 0.6F, pitch * 0.8F);
         }
     }
 
@@ -423,8 +423,8 @@ public class PerfectDapComboHandler {
                 s.pos.x,
                 s.pos.y,
                 s.pos.z,
-                (SoundEvent)SoundEvents.field_14793.comp_349(),
-                SoundCategory.field_15248,
+                (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                SoundCategory.PLAYERS,
                 0.9F,
                 Math.min(2.0F, 1.4F + s.count * 0.05F)
             );

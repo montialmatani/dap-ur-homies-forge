@@ -139,12 +139,12 @@ public class MeteorStrikeHandler {
 
                 for (double dx = 0.0; dx < eye.distanceTo(targetCenter); dx++) {
                     Vec3d point = eye.add(look.multiply(dx));
-                    player.getServerWorld().spawnParticles(ParticleTypes.field_11205, point.x, point.y, point.z, 1, 0.0, 0.0, 0.0, 0.0);
+                    player.getServerWorld().spawnParticles(ParticleTypes.CRIT, point.x, point.y, point.z, 1, 0.0, 0.0, 0.0, 0.0);
                 }
 
                 player.getServerWorld()
                     .playSound(
-                        null, player.getX(), player.getY(), player.getZ(), SoundEvents.field_14588, SoundCategory.field_15248, 2.0F, 0.5F
+                        null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 2.0F, 0.5F
                     );
                 player.sendMessage(Text.literal("§c☄ METEOR INCOMING §7— impact in 3 seconds!"), true);
             }
@@ -231,20 +231,20 @@ public class MeteorStrikeHandler {
         int height = (int)(50.0F * progress) + 5;
 
         for (int y = 0; y < height; y += 3) {
-            world.spawnParticles(ParticleTypes.field_11240, x, target.getY() + y, z, 1, 0.3, 0.0, 0.3, 0.05);
+            world.spawnParticles(ParticleTypes.FLAME, x, target.getY() + y, z, 1, 0.3, 0.0, 0.3, 0.05);
         }
 
         for (int i = 0; i < 12; i++) {
             double angle = Math.toRadians(i * 30.0 + System.currentTimeMillis() / 100.0 % 360.0);
             double radius = 3.0 * progress + 0.5;
             world.spawnParticles(
-                ParticleTypes.field_11205, x + Math.cos(angle) * radius, target.getY() + 0.5, z + Math.sin(angle) * radius, 1, 0.0, 0.0, 0.0, 0.0
+                ParticleTypes.CRIT, x + Math.cos(angle) * radius, target.getY() + 0.5, z + Math.sin(angle) * radius, 1, 0.0, 0.0, 0.0, 0.0
             );
         }
 
         if (progress < 0.5F) {
             world.playSound(
-                null, x, target.getY(), z, (SoundEvent)SoundEvents.field_14624.comp_349(), SoundCategory.field_15248, 1.5F, 0.5F + (1.0F - progress)
+                null, x, target.getY(), z, (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), SoundCategory.PLAYERS, 1.5F, 0.5F + (1.0F - progress)
             );
         }
     }
@@ -257,9 +257,9 @@ public class MeteorStrikeHandler {
             for (int y = -r; y <= r; y++) {
                 for (int z = -r; z <= r; z++) {
                     if (x * x + y * y + z * z <= r * r) {
-                        BlockPos bp = target.method_10069(x, y, z);
+                        BlockPos bp = target.add(x, y, z);
                         BlockState state = world.getBlockState(bp);
-                        if (!state.isAir() && state.getBlock() != Blocks.field_9987) {
+                        if (!state.isAir() && state.getBlock() != Blocks.BEDROCK) {
                             world.breakBlock(bp, false);
                         }
                     }
@@ -271,10 +271,10 @@ public class MeteorStrikeHandler {
             double angle = Math.toRadians(i * 45.0);
             double ex = center.x + Math.cos(angle) * 12.0;
             double ez = center.z + Math.sin(angle) * 12.0;
-            world.createExplosion(shooter, ex, center.y, ez, 12.0F, true, ExplosionSourceType.field_40891);
+            world.createExplosion(shooter, ex, center.y, ez, 12.0F, true, ExplosionSourceType.TNT);
         }
 
-        world.createExplosion(shooter, center.x, center.y, center.z, 20.0F, true, ExplosionSourceType.field_40891);
+        world.createExplosion(shooter, center.x, center.y, center.z, 20.0F, true, ExplosionSourceType.TNT);
         Box hitBox = new Box(center, center).expand(20.0);
 
         for (Entity e : world.getOtherEntities(shooter, hitBox)) {
@@ -294,12 +294,12 @@ public class MeteorStrikeHandler {
             }
         }
 
-        world.spawnParticles(ParticleTypes.field_11221, center.x, center.y, center.z, 20, 5.0, 5.0, 5.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_11240, center.x, center.y, center.z, 200, 8.0, 4.0, 8.0, 0.5);
+        world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, center.x, center.y, center.z, 20, 5.0, 5.0, 5.0, 0.0);
+        world.spawnParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 200, 8.0, 4.0, 8.0, 0.5);
         world.playSound(
-            null, center.x, center.y, center.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 5.0F, 0.3F
+            null, center.x, center.y, center.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 5.0F, 0.3F
         );
-        world.playSound(null, center.x, center.y, center.z, SoundEvents.field_14865, SoundCategory.field_15248, 5.0F, 0.5F);
+        world.playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 5.0F, 0.5F);
     }
 
     public record MeteorExpiredPayload() implements CustomPayload {

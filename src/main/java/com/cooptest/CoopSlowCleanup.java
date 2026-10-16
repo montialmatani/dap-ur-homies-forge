@@ -25,7 +25,7 @@ public final class CoopSlowCleanup {
 
     public static void clear(ServerPlayerEntity player) {
         if (player != null) {
-            EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+            EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if (attr != null) {
                 for (Identifier id : SLOW_IDS) {
                     try {

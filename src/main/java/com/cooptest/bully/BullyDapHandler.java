@@ -289,7 +289,7 @@ public class BullyDapHandler {
                 p1.velocityModified = true;
                 p1.fallDistance = 0.0F;
                 if (f.tick % 2 == 0) {
-                    p1.swingHand(Hand.field_5808);
+                    p1.swingHand(Hand.MAIN_HAND);
                 }
 
                 p2.teleport(world, f.p2FrozenPos.x, f.p2FrozenPos.y, f.p2FrozenPos.z, p2.getYaw(), 0.0F);
@@ -379,33 +379,33 @@ public class BullyDapHandler {
         }
 
         int base = 10 + (int)(n * 20.0F);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y + 1.3, pos.z, base, 0.3, 0.3, 0.3, 0.12);
-        world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y + 1.3, pos.z, base / 2, 0.3, 0.3, 0.3, 0.08);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y + 1.3, pos.z, base, 0.3, 0.3, 0.3, 0.12);
+        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y + 1.3, pos.z, base / 2, 0.3, 0.3, 0.3, 0.08);
         if (n >= 0.33F) {
-            world.spawnParticles(ParticleTypes.field_11227, pos.x, pos.y + 1.0, pos.z, (int)(n * 8.0F), 0.4, 0.2, 0.4, 0.0);
+            world.spawnParticles(ParticleTypes.SWEEP_ATTACK, pos.x, pos.y + 1.0, pos.z, (int)(n * 8.0F), 0.4, 0.2, 0.4, 0.0);
         }
 
         if (n >= 0.67F) {
-            world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y + 1.0, pos.z, 1 + (int)(n * 2.0F), 0.1, 0.1, 0.1, 0.0);
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y + 1.3, pos.z, (int)(n * 15.0F), 0.5, 0.4, 0.5, 0.12);
+            world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y + 1.0, pos.z, 1 + (int)(n * 2.0F), 0.1, 0.1, 0.1, 0.0);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y + 1.3, pos.z, (int)(n * 15.0F), 0.5, 0.4, 0.5, 0.12);
         }
 
         if (n >= 1.0F) {
-            world.spawnParticles(ParticleTypes.field_11221, pos.x, pos.y + 0.5, pos.z, 1, 0.3, 0.3, 0.3, 0.0);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x, pos.y + 0.5, pos.z, 1, 0.3, 0.3, 0.3, 0.0);
         }
 
         float vol = 1.0F + n * 0.8F;
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, vol, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, vol, 1.0F);
         if (n >= 0.33F) {
-            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, vol, 0.9F);
+            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, vol, 0.9F);
         }
 
         if (n >= 0.67F) {
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.IMPACT, SoundCategory.field_15248, vol * 1.2F, 1.0F);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.IMPACT, SoundCategory.PLAYERS, vol * 1.2F, 1.0F);
         }
 
         if (n >= 0.33F) {
-            world.createExplosion(null, pos.x, pos.y, pos.z, 2.0F + n * 4.0F, false, ExplosionSourceType.field_40888);
+            world.createExplosion(null, pos.x, pos.y, pos.z, 2.0F + n * 4.0F, false, ExplosionSourceType.NONE);
         }
 
         double kbR = 4.0 + n * 8.0;
@@ -432,29 +432,29 @@ public class BullyDapHandler {
         int tier = n < 0.33F ? 1 : (n < 0.67F ? 2 : (n < 1.0F ? 3 : 4));
         switch (tier) {
             case 1:
-                world.spawnParticles(ParticleTypes.field_11205, h.x, h.y, h.z, 12, 0.2, 0.2, 0.2, 0.1);
-                world.spawnParticles(ParticleTypes.field_11208, h.x, h.y, h.z, 8, 0.2, 0.2, 0.2, 0.08);
+                world.spawnParticles(ParticleTypes.CRIT, h.x, h.y, h.z, 12, 0.2, 0.2, 0.2, 0.1);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, h.x, h.y, h.z, 8, 0.2, 0.2, 0.2, 0.08);
                 break;
             case 2:
-                world.spawnParticles(ParticleTypes.field_11205, h.x, h.y, h.z, 20, 0.3, 0.2, 0.3, 0.12);
-                world.spawnParticles(ParticleTypes.field_11208, h.x, h.y, h.z, 12, 0.2, 0.2, 0.2, 0.1);
-                world.spawnParticles(ParticleTypes.field_11227, h.x, h.y, h.z, 4, 0.3, 0.1, 0.3, 0.0);
+                world.spawnParticles(ParticleTypes.CRIT, h.x, h.y, h.z, 20, 0.3, 0.2, 0.3, 0.12);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, h.x, h.y, h.z, 12, 0.2, 0.2, 0.2, 0.1);
+                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, h.x, h.y, h.z, 4, 0.3, 0.1, 0.3, 0.0);
                 break;
             case 3:
-                world.spawnParticles(ParticleTypes.field_11205, h.x, h.y, h.z, 30, 0.3, 0.3, 0.3, 0.15);
-                world.spawnParticles(ParticleTypes.field_11208, h.x, h.y, h.z, 18, 0.3, 0.3, 0.3, 0.12);
-                world.spawnParticles(ParticleTypes.field_11207, h.x, h.y, h.z, 10, 0.4, 0.3, 0.4, 0.1);
-                world.spawnParticles(ParticleTypes.field_11227, h.x, h.y, h.z, 6, 0.4, 0.1, 0.4, 0.0);
-                world.playSound(null, h.x, h.y, h.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 1.1F);
+                world.spawnParticles(ParticleTypes.CRIT, h.x, h.y, h.z, 30, 0.3, 0.3, 0.3, 0.15);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, h.x, h.y, h.z, 18, 0.3, 0.3, 0.3, 0.12);
+                world.spawnParticles(ParticleTypes.END_ROD, h.x, h.y, h.z, 10, 0.4, 0.3, 0.4, 0.1);
+                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, h.x, h.y, h.z, 6, 0.4, 0.1, 0.4, 0.0);
+                world.playSound(null, h.x, h.y, h.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 1.1F);
                 break;
             case 4:
-                world.spawnParticles(ParticleTypes.field_11205, h.x, h.y, h.z, 45, 0.4, 0.3, 0.4, 0.18);
-                world.spawnParticles(ParticleTypes.field_11208, h.x, h.y, h.z, 25, 0.3, 0.3, 0.3, 0.14);
-                world.spawnParticles(ParticleTypes.field_11207, h.x, h.y, h.z, 18, 0.5, 0.4, 0.5, 0.12);
-                world.spawnParticles(ParticleTypes.field_17909, h.x, h.y, h.z, 3, 0.1, 0.1, 0.1, 0.0);
-                world.spawnParticles(ParticleTypes.field_11227, h.x, h.y, h.z, 10, 0.5, 0.1, 0.5, 0.0);
-                world.playSound(null, h.x, h.y, h.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.5F, 1.0F);
-                world.playSound(null, h.x, h.y, h.z, ModSounds.IMPACT, SoundCategory.field_15248, 1.5F, 1.2F);
+                world.spawnParticles(ParticleTypes.CRIT, h.x, h.y, h.z, 45, 0.4, 0.3, 0.4, 0.18);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, h.x, h.y, h.z, 25, 0.3, 0.3, 0.3, 0.14);
+                world.spawnParticles(ParticleTypes.END_ROD, h.x, h.y, h.z, 18, 0.5, 0.4, 0.5, 0.12);
+                world.spawnParticles(ParticleTypes.FLASH, h.x, h.y, h.z, 3, 0.1, 0.1, 0.1, 0.0);
+                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, h.x, h.y, h.z, 10, 0.5, 0.1, 0.5, 0.0);
+                world.playSound(null, h.x, h.y, h.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.5F, 1.0F);
+                world.playSound(null, h.x, h.y, h.z, ModSounds.IMPACT, SoundCategory.PLAYERS, 1.5F, 1.2F);
         }
     }
 

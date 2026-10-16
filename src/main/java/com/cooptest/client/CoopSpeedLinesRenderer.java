@@ -103,7 +103,7 @@ public class CoopSpeedLinesRenderer {
                 float x2 = cx + dx * animEnd;
                 float y2 = cy + dy * animEnd;
                 BufferBuilder buf = tess.getBuffer();
-                buf.begin(DrawMode.field_29344, VertexFormats.POSITION_COLOR);
+                buf.begin(DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR);
                 buf.vertex(matrix, x1, y1, 0.0F).color(r, g, b, alpha).next();
                 buf.vertex(matrix, x2, y2, 0.0F).color(r, g, b, 0.0F).next();
                 BufferRenderer.drawWithGlobalProgram(buf.end());

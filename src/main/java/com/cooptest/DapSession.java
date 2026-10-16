@@ -55,8 +55,8 @@ public class DapSession {
                     this.computeTargets(playerA, playerB);
                     this.smoothMoveToTargets(playerA, playerB);
                     this.makeFaceEachOther(playerA, playerB);
-                    playerA.swingHand(Hand.field_5808);
-                    playerB.swingHand(Hand.field_5808);
+                    playerA.swingHand(Hand.MAIN_HAND);
+                    playerB.swingHand(Hand.MAIN_HAND);
                     if (!this.positioningComplete) {
                         this.checkPositioningComplete(playerA, playerB);
                     }

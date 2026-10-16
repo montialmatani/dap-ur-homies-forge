@@ -54,11 +54,11 @@ public class FireSlapHandler {
         double x = target.getX();
         double y = target.getY() + target.getHeight() / 2.0F;
         double z = target.getZ();
-        world.spawnParticles(ParticleTypes.field_11240, x, y, z, 8, 0.3, 0.3, 0.3, 0.05);
-        world.spawnParticles(ParticleTypes.field_11251, x, y, z, 5, 0.2, 0.2, 0.2, 0.02);
-        world.spawnParticles(ParticleTypes.field_11205, x, y, z, 6, 0.3, 0.3, 0.3, 0.1);
-        world.playSound(null, x, y, z, SoundEvents.field_14999, SoundCategory.field_15248, 1.0F, 0.8F);
-        world.playSound(null, x, y, z, SoundEvents.field_14842, SoundCategory.field_15248, 0.5F, 1.2F);
+        world.spawnParticles(ParticleTypes.FLAME, x, y, z, 8, 0.3, 0.3, 0.3, 0.05);
+        world.spawnParticles(ParticleTypes.SMOKE, x, y, z, 5, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.CRIT, x, y, z, 6, 0.3, 0.3, 0.3, 0.1);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, SoundCategory.PLAYERS, 1.0F, 0.8F);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_BLAZE_HURT, SoundCategory.PLAYERS, 0.5F, 1.2F);
         player.sendMessage(Text.literal("§c FIRE SLAP! "), true);
         ChargedDapHandler.fireLevel.put(player.getUuid(), 0.5F);
     }

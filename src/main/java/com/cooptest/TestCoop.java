@@ -269,7 +269,7 @@ public class TestCoop implements ModInitializer {
         double sx = player.getX() + fwd.x * spawnDist;
         double sy = player.getY();
         double sz = player.getZ() + fwd.z * spawnDist;
-        ArmorStandEntity stand = new ArmorStandEntity(EntityType.field_6131, player.getServerWorld());
+        ArmorStandEntity stand = new ArmorStandEntity(EntityType.ARMOR_STAND, player.getServerWorld());
         stand.setPos(sx, sy, sz);
         float yaw = (float)Math.toDegrees(Math.atan2(-(sx - player.getX()), sz - player.getZ()));
         stand.setYaw(yaw);

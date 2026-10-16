@@ -48,15 +48,15 @@ public class FlairBarrierHandler {
     public static void raise(ServerWorld world, Vec3d centre, long durationMs) {
         if (enabled()) {
             barriers.add(new FlairBarrierHandler.Barrier(world, centre, System.currentTimeMillis() + durationMs));
-            world.playSound(null, centre.x, centre.y, centre.z, SoundEvents.field_14703, SoundCategory.field_15248, 0.9F, 1.6F);
-            world.playSound(null, centre.x, centre.y, centre.z, SoundEvents.field_26980, SoundCategory.field_15248, 1.0F, 0.8F);
+            world.playSound(null, centre.x, centre.y, centre.z, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.9F, 1.6F);
+            world.playSound(null, centre.x, centre.y, centre.z, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS, 1.0F, 0.8F);
 
             for (int i = 0; i < 68; i++) {
                 double a = (Math.PI * 2) * i / 68.0;
 
                 for (double y = 0.0; y <= 3.0; y += 0.4) {
                     world.spawnParticles(
-                        ParticleTypes.field_11207,
+                        ParticleTypes.END_ROD,
                         centre.x + Math.cos(a) * 4.0,
                         centre.y + y,
                         centre.z + Math.sin(a) * 4.0,
@@ -81,9 +81,9 @@ public class FlairBarrierHandler {
                 if (now > b.expiresAt) {
                     b.world
                         .playSound(
-                            null, b.centre.x, b.centre.y, b.centre.z, SoundEvents.field_19344, SoundCategory.field_15248, 0.8F, 1.5F
+                            null, b.centre.x, b.centre.y, b.centre.z, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 0.8F, 1.5F
                         );
-                    b.world.spawnParticles(ParticleTypes.field_11204, b.centre.x, b.centre.y + 1.0, b.centre.z, 30, 2.0, 0.5, 2.0, 0.05);
+                    b.world.spawnParticles(ParticleTypes.CLOUD, b.centre.x, b.centre.y + 1.0, b.centre.z, 30, 2.0, 0.5, 2.0, 0.05);
                     it.remove();
                 } else {
                     b.ticks++;
@@ -101,7 +101,7 @@ public class FlairBarrierHandler {
                         if (!(d > 4.0)) {
                             b.world
                                 .spawnParticles(
-                                    ParticleTypes.field_29644,
+                                    ParticleTypes.ELECTRIC_SPARK,
                                     proj.getPos().x,
                                     proj.getPos().y,
                                     proj.getPos().z,
@@ -117,8 +117,8 @@ public class FlairBarrierHandler {
                                     proj.getPos().x,
                                     proj.getPos().y,
                                     proj.getPos().z,
-                                    SoundEvents.field_26982,
-                                    SoundCategory.field_15248,
+                                    SoundEvents.BLOCK_AMETHYST_BLOCK_HIT,
+                                    SoundCategory.PLAYERS,
                                     0.8F,
                                     1.7F
                                 );
@@ -131,7 +131,7 @@ public class FlairBarrierHandler {
                             double d = Math.hypot(e.getPos().x - b.centre.x, e.getPos().z - b.centre.z);
                             if (!(d > 4.0)) {
                                 e.heal(1.0F);
-                                e.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 60, 0, false, false));
+                                e.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0, false, false));
                             }
                         }
                     }
@@ -145,11 +145,11 @@ public class FlairBarrierHandler {
                             double pz = b.centre.z + Math.sin(a) * 4.0;
 
                             for (double y = 0.0; y <= 3.0; y += 0.75) {
-                                b.world.spawnParticles(ParticleTypes.field_11207, px, b.centre.y + y, pz, 1, 0.02, 0.02, 0.02, 0.0);
+                                b.world.spawnParticles(ParticleTypes.END_ROD, px, b.centre.y + y, pz, 1, 0.02, 0.02, 0.02, 0.0);
                             }
 
                             if (i % 4 == 0) {
-                                b.world.spawnParticles(ParticleTypes.field_28479, px, b.centre.y + 0.4, pz, 1, 0.05, 0.3, 0.05, 0.01);
+                                b.world.spawnParticles(ParticleTypes.GLOW, px, b.centre.y + 0.4, pz, 1, 0.05, 0.3, 0.05, 0.01);
                             }
                         }
                     }

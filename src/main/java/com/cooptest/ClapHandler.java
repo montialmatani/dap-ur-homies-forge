@@ -146,35 +146,35 @@ public class ClapHandler {
         Vec3d p = fx.armTip;
         SoundEvent sound = ModSounds.CLAP_SOUNDS[RANDOM.nextInt(ModSounds.CLAP_SOUNDS.length)];
         if (fx.syncClap) {
-            fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.field_15248, 1.8F, 1.2F);
-            fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.field_14840, SoundCategory.field_15248, 0.9F, 1.4F);
-            fx.world.spawnParticles(ParticleTypes.field_11248, p.x, p.y, p.z, 18, 0.15, 0.15, 0.15, 0.06);
-            fx.world.spawnParticles(ParticleTypes.field_29642, p.x, p.y, p.z, 10, 0.12, 0.12, 0.12, 0.03);
-            fx.world.spawnParticles(ParticleTypes.field_11207, p.x, p.y, p.z, 7, 0.12, 0.12, 0.12, 0.04);
-            fx.world.spawnParticles(ParticleTypes.field_11208, p.x, p.y, p.z, 8, 0.1, 0.1, 0.1, 0.05);
+            fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.PLAYERS, 1.8F, 1.2F);
+            fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 0.9F, 1.4F);
+            fx.world.spawnParticles(ParticleTypes.FIREWORK, p.x, p.y, p.z, 18, 0.15, 0.15, 0.15, 0.06);
+            fx.world.spawnParticles(ParticleTypes.WAX_ON, p.x, p.y, p.z, 10, 0.12, 0.12, 0.12, 0.03);
+            fx.world.spawnParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 7, 0.12, 0.12, 0.12, 0.04);
+            fx.world.spawnParticles(ParticleTypes.ENCHANTED_HIT, p.x, p.y, p.z, 8, 0.1, 0.1, 0.1, 0.05);
         } else {
             switch (fx.tier) {
                 case 0:
-                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.field_15248, 1.1F, 1.0F);
-                    fx.world.spawnParticles(ParticleTypes.field_11205, p.x, p.y, p.z, 7, 0.12, 0.12, 0.12, 0.04);
+                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.PLAYERS, 1.1F, 1.0F);
+                    fx.world.spawnParticles(ParticleTypes.CRIT, p.x, p.y, p.z, 7, 0.12, 0.12, 0.12, 0.04);
                     break;
                 case 1:
-                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.field_15248, 1.3F, 1.15F);
-                    fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.field_14706, SoundCategory.field_15248, 0.5F, 1.8F);
-                    fx.world.spawnParticles(ParticleTypes.field_11205, p.x, p.y, p.z, 6, 0.12, 0.12, 0.12, 0.05);
-                    fx.world.spawnParticles(ParticleTypes.field_11208, p.x, p.y, p.z, 4, 0.1, 0.1, 0.1, 0.04);
+                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.PLAYERS, 1.3F, 1.15F);
+                    fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 0.5F, 1.8F);
+                    fx.world.spawnParticles(ParticleTypes.CRIT, p.x, p.y, p.z, 6, 0.12, 0.12, 0.12, 0.05);
+                    fx.world.spawnParticles(ParticleTypes.ENCHANTED_HIT, p.x, p.y, p.z, 4, 0.1, 0.1, 0.1, 0.04);
                     break;
                 case 2:
-                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.field_15248, 1.5F, 1.35F);
-                    fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.field_14840, SoundCategory.field_15248, 0.7F, 1.6F);
-                    fx.world.spawnParticles(ParticleTypes.field_11205, p.x, p.y, p.z, 8, 0.15, 0.15, 0.15, 0.07);
-                    fx.world.spawnParticles(ParticleTypes.field_11208, p.x, p.y, p.z, 5, 0.12, 0.12, 0.12, 0.06);
-                    fx.world.spawnParticles(ParticleTypes.field_11248, p.x, p.y, p.z, 4, 0.1, 0.1, 0.1, 0.04);
+                    fx.world.playSound(null, p.x, p.y, p.z, sound, SoundCategory.PLAYERS, 1.5F, 1.35F);
+                    fx.world.playSound(null, p.x, p.y, p.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 0.7F, 1.6F);
+                    fx.world.spawnParticles(ParticleTypes.CRIT, p.x, p.y, p.z, 8, 0.15, 0.15, 0.15, 0.07);
+                    fx.world.spawnParticles(ParticleTypes.ENCHANTED_HIT, p.x, p.y, p.z, 5, 0.12, 0.12, 0.12, 0.06);
+                    fx.world.spawnParticles(ParticleTypes.FIREWORK, p.x, p.y, p.z, 4, 0.1, 0.1, 0.1, 0.04);
             }
         }
 
         if (fx.player != null && !fx.player.isRemoved()) {
-            fx.world.playSound(fx.player, p.x, p.y, p.z, sound, SoundCategory.field_15248, 1.0F, 1.0F);
+            fx.world.playSound(fx.player, p.x, p.y, p.z, sound, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
 
@@ -212,7 +212,7 @@ public class ClapHandler {
             } else {
                 firstTarget.put(pid, aimed);
                 world.spawnParticles(
-                    ParticleTypes.field_11207,
+                    ParticleTypes.END_ROD,
                     aimed.getPos().x,
                     aimed.getPos().y + 1.0,
                     aimed.getPos().z,
@@ -248,12 +248,12 @@ public class ClapHandler {
     }
 
     private static void spawnBlueParticles(ServerWorld world, Vec3d pos) {
-        world.spawnParticles(ParticleTypes.field_23114, pos.x, pos.y, pos.z, 1, 0.1, 0.2, 0.1, 0.01);
+        world.spawnParticles(ParticleTypes.SOUL, pos.x, pos.y, pos.z, 1, 0.1, 0.2, 0.1, 0.01);
     }
 
     private static void playSounds(ServerWorld world, Vec3d pos) {
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.CLAP_SWAP, SoundCategory.field_15248, 1.2F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14709, SoundCategory.field_15248, 0.6F, 1.8F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.CLAP_SWAP, SoundCategory.PLAYERS, 1.2F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 0.6F, 1.8F);
     }
 
     private static void swapEntities(Entity a, Entity b) {

@@ -172,52 +172,52 @@ public class DapFlair {
             double m = 1.6 + 0.9 * Math.max(0, f.tier - 1);
             int n = (int)Math.round(34.0 * m);
             double spread = 0.4 * m;
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, (int)(n * 1.6), spread, spread, spread, 0.22 * m);
-            world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, (int)(n * 1.2), spread, spread, spread, 0.18 * m);
-            world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, n, spread, spread, spread, 0.14 * m);
-            world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, n, spread, spread, spread, 0.14 * m);
-            world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, (int)(n * 0.8), spread, spread, spread, 0.2 * m);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, (int)(n * 1.6), spread, spread, spread, 0.22 * m);
+            world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, (int)(n * 1.2), spread, spread, spread, 0.18 * m);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, n, spread, spread, spread, 0.14 * m);
+            world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, n, spread, spread, spread, 0.14 * m);
+            world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, (int)(n * 0.8), spread, spread, spread, 0.2 * m);
             if (f.tier >= 2) {
                 world.spawnParticles(
-                    ParticleTypes.field_29644, pos.x, pos.y, pos.z, (int)(n * 0.7), 0.18 * m, 0.55 * m, 0.18 * m, 0.3 * m
+                    ParticleTypes.ELECTRIC_SPARK, pos.x, pos.y, pos.z, (int)(n * 0.7), 0.18 * m, 0.55 * m, 0.18 * m, 0.3 * m
                 );
-                world.spawnParticles(ParticleTypes.field_22246, pos.x, pos.y, pos.z, (int)(n * 0.4), 0.2 * m, 0.4 * m, 0.2 * m, 0.14 * m);
+                world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, (int)(n * 0.4), 0.2 * m, 0.4 * m, 0.2 * m, 0.14 * m);
             }
 
             if (f.tier >= 3) {
-                world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
-                world.spawnParticles(ParticleTypes.field_11236, pos.x, pos.y, pos.z, 3, 0.4, 0.4, 0.4, 0.0);
-                ring(world, pos, 1.6 * m, (int)Math.round(28.0 * m), ParticleTypes.field_11207);
+                world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
+                world.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 3, 0.4, 0.4, 0.4, 0.0);
+                ring(world, pos, 1.6 * m, (int)Math.round(28.0 * m), ParticleTypes.END_ROD);
             }
 
             if (f.tier >= 4) {
-                world.spawnParticles(ParticleTypes.field_11240, pos.x, pos.y, pos.z, (int)(n * 1.1), spread, spread, spread, 0.24 * m);
+                world.spawnParticles(ParticleTypes.FLAME, pos.x, pos.y, pos.z, (int)(n * 1.1), spread, spread, spread, 0.24 * m);
                 world.spawnParticles(
-                    ParticleTypes.field_11239, pos.x, pos.y, pos.z, (int)(n * 0.3), spread * 0.6, spread * 0.6, spread * 0.6, 0.0
+                    ParticleTypes.LAVA, pos.x, pos.y, pos.z, (int)(n * 0.3), spread * 0.6, spread * 0.6, spread * 0.6, 0.0
                 );
-                ring(world, pos, 2.2 * m, (int)Math.round(36.0 * m), ParticleTypes.field_11240);
+                ring(world, pos, 2.2 * m, (int)Math.round(36.0 * m), ParticleTypes.FLAME);
             }
 
             if (f.tier >= 5) {
                 for (int y = 0; y < 20; y++) {
-                    world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y + y * 0.45, pos.z, 4, 0.18, 0.04, 0.18, 0.02);
-                    world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y + y * 0.45, pos.z, 2, 0.25, 0.04, 0.25, 0.03);
+                    world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y + y * 0.45, pos.z, 4, 0.18, 0.04, 0.18, 0.02);
+                    world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y + y * 0.45, pos.z, 2, 0.25, 0.04, 0.25, 0.03);
                 }
 
-                world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y + 1.0, pos.z, (int)(n * 2.0), 1.2, 1.2, 1.2, 0.35);
+                world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y + 1.0, pos.z, (int)(n * 2.0), 1.2, 1.2, 1.2, 0.35);
             }
 
-            ring(world, pos, 1.0 * m, (int)Math.round(20.0 * m), ParticleTypes.field_29644);
-            ring(world, pos, 2.6 * m, (int)Math.round(40.0 * m), ParticleTypes.field_11248);
+            ring(world, pos, 1.0 * m, (int)Math.round(20.0 * m), ParticleTypes.ELECTRIC_SPARK);
+            ring(world, pos, 2.6 * m, (int)Math.round(40.0 * m), ParticleTypes.FIREWORK);
 
             for (int y = 0; y < 7; y++) {
                 double yy = pos.y + y * 0.28;
-                world.spawnParticles(ParticleTypes.field_29643, pos.x, yy, pos.z, (int)(n * 0.22), 0.3 * m, 0.05, 0.3 * m, 0.1 * m);
-                world.spawnParticles(ParticleTypes.field_28479, pos.x, yy, pos.z, (int)(n * 0.18), 0.26 * m, 0.05, 0.26 * m, 0.07 * m);
+                world.spawnParticles(ParticleTypes.WAX_OFF, pos.x, yy, pos.z, (int)(n * 0.22), 0.3 * m, 0.05, 0.3 * m, 0.1 * m);
+                world.spawnParticles(ParticleTypes.GLOW, pos.x, yy, pos.z, (int)(n * 0.18), 0.26 * m, 0.05, 0.26 * m, 0.07 * m);
             }
 
             world.spawnParticles(
-                ParticleTypes.field_29645,
+                ParticleTypes.SCRAPE,
                 pos.x,
                 pos.y + 0.4,
                 pos.z,
@@ -227,20 +227,20 @@ public class DapFlair {
                 spread * 1.4,
                 0.26 * m
             );
-            world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y + 0.9, pos.z, (int)(n * 0.6), 0.1, 0.55 * m, 0.1, 0.42 * m);
+            world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y + 0.9, pos.z, (int)(n * 0.6), 0.1, 0.55 * m, 0.1, 0.42 * m);
             if (f.clean) {
                 shockwave(world, pos);
                 if (CoopMovesConfig.get().enableFlairBlast) {
                     blast(server, world, pos, id1, id2);
                 }
 
-                world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_FOLLOW, SoundCategory.field_15248, 1.0F, 1.0F);
+                world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_FOLLOW, SoundCategory.PLAYERS, 1.0F, 1.0F);
             } else {
-                world.playSound(null, pos.x, pos.y, pos.z, ModSounds.PERFECT_DAP, SoundCategory.field_15248, 1.0F, 1.0F);
+                world.playSound(null, pos.x, pos.y, pos.z, ModSounds.PERFECT_DAP, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
 
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.0F, 1.0F);
-            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14917, SoundCategory.field_15248, 0.9F, 1.7F);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 0.9F, 1.7F);
             if (CoopMovesConfig.get().enableFlairBuffs) {
                 grantRewards(p1, f);
                 grantRewards(p2, f);
@@ -270,20 +270,20 @@ public class DapFlair {
                 CoopMovesConfig c = CoopMovesConfig.get();
                 boolean perfectRun = f.dapRun >= 3;
                 int secs = perfectRun ? c.dapRunFlairPerfectSpeedSec : c.dapRunFlairSprintSpeedSec;
-                p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, Math.max(1, secs) * 20, perfectRun ? 1 : 0, false, true));
+                p.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Math.max(1, secs) * 20, perfectRun ? 1 : 0, false, true));
                 DapRunHandler.onRunFlair(p, perfectRun);
                 p.sendMessage(Text.literal(perfectRun ? "§b§lRUN FLAIR §7— speed II" : "§b§lRUN FLAIR §7— speed I"), true);
             } else {
                 if (f.perfect) {
                     DapHearts.flair(p, false);
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5917, 700, 2, false, true));
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, 700, 2, false, true));
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5910, 700, 1, false, true));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 700, 2, false, true));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 700, 2, false, true));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 700, 1, false, true));
                     p.sendMessage(Text.literal("§e§lPERFECT FLAIR §7— haste III + speed III + strength II"), true);
                 } else if (f.clean) {
                     DapHearts.flair(p, true);
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 280, 0, false, true));
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 160, 0, false, true));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 280, 0, false, true));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 160, 0, false, true));
                     p.sendMessage(Text.literal("§6§lCLEAN FLAIR §7— regen + resistance"), true);
                 }
             }
@@ -317,7 +317,7 @@ public class DapFlair {
             }
         }
 
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.4F, 0.8F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.4F, 0.8F);
 
         for (int ring = 0; ring < 3; ring++) {
             double r = 1.5 + ring * 2.2;
@@ -326,7 +326,7 @@ public class DapFlair {
             for (int i = 0; i < pts; i++) {
                 double a = (Math.PI * 2) * i / pts;
                 world.spawnParticles(
-                    ParticleTypes.field_11205,
+                    ParticleTypes.CRIT,
                     pos.x + Math.cos(a) * r,
                     pos.y + 0.15,
                     pos.z + Math.sin(a) * r,
@@ -337,12 +337,12 @@ public class DapFlair {
                     0.01
                 );
                 world.spawnParticles(
-                    ParticleTypes.field_11207, pos.x + Math.cos(a) * r, pos.y + 0.4, pos.z + Math.sin(a) * r, 1, 0.02, 0.1, 0.02, 0.0
+                    ParticleTypes.END_ROD, pos.x + Math.cos(a) * r, pos.y + 0.4, pos.z + Math.sin(a) * r, 1, 0.02, 0.1, 0.02, 0.0
                 );
             }
         }
 
-        world.spawnParticles(ParticleTypes.field_11221, pos.x, pos.y + 0.3, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x, pos.y + 0.3, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
         DapFlair.FlairShakePayload blastShake = new DapFlair.FlairShakePayload(1.4F, 260);
         ServerPlayerEntity sa = server.getPlayerManager().getPlayer(id1);
         ServerPlayerEntity sb = server.getPlayerManager().getPlayer(id2);
@@ -377,9 +377,9 @@ public class DapFlair {
                             double ang = (Math.PI * 2) * i / points;
                             double x = pos.x + Math.cos(ang) * r;
                             double z = pos.z + Math.sin(ang) * r;
-                            world.spawnParticles(ParticleTypes.field_11204, x, pos.y, z, 1, 0.0, 0.02, 0.0, 0.01);
+                            world.spawnParticles(ParticleTypes.CLOUD, x, pos.y, z, 1, 0.0, 0.02, 0.0, 0.01);
                             if ((i & 1) == 0) {
-                                world.spawnParticles(ParticleTypes.field_11207, x, pos.y + 0.1, z, 1, 0.0, 0.03, 0.0, 0.02);
+                                world.spawnParticles(ParticleTypes.END_ROD, x, pos.y + 0.1, z, 1, 0.0, 0.03, 0.0, 0.02);
                             }
                         }
                     });
@@ -415,27 +415,27 @@ public class DapFlair {
 
         switch (idx) {
             case 0:
-                world.spawnParticles(ParticleTypes.field_11249, pos.x, pos.y, pos.z, 90, 0.8, 0.8, 0.8, 0.35);
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14671, SoundCategory.field_15248, 0.35F, 1.9F);
+                world.spawnParticles(ParticleTypes.WITCH, pos.x, pos.y, pos.z, 90, 0.8, 0.8, 0.8, 0.35);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.PLAYERS, 0.35F, 1.9F);
                 break;
             case 1:
                 for (int y = 0; y < 14; y++) {
-                    world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y + y * 0.35, pos.z, 6, 0.12, 0.02, 0.12, 0.01);
+                    world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y + y * 0.35, pos.z, 6, 0.12, 0.02, 0.12, 0.01);
                 }
 
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14703, SoundCategory.field_15248, 0.6F, 2.0F);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 0.6F, 2.0F);
                 break;
             case 2:
-                world.spawnParticles(ParticleTypes.field_11239, pos.x, pos.y, pos.z, 24, 0.4, 0.4, 0.4, 0.02);
-                world.spawnParticles(ParticleTypes.field_11240, pos.x, pos.y, pos.z, 70, 0.6, 0.6, 0.6, 0.12);
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15013, SoundCategory.field_15248, 1.0F, 0.8F);
+                world.spawnParticles(ParticleTypes.LAVA, pos.x, pos.y, pos.z, 24, 0.4, 0.4, 0.4, 0.02);
+                world.spawnParticles(ParticleTypes.FLAME, pos.x, pos.y, pos.z, 70, 0.6, 0.6, 0.6, 0.12);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 0.8F);
                 break;
             case 3:
                 for (int ix = 0; ix < 60; ix++) {
                     double a = ix * 0.45;
                     double r = 0.15 + ix * 0.02;
                     world.spawnParticles(
-                        ParticleTypes.field_11211,
+                        ParticleTypes.HAPPY_VILLAGER,
                         pos.x + Math.cos(a) * r,
                         pos.y + ix * 0.05,
                         pos.z + Math.sin(a) * r,
@@ -447,22 +447,22 @@ public class DapFlair {
                     );
                 }
 
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15195, SoundCategory.field_15248, 0.7F, 1.2F);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS, 0.7F, 1.2F);
                 break;
             case 4:
-                world.spawnParticles(ParticleTypes.field_22246, pos.x, pos.y, pos.z, 70, 0.7, 0.7, 0.7, 0.16);
-                world.spawnParticles(ParticleTypes.field_11214, pos.x, pos.y, pos.z, 120, 0.9, 0.9, 0.9, 0.6);
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14669, SoundCategory.field_15248, 0.5F, 1.6F);
+                world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, 70, 0.7, 0.7, 0.7, 0.16);
+                world.spawnParticles(ParticleTypes.PORTAL, pos.x, pos.y, pos.z, 120, 0.9, 0.9, 0.9, 0.6);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.PLAYERS, 0.5F, 1.6F);
                 break;
             default:
-                world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 140, 0.9, 1.0, 0.9, 0.45);
+                world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 140, 0.9, 1.0, 0.9, 0.45);
 
                 for (int y = 0; y < 18; y++) {
-                    world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y + y * 0.4, pos.z, 4, 0.2, 0.05, 0.2, 0.03);
+                    world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y + y * 0.4, pos.z, 4, 0.2, 0.05, 0.2, 0.03);
                 }
 
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.0F, 1.0F);
-                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14709, SoundCategory.field_15248, 0.8F, 0.7F);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 0.8F, 0.7F);
         }
     }
 

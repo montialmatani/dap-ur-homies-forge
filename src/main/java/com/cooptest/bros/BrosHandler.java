@@ -654,7 +654,7 @@ public final class BrosHandler {
     }
 
     private static void armSound(ServerPlayerEntity p, float pitch) {
-        p.getWorld().playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.field_14627, SoundCategory.field_15248, 0.5F, pitch);
+        p.getWorld().playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, pitch);
     }
 
     private static float finite(float v) {

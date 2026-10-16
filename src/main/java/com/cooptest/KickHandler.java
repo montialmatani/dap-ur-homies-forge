@@ -248,12 +248,12 @@ public class KickHandler {
                         .multiply(0.5)
                         .add(0.0, player.getHeight() * 0.55, 0.0);
                     if (isDropKick) {
-                        world.spawnParticles(ParticleTypes.field_11236, hitPos.x, hitPos.y, hitPos.z, 1, 0.2, 0.2, 0.2, 0.0);
-                        world.spawnParticles(ParticleTypes.field_11205, hitPos.x, hitPos.y, hitPos.z, 5, 0.3, 0.3, 0.3, 0.15);
-                        world.spawnParticles(ParticleTypes.field_11208, hitPos.x, hitPos.y, hitPos.z, 4, 0.2, 0.2, 0.2, 0.1);
+                        world.spawnParticles(ParticleTypes.EXPLOSION, hitPos.x, hitPos.y, hitPos.z, 1, 0.2, 0.2, 0.2, 0.0);
+                        world.spawnParticles(ParticleTypes.CRIT, hitPos.x, hitPos.y, hitPos.z, 5, 0.3, 0.3, 0.3, 0.15);
+                        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, hitPos.x, hitPos.y, hitPos.z, 4, 0.2, 0.2, 0.2, 0.1);
                     } else {
-                        world.spawnParticles(ParticleTypes.field_11227, hitPos.x, hitPos.y, hitPos.z, 5, 0.2, 0.2, 0.2, 0.1);
-                        world.spawnParticles(ParticleTypes.field_11205, hitPos.x, hitPos.y, hitPos.z, 8, 0.2, 0.2, 0.2, 0.1);
+                        world.spawnParticles(ParticleTypes.SWEEP_ATTACK, hitPos.x, hitPos.y, hitPos.z, 5, 0.2, 0.2, 0.2, 0.1);
+                        world.spawnParticles(ParticleTypes.CRIT, hitPos.x, hitPos.y, hitPos.z, 8, 0.2, 0.2, 0.2, 0.1);
                     }
 
                     hitAny = true;
@@ -264,36 +264,36 @@ public class KickHandler {
         if (isDropKick && playerHits.size() == 1) {
             ServerPlayerEntity other = playerHits.get(0);
             Vec3d mid = player.getPos().add(other.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
-            world.spawnParticles(ParticleTypes.field_11236, mid.x, mid.y, mid.z, 2, 0.3, 0.3, 0.3, 0.0);
-            world.spawnParticles(ParticleTypes.field_11221, mid.x, mid.y, mid.z, 1, 0.2, 0.2, 0.2, 0.0);
-            world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, 8, 0.4, 0.4, 0.4, 0.2);
-            world.spawnParticles(ParticleTypes.field_11208, mid.x, mid.y, mid.z, 6, 0.3, 0.3, 0.3, 0.15);
-            world.spawnParticles(ParticleTypes.field_11237, mid.x, mid.y, mid.z, 4, 0.3, 0.3, 0.3, 0.02);
+            world.spawnParticles(ParticleTypes.EXPLOSION, mid.x, mid.y, mid.z, 2, 0.3, 0.3, 0.3, 0.0);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, mid.x, mid.y, mid.z, 1, 0.2, 0.2, 0.2, 0.0);
+            world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, 8, 0.4, 0.4, 0.4, 0.2);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, mid.x, mid.y, mid.z, 6, 0.3, 0.3, 0.3, 0.15);
+            world.spawnParticles(ParticleTypes.LARGE_SMOKE, mid.x, mid.y, mid.z, 4, 0.3, 0.3, 0.3, 0.02);
 
             for (int i = 0; i < 8; i++) {
                 double angle = (Math.PI / 4) * i;
                 double rx = mid.x + Math.cos(angle) * 1.5;
                 double rz = mid.z + Math.sin(angle) * 1.5;
-                world.spawnParticles(ParticleTypes.field_11227, rx, mid.y - 0.8, rz, 1, 0.0, 0.0, 0.0, 0.0);
+                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, rx, mid.y - 0.8, rz, 1, 0.0, 0.0, 0.0, 0.0);
             }
 
             world.playSound(
-                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 1.2F, 0.8F
+                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.2F, 0.8F
             );
-            world.playSound(null, mid.x, mid.y, mid.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.0F, 0.7F);
+            world.playSound(null, mid.x, mid.y, mid.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.0F, 0.7F);
             hitAny = false;
         }
 
         if (hitAny && isDropKick) {
             world.playSound(
-                null, player.getX(), player.getY(), player.getZ(), SoundEvents.field_14671, SoundCategory.field_15248, 1.0F, 1.0F
+                null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.PLAYERS, 1.0F, 1.0F
             );
             world.playSound(
-                null, player.getX(), player.getY(), player.getZ(), ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 0.9F, 0.9F
+                null, player.getX(), player.getY(), player.getZ(), ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 0.9F, 0.9F
             );
         } else if (!hitAny) {
             world.playSound(
-                null, player.getX(), player.getY(), player.getZ(), SoundEvents.field_14625, SoundCategory.field_15248, 0.4F, 1.2F
+                null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_WEAK, SoundCategory.PLAYERS, 0.4F, 1.2F
             );
         }
 
@@ -320,7 +320,7 @@ public class KickHandler {
     }
 
     private static void applySlowdown(ServerPlayerEntity player, double amount) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(KICK_SLOW_ID);
             attr.addTemporaryModifier(new EntityAttributeModifier(KICK_SLOW_ID, amount, Operation.MULTIPLY_TOTAL));
@@ -328,7 +328,7 @@ public class KickHandler {
     }
 
     private static void removeSlowdown(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(KICK_SLOW_ID);
         }

@@ -26,7 +26,7 @@ public class SpinYeetClientHandler {
     private static volatile float cameraRollDegrees = 0.0F;
 
     public static void register() {
-        spinYeetKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.spin_yeet", Type.field_1668, 77, "key.categories.coopmoves"));
+        spinYeetKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.spin_yeet", Type.KEYSYM, 77, "key.categories.coopmoves"));
         ClientPlayNetworking.registerGlobalReceiver(SpinYeetGrabberYawPayload.ID, (payload, ctx) -> ctx.client().execute(() -> {
             if (ctx.client().player != null && weAreGrabber) {
                 ctx.client().player.setYaw(ctx.client().player.getYaw() + payload.yawDelta());

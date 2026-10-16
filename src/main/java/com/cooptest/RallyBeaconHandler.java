@@ -72,7 +72,7 @@ public class RallyBeaconHandler {
             for (int i = 0; i < 48; i++) {
                 double a = (Math.PI * 2) * i / 48.0;
                 world.spawnParticles(
-                    ParticleTypes.field_11220,
+                    ParticleTypes.TOTEM_OF_UNDYING,
                     centre.x + Math.cos(a) * 1.5,
                     centre.y + 0.2,
                     centre.z + Math.sin(a) * 1.5,
@@ -85,9 +85,9 @@ public class RallyBeaconHandler {
             }
 
             for (double y = 0.0; y < 40.0; y += 0.4) {
-                world.spawnParticles(ParticleTypes.field_11207, centre.x, centre.y + y, centre.z, 2, 0.1, 0.03, 0.1, 0.0);
+                world.spawnParticles(ParticleTypes.END_ROD, centre.x, centre.y + y, centre.z, 2, 0.1, 0.03, 0.1, 0.0);
                 if ((int)(y * 2.0) % 3 == 0) {
-                    world.spawnParticles(ParticleTypes.field_28479, centre.x, centre.y + y, centre.z, 1, 0.18, 0.03, 0.18, 0.0);
+                    world.spawnParticles(ParticleTypes.GLOW, centre.x, centre.y + y, centre.z, 1, 0.18, 0.03, 0.18, 0.0);
                 }
             }
 
@@ -103,7 +103,7 @@ public class RallyBeaconHandler {
                 }
             }
 
-            world.playSound(null, centre.x, centre.y, centre.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.2F, 0.9F);
+            world.playSound(null, centre.x, centre.y, centre.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.2F, 0.9F);
         }
     }
 
@@ -127,8 +127,8 @@ public class RallyBeaconHandler {
                 ServerWorld world = (ServerWorld)player.getWorld();
                 player.setHealth(2.0F);
                 player.clearStatusEffects();
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 200, 1, false, true));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 100, 2, false, true));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1, false, true));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 2, false, true));
                 player.extinguish();
                 player.setVelocity(Vec3d.ZERO);
                 player.velocityModified = true;
@@ -136,9 +136,9 @@ public class RallyBeaconHandler {
                 String line = REVIVE_LINES[(int)(Math.random() * REVIVE_LINES.length)];
                 player.sendMessage(Text.literal(line), false);
                 player.sendMessage(Text.literal("§7The huddle brought you back."), true);
-                world.spawnParticles(ParticleTypes.field_11220, b.pos.x, b.pos.y + 1.0, b.pos.z, 90, 0.6, 0.9, 0.6, 0.45);
-                world.spawnParticles(ParticleTypes.field_11207, b.pos.x, b.pos.y + 1.0, b.pos.z, 40, 0.3, 1.2, 0.3, 0.3);
-                world.playSound(null, b.pos.x, b.pos.y, b.pos.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.4F, 1.0F);
+                world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, b.pos.x, b.pos.y + 1.0, b.pos.z, 90, 0.6, 0.9, 0.6, 0.45);
+                world.spawnParticles(ParticleTypes.END_ROD, b.pos.x, b.pos.y + 1.0, b.pos.z, 40, 0.3, 1.2, 0.3, 0.3);
+                world.playSound(null, b.pos.x, b.pos.y, b.pos.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.4F, 1.0F);
                 MinecraftServer server = world.getServer();
                 if (server != null) {
                     for (UUID uid : b.members) {
@@ -157,7 +157,7 @@ public class RallyBeaconHandler {
                                     other.sendMessage(Text.literal("§c-2❤ §7you gave your strength"), true);
                                     ServerWorld ow = (ServerWorld)other.getWorld();
                                     ow.spawnParticles(
-                                        ParticleTypes.field_11220, other.getX(), other.getY() + 1.0, other.getZ(), 12, 0.3, 0.5, 0.3, 0.1
+                                        ParticleTypes.TOTEM_OF_UNDYING, other.getX(), other.getY() + 1.0, other.getZ(), 12, 0.3, 0.5, 0.3, 0.1
                                     );
                                 }
                             }
@@ -174,8 +174,8 @@ public class RallyBeaconHandler {
                     }
                 }
 
-                world.spawnParticles(ParticleTypes.field_11251, b.pos.x, b.pos.y + 0.5, b.pos.z, 40, 0.8, 0.5, 0.8, 0.02);
-                world.playSound(null, b.pos.x, b.pos.y, b.pos.z, SoundEvents.field_19344, SoundCategory.field_15248, 1.0F, 0.9F);
+                world.spawnParticles(ParticleTypes.SMOKE, b.pos.x, b.pos.y + 0.5, b.pos.z, 40, 0.8, 0.5, 0.8, 0.02);
+                world.playSound(null, b.pos.x, b.pos.y, b.pos.z, SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 1.0F, 0.9F);
                 beacons.values().remove(b);
 
                 for (UUID uidxx : b.members) {
@@ -230,7 +230,7 @@ public class RallyBeaconHandler {
                                     for (double y = phase; y < 40.0; y += 20.0) {
                                         for (double dy = 0.0; dy < 3.0; dy += 0.5) {
                                             w.spawnParticles(
-                                                ParticleTypes.field_11207, b.pos.x, b.pos.y + y + dy, b.pos.z, 1, 0.1, 0.05, 0.1, 0.0
+                                                ParticleTypes.END_ROD, b.pos.x, b.pos.y + y + dy, b.pos.z, 1, 0.1, 0.05, 0.1, 0.0
                                             );
                                         }
                                     }
@@ -240,7 +240,7 @@ public class RallyBeaconHandler {
                                     for (int i = 0; i < 10; i++) {
                                         double a = (Math.PI * 2) * i / 10.0 + spin;
                                         w.spawnParticles(
-                                            ParticleTypes.field_11220,
+                                            ParticleTypes.TOTEM_OF_UNDYING,
                                             b.pos.x + Math.cos(a) * 1.6,
                                             b.pos.y + 0.15,
                                             b.pos.z + Math.sin(a) * 1.6,

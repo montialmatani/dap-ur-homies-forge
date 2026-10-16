@@ -321,12 +321,12 @@ public class ReadyHugHandler {
     }
 
     private static void applyEffects(ServerPlayerEntity a, ServerPlayerEntity b) {
-        a.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 40, 1, false, false));
-        b.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 40, 1, false, false));
+        a.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, 1, false, false));
+        b.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, 1, false, false));
         Vec3d pos = a.getPos().add(b.getPos()).multiply(0.5).add(0.0, 1.2, 0.0);
         ServerWorld world = a.getServerWorld();
-        world.spawnParticles(ParticleTypes.field_11201, pos.x, pos.y, pos.z, 5, 0.3, 0.3, 0.3, 0.1);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14709, SoundCategory.field_15248, 0.1F, 1.5F);
+        world.spawnParticles(ParticleTypes.HEART, pos.x, pos.y, pos.z, 5, 0.3, 0.3, 0.3, 0.1);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 0.1F, 1.5F);
     }
 
     private static PoseState poseOf(UUID id) {

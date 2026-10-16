@@ -100,8 +100,8 @@ public class GrabMechanic {
                             holder.getX(),
                             holder.getY(),
                             holder.getZ(),
-                            SoundEvents.field_14581,
-                            SoundCategory.field_15248,
+                            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+                            SoundCategory.PLAYERS,
                             1.0F,
                             1.0F
                         );
@@ -173,8 +173,8 @@ public class GrabMechanic {
                         holder.getX(),
                         holder.getY(),
                         holder.getZ(),
-                        SoundEvents.field_14706,
-                        SoundCategory.field_15248,
+                        SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+                        SoundCategory.PLAYERS,
                         1.0F,
                         0.8F + power * 0.4F
                     );
@@ -192,7 +192,7 @@ public class GrabMechanic {
             double offsetX = (world.random.nextDouble() - 0.5) * 0.5;
             double offsetY = world.random.nextDouble() * 0.5 + 0.5;
             double offsetZ = (world.random.nextDouble() - 0.5) * 0.5;
-            world.spawnParticles(ParticleTypes.field_11204, pos.x + offsetX, pos.y + offsetY, pos.z + offsetZ, 1, 0.0, 0.0, 0.0, 0.05);
+            world.spawnParticles(ParticleTypes.CLOUD, pos.x + offsetX, pos.y + offsetY, pos.z + offsetZ, 1, 0.0, 0.0, 0.0, 0.05);
         }
     }
 
@@ -277,7 +277,7 @@ public class GrabMechanic {
                 if (!data.elytraBoostUsed
                     && timeSinceThrow < 2000L
                     && elytraBoostRequests.remove(playerId) != null
-                    && playerxx.getEquippedStack(EquipmentSlot.field_6174).getItem() instanceof ElytraItem) {
+                    && playerxx.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ElytraItem) {
                     Vec3d look = playerxx.getRotationVec(1.0F);
                     double boostStrength = 1.5;
                     playerxx.setVelocity(
@@ -292,13 +292,13 @@ public class GrabMechanic {
                             playerxx.getX(),
                             playerxx.getY(),
                             playerxx.getZ(),
-                            SoundEvents.field_15013,
-                            SoundCategory.field_15248,
+                            SoundEvents.ITEM_FIRECHARGE_USE,
+                            SoundCategory.PLAYERS,
                             1.0F,
                             1.2F
                         );
                     playerxx.getServerWorld()
-                        .spawnParticles(ParticleTypes.field_11248, playerxx.getX(), playerxx.getY(), playerxx.getZ(), 10, 0.2, 0.2, 0.2, 0.1);
+                        .spawnParticles(ParticleTypes.FIREWORK, playerxx.getX(), playerxx.getY(), playerxx.getZ(), 10, 0.2, 0.2, 0.2, 0.1);
                     data.elytraBoostUsed = true;
                     PoseNetworking.poseStates.put(playerId, PoseState.NONE);
                     PoseNetworking.broadcastPoseChange(server, playerId, PoseState.NONE);
@@ -382,7 +382,7 @@ public class GrabMechanic {
                         float hardness = blockState.getHardness(world, blockPos);
                         float damage = calculateWallDamage(hardness, speed);
                         world.breakBlock(blockPos, true, player);
-                        world.playSound(null, blockPos, blockState.getSoundGroup().getBreakSound(), SoundCategory.field_15245, 1.0F, 1.0F);
+                        world.playSound(null, blockPos, blockState.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                         if (damage > 0.0F) {
                             player.damage(world.getDamageSources().flyIntoWall(), damage);
                         }
@@ -391,7 +391,7 @@ public class GrabMechanic {
                         player.velocityModified = true;
                         player.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(player));
                         world.spawnParticles(
-                            ParticleTypes.field_11205,
+                            ParticleTypes.CRIT,
                             blockPos.getX() + 0.5,
                             blockPos.getY() + 0.5,
                             blockPos.getZ() + 0.5,
@@ -408,52 +408,52 @@ public class GrabMechanic {
     }
 
     private static boolean canBreakBlock(BlockState state, ServerWorld world, BlockPos pos) {
-        if (state.isOf(Blocks.field_9987)) {
+        if (state.isOf(Blocks.BEDROCK)) {
             return false;
-        } else if (state.isOf(Blocks.field_10540) || state.isOf(Blocks.field_22423)) {
+        } else if (state.isOf(Blocks.OBSIDIAN) || state.isOf(Blocks.CRYING_OBSIDIAN)) {
             return false;
-        } else if (state.isOf(Blocks.field_38420)) {
+        } else if (state.isOf(Blocks.REINFORCED_DEEPSLATE)) {
             return false;
-        } else if (state.isOf(Blocks.field_10398)) {
+        } else if (state.isOf(Blocks.END_PORTAL_FRAME)) {
             return false;
-        } else if (state.isOf(Blocks.field_10499)) {
+        } else if (state.isOf(Blocks.BARRIER)) {
             return false;
-        } else if (state.isOf(Blocks.field_10525) || state.isOf(Blocks.field_10395) || state.isOf(Blocks.field_10263)) {
+        } else if (state.isOf(Blocks.COMMAND_BLOCK) || state.isOf(Blocks.CHAIN_COMMAND_BLOCK) || state.isOf(Blocks.REPEATING_COMMAND_BLOCK)) {
             return false;
-        } else if (state.isOf(Blocks.field_10465) || state.isOf(Blocks.field_16540)) {
+        } else if (state.isOf(Blocks.STRUCTURE_BLOCK) || state.isOf(Blocks.JIGSAW)) {
             return false;
-        } else if (state.isOf(Blocks.field_10034)
-            || state.isOf(Blocks.field_10380)
-            || state.isOf(Blocks.field_10443)
-            || state.isOf(Blocks.field_16328)
-            || state.isOf(Blocks.field_10603)
-            || state.isOf(Blocks.field_10181)
-            || state.isOf(Blocks.field_16333)
-            || state.isOf(Blocks.field_16334)
-            || state.isOf(Blocks.field_10333)
-            || state.isOf(Blocks.field_10485)
-            || state.isOf(Blocks.field_10535)
-            || state.isOf(Blocks.field_10105)
-            || state.isOf(Blocks.field_10414)
-            || state.isOf(Blocks.field_9980)
-            || state.isOf(Blocks.field_16336)
-            || state.isOf(Blocks.field_16331)
-            || state.isOf(Blocks.field_16337)
-            || state.isOf(Blocks.field_10083)
-            || state.isOf(Blocks.field_16329)
-            || state.isOf(Blocks.field_16335)
-            || state.isOf(Blocks.field_16330)
-            || state.isOf(Blocks.field_10327)
-            || state.isOf(Blocks.field_23152)
-            || state.isOf(Blocks.field_23261)) {
+        } else if (state.isOf(Blocks.CHEST)
+            || state.isOf(Blocks.TRAPPED_CHEST)
+            || state.isOf(Blocks.ENDER_CHEST)
+            || state.isOf(Blocks.BARREL)
+            || state.isOf(Blocks.SHULKER_BOX)
+            || state.isOf(Blocks.FURNACE)
+            || state.isOf(Blocks.BLAST_FURNACE)
+            || state.isOf(Blocks.SMOKER)
+            || state.isOf(Blocks.BREWING_STAND)
+            || state.isOf(Blocks.ENCHANTING_TABLE)
+            || state.isOf(Blocks.ANVIL)
+            || state.isOf(Blocks.CHIPPED_ANVIL)
+            || state.isOf(Blocks.DAMAGED_ANVIL)
+            || state.isOf(Blocks.CRAFTING_TABLE)
+            || state.isOf(Blocks.CARTOGRAPHY_TABLE)
+            || state.isOf(Blocks.FLETCHING_TABLE)
+            || state.isOf(Blocks.GRINDSTONE)
+            || state.isOf(Blocks.LOOM)
+            || state.isOf(Blocks.SMITHING_TABLE)
+            || state.isOf(Blocks.STONECUTTER)
+            || state.isOf(Blocks.LECTERN)
+            || state.isOf(Blocks.BEACON)
+            || state.isOf(Blocks.RESPAWN_ANCHOR)
+            || state.isOf(Blocks.LODESTONE)) {
             return false;
-        } else if (state.isIn(BlockTags.field_15495) || state.isIn(BlockTags.field_15487) || state.isIn(BlockTags.field_25147)) {
+        } else if (state.isIn(BlockTags.DOORS) || state.isIn(BlockTags.TRAPDOORS) || state.isIn(BlockTags.FENCE_GATES)) {
             return false;
-        } else if (state.isIn(BlockTags.field_15500) || state.isIn(BlockTags.field_40105)) {
+        } else if (state.isIn(BlockTags.SIGNS) || state.isIn(BlockTags.ALL_HANGING_SIGNS)) {
             return false;
-        } else if (state.isIn(BlockTags.field_16443)) {
+        } else if (state.isIn(BlockTags.BEDS)) {
             return false;
-        } else if (!state.isIn(BlockTags.field_15493) && !state.isOf(Blocks.field_10363)) {
+        } else if (!state.isIn(BlockTags.BUTTONS) && !state.isOf(Blocks.LEVER)) {
             float hardness = state.getHardness(world, pos);
             return hardness < 0.0F ? false : !(hardness > 25.0F);
         } else {
@@ -470,15 +470,15 @@ public class GrabMechanic {
     private static void spawnTrailParticles(ServerPlayerEntity player) {
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos();
-        world.spawnParticles(ParticleTypes.field_11204, pos.x, pos.y + 0.5, pos.z, 1, 0.1, 0.1, 0.1, 0.02);
+        world.spawnParticles(ParticleTypes.CLOUD, pos.x, pos.y + 0.5, pos.z, 1, 0.1, 0.1, 0.1, 0.02);
     }
 
     private static void spawnLandingParticles(ServerPlayerEntity player) {
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos();
-        BlockPos groundPos = player.getBlockPos().method_10074();
+        BlockPos groundPos = player.getBlockPos().down();
         BlockState groundBlock = world.getBlockState(groundPos);
-        world.spawnParticles(ParticleTypes.field_11236, pos.x, pos.y + 0.5, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y + 0.5, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
 
         for (int i = 0; i < 24; i++) {
             double angle = (Math.PI * 2) * i / 24.0;
@@ -486,9 +486,9 @@ public class GrabMechanic {
             double offsetZ = Math.sin(angle) * 0.8;
             double velX = Math.cos(angle) * 0.3;
             double velZ = Math.sin(angle) * 0.3;
-            world.spawnParticles(ParticleTypes.field_11204, pos.x + offsetX, pos.y + 0.2, pos.z + offsetZ, 1, velX, 0.1, velZ, 0.05);
+            world.spawnParticles(ParticleTypes.CLOUD, pos.x + offsetX, pos.y + 0.2, pos.z + offsetZ, 1, velX, 0.1, velZ, 0.05);
             world.spawnParticles(
-                ParticleTypes.field_17430,
+                ParticleTypes.CAMPFIRE_COSY_SMOKE,
                 pos.x + offsetX * 0.5,
                 pos.y + 0.1,
                 pos.z + offsetZ * 0.5,
@@ -501,7 +501,7 @@ public class GrabMechanic {
         }
 
         if (!groundBlock.isAir()) {
-            BlockStateParticleEffect blockParticle = new BlockStateParticleEffect(ParticleTypes.field_11217, groundBlock);
+            BlockStateParticleEffect blockParticle = new BlockStateParticleEffect(ParticleTypes.BLOCK, groundBlock);
 
             for (int i = 0; i < 30; i++) {
                 double offsetX = (world.random.nextDouble() - 0.5) * 1.5;
@@ -511,12 +511,12 @@ public class GrabMechanic {
             }
         }
 
-        world.spawnParticles(ParticleTypes.field_11203, pos.x, pos.y + 0.3, pos.z, 15, 0.5, 0.3, 0.5, 0.05);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y + 0.5, pos.z, 10, 0.5, 0.5, 0.5, 0.3);
+        world.spawnParticles(ParticleTypes.POOF, pos.x, pos.y + 0.3, pos.z, 15, 0.5, 0.3, 0.5, 0.05);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y + 0.5, pos.z, 10, 0.5, 0.5, 0.5, 0.3);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 0.5F, 1.2F
+            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 0.5F, 1.2F
         );
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14833, SoundCategory.field_15248, 0.3F, 0.8F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.3F, 0.8F);
     }
 
     private static boolean isCloseToGround(ServerPlayerEntity player) {
@@ -551,7 +551,7 @@ public class GrabMechanic {
                 return false;
             } else {
                 if (isInShieldMode(holder.getUuid())) {
-                    holder.removeStatusEffect(StatusEffects.field_5909);
+                    holder.removeStatusEffect(StatusEffects.SLOWNESS);
                 }
 
                 held.stopRiding();
@@ -573,7 +573,7 @@ public class GrabMechanic {
 
                 holder.getServerWorld()
                     .playSound(
-                        null, held.getX(), held.getY(), held.getZ(), SoundEvents.field_15197, SoundCategory.field_15248, 0.5F, 0.8F
+                        null, held.getX(), held.getY(), held.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 0.8F
                     );
                 return true;
             }
@@ -587,7 +587,7 @@ public class GrabMechanic {
         } else {
             ServerPlayerEntity holder = held.getServer().getPlayerManager().getPlayer(holderId);
             if (holder != null && isInShieldMode(holderId)) {
-                holder.removeStatusEffect(StatusEffects.field_5909);
+                holder.removeStatusEffect(StatusEffects.SLOWNESS);
             }
 
             held.stopRiding();
@@ -616,7 +616,7 @@ public class GrabMechanic {
             }
 
             held.getServerWorld()
-                .playSound(null, held.getX(), held.getY(), held.getZ(), SoundEvents.field_14625, SoundCategory.field_15248, 0.8F, 1.2F);
+                .playSound(null, held.getX(), held.getY(), held.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_WEAK, SoundCategory.PLAYERS, 0.8F, 1.2F);
             return true;
         }
     }
@@ -662,10 +662,10 @@ public class GrabMechanic {
     private static void spawnFireTrail(ServerPlayerEntity player, GrabMechanic.ThrownPlayerData data) {
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos();
-        world.spawnParticles(ParticleTypes.field_11240, pos.x, pos.y + 0.5, pos.z, 3, 0.2, 0.2, 0.2, 0.02);
-        world.spawnParticles(ParticleTypes.field_11251, pos.x, pos.y + 0.3, pos.z, 2, 0.1, 0.1, 0.1, 0.01);
+        world.spawnParticles(ParticleTypes.FLAME, pos.x, pos.y + 0.5, pos.z, 3, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.SMOKE, pos.x, pos.y + 0.3, pos.z, 2, 0.1, 0.1, 0.1, 0.01);
         if (data.ticksFlying % 4 == 0) {
-            BlockPos groundPos = player.getBlockPos().method_10074();
+            BlockPos groundPos = player.getBlockPos().down();
 
             for (int i = 0; i < 5; i++) {
                 BlockState belowState = world.getBlockState(groundPos);
@@ -673,12 +673,12 @@ public class GrabMechanic {
                     BlockPos firePos = groundPos.up();
                     BlockState fireSpot = world.getBlockState(firePos);
                     if (fireSpot.isAir()) {
-                        world.setBlockState(firePos, Blocks.field_10036.getDefaultState());
+                        world.setBlockState(firePos, Blocks.FIRE.getDefaultState());
                     }
                     break;
                 }
 
-                groundPos = groundPos.method_10074();
+                groundPos = groundPos.down();
             }
         }
     }
@@ -690,10 +690,10 @@ public class GrabMechanic {
         for (CreeperEntity creeper : world.getEntitiesByClass(
             CreeperEntity.class, player.getBoundingBox().expand(checkRadius), creeperx -> creeperx.isAlive() && player.distanceTo(creeperx) <= checkRadius
         )) {
-            world.createExplosion(creeper, creeper.getX(), creeper.getY(), creeper.getZ(), 3.0F, ExplosionSourceType.field_40890);
+            world.createExplosion(creeper, creeper.getX(), creeper.getY(), creeper.getZ(), 3.0F, ExplosionSourceType.MOB);
             creeper.discard();
             world.playSound(
-                null, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.field_15057, SoundCategory.field_15251, 1.0F, 1.0F
+                null, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0F, 1.0F
             );
         }
 
@@ -703,11 +703,11 @@ public class GrabMechanic {
             Vec3d ghastPos = ghast.getPos();
             ghast.damage(world.getDamageSources().playerAttack(player), 1000.0F);
             world.playSound(
-                null, ghastPos.x, ghastPos.y, ghastPos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 2.0F, 1.0F
+                null, ghastPos.x, ghastPos.y, ghastPos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 2.0F, 1.0F
             );
-            world.spawnParticles(ParticleTypes.field_11221, ghastPos.x, ghastPos.y, ghastPos.z, 3, 0.5, 0.5, 0.5, 0.0);
-            world.spawnParticles(ParticleTypes.field_11204, ghastPos.x, ghastPos.y, ghastPos.z, 30, 1.5, 1.5, 1.5, 0.1);
-            world.spawnParticles(ParticleTypes.field_11240, ghastPos.x, ghastPos.y, ghastPos.z, 20, 1.0, 1.0, 1.0, 0.2);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, ghastPos.x, ghastPos.y, ghastPos.z, 3, 0.5, 0.5, 0.5, 0.0);
+            world.spawnParticles(ParticleTypes.CLOUD, ghastPos.x, ghastPos.y, ghastPos.z, 30, 1.5, 1.5, 1.5, 0.1);
+            world.spawnParticles(ParticleTypes.FLAME, ghastPos.x, ghastPos.y, ghastPos.z, 20, 1.0, 1.0, 1.0, 0.2);
             player.sendMessage(Text.literal("§6§l\ud83d\udca5 GHAST OBLITERATED! \ud83d\udca5"), true);
         }
     }
@@ -715,15 +715,15 @@ public class GrabMechanic {
     private static void createFireExplosion(ServerPlayerEntity player) {
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos();
-        world.createExplosion(player, pos.x, pos.y, pos.z, 2.0F, true, ExplosionSourceType.field_40890);
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.5F, 1.0F);
+        world.createExplosion(player, pos.x, pos.y, pos.z, 2.0F, true, ExplosionSourceType.MOB);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.5F, 1.0F);
         player.damage(world.getDamageSources().onFire(), 16.0F);
 
         for (int i = 0; i < 20; i++) {
             double offsetX = (world.random.nextDouble() - 0.5) * 3.0;
             double offsetY = world.random.nextDouble() * 2.0;
             double offsetZ = (world.random.nextDouble() - 0.5) * 3.0;
-            world.spawnParticles(ParticleTypes.field_11240, pos.x + offsetX, pos.y + offsetY, pos.z + offsetZ, 1, 0.0, 0.0, 0.0, 0.1);
+            world.spawnParticles(ParticleTypes.FLAME, pos.x + offsetX, pos.y + offsetY, pos.z + offsetZ, 1, 0.0, 0.0, 0.0, 0.1);
         }
     }
 
@@ -845,7 +845,7 @@ public class GrabMechanic {
                         double yaw = Math.toRadians(holder.getYaw());
                         double forwardX = -Math.sin(yaw) * 0.8;
                         double forwardZ = Math.cos(yaw) * 0.8;
-                        ArmorStandEntity armorStand = new ArmorStandEntity(EntityType.field_6131, world);
+                        ArmorStandEntity armorStand = new ArmorStandEntity(EntityType.ARMOR_STAND, world);
                         armorStand.setPosition(holder.getX() + forwardX, holder.getY() - 0.5, holder.getZ() + forwardZ);
                         armorStand.setYaw(holder.getYaw());
                         armorStand.setInvisible(true);
@@ -860,12 +860,12 @@ public class GrabMechanic {
                             holder.getX(),
                             holder.getY(),
                             holder.getZ(),
-                            SoundEvents.field_15150,
-                            SoundCategory.field_15248,
+                            SoundEvents.ITEM_SHIELD_BLOCK,
+                            SoundCategory.PLAYERS,
                             1.0F,
                             1.2F
                         );
-                        holder.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 999999, 1, false, false, true));
+                        holder.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999, 1, false, false, true));
                         PoseNetworking.poseStates.put(heldId, PoseState.NONE);
                         PoseNetworking.broadcastPoseChange(holder.getServer(), heldId, PoseState.NONE);
                         PoseNetworking.poseStates.put(holderId, PoseState.GRAB_HOLDING);
@@ -903,7 +903,7 @@ public class GrabMechanic {
                         PoseNetworking.poseStates.put(heldId, PoseState.GRABBED);
                         PoseNetworking.broadcastPoseChange(held.getServer(), heldId, PoseState.GRABBED);
                         PoseNetworking.broadcastAnimState(holder, 3);
-                        holder.removeStatusEffect(StatusEffects.field_5909);
+                        holder.removeStatusEffect(StatusEffects.SLOWNESS);
                         EntityPassengersSetS2CPacket holderPacket = new EntityPassengersSetS2CPacket(holder);
 
                         for (ServerPlayerEntity p : holder.getServer().getPlayerManager().getPlayerList()) {
@@ -916,8 +916,8 @@ public class GrabMechanic {
                                 holder.getX(),
                                 holder.getY(),
                                 holder.getZ(),
-                                SoundEvents.field_14581,
-                                SoundCategory.field_15248,
+                                SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+                                SoundCategory.PLAYERS,
                                 1.0F,
                                 1.0F
                             );
@@ -949,7 +949,7 @@ public class GrabMechanic {
                         iterator.remove();
                         shieldMode.remove(holderId);
                         shieldSwapCooldown.remove(holderId);
-                        holder.removeStatusEffect(StatusEffects.field_5909);
+                        holder.removeStatusEffect(StatusEffects.SLOWNESS);
                         PoseNetworking.poseStates.put(holderId, PoseState.NONE);
                         PoseNetworking.broadcastPoseChange(holder.getServer(), holderId, PoseState.NONE);
                         PoseNetworking.broadcastAnimState(holder, 0);
@@ -991,7 +991,7 @@ public class GrabMechanic {
                             shieldSwapCooldown.remove(holderId);
                             holding.remove(holderId);
                             heldBy.remove(heldId);
-                            holder.removeStatusEffect(StatusEffects.field_5909);
+                            holder.removeStatusEffect(StatusEffects.SLOWNESS);
                             PoseNetworking.poseStates.put(holderId, PoseState.NONE);
                             PoseNetworking.broadcastPoseChange(holder.getServer(), holderId, PoseState.NONE);
                             PoseNetworking.broadcastAnimState(holder, 0);

@@ -52,11 +52,11 @@ public class HighFiveStreakHandler {
             s.lastFiveMs = System.currentTimeMillis();
             applyBuffs(p, s.stacks, c);
             ServerWorld world = (ServerWorld)p.getWorld();
-            world.spawnParticles(ParticleTypes.field_11205, p.getX(), p.getY() + 2.1, p.getZ(), 4 + s.stacks * 2, 0.2, 0.15, 0.2, 0.1);
+            world.spawnParticles(ParticleTypes.CRIT, p.getX(), p.getY() + 2.1, p.getZ(), 4 + s.stacks * 2, 0.2, 0.15, 0.2, 0.1);
             int tornadoAt = Math.max(1, c.hypeTornadoStacks);
             if (c.enableHypeTornado && before < tornadoAt && s.stacks >= tornadoAt) {
-                world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.field_14550, SoundCategory.field_15248, 1.0F, 1.3F);
-                world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 0.6F);
+                world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.PLAYERS, 1.0F, 1.3F);
+                world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 0.6F);
             }
 
             String bar = "§6" + "▮".repeat(s.stacks) + "§8" + "▮".repeat(max - s.stacks);
@@ -67,9 +67,9 @@ public class HighFiveStreakHandler {
     private static void applyBuffs(ServerPlayerEntity p, int stacks, CoopMovesConfig c) {
         int ticks = (int)Math.max(20L, c.hypeDecayMs / 50L);
         int speedAmp = Math.min(Math.max(0, c.hypeMaxSpeedAmp), stacks - 1);
-        p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, ticks, speedAmp, false, true));
+        p.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, ticks, speedAmp, false, true));
         if (stacks >= 3) {
-            p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5913, ticks, stacks >= 5 ? 1 : 0, false, true));
+            p.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, ticks, stacks >= 5 ? 1 : 0, false, true));
         }
     }
 
@@ -115,7 +115,7 @@ public class HighFiveStreakHandler {
                 double k = (box + 0.5) / points;
                 double a = spin + box * 2.4;
                 double rr = r * (0.3 + 0.7 * k);
-                w.spawnParticles(ParticleTypes.field_11204, x + Math.cos(a) * rr, y + k * height, z + Math.sin(a) * rr, 1, 0.0, 0.0, 0.0, 0.0);
+                w.spawnParticles(ParticleTypes.CLOUD, x + Math.cos(a) * rr, y + k * height, z + Math.sin(a) * rr, 1, 0.0, 0.0, 0.0, 0.0);
             }
 
             if (s.ticks % 10 == 0) {
@@ -123,7 +123,7 @@ public class HighFiveStreakHandler {
             }
 
             if (s.ticks % 30 == 0) {
-                w.playSound(null, x, y, z, SoundEvents.field_14572, SoundCategory.field_15248, 0.35F, 1.3F);
+                w.playSound(null, x, y, z, SoundEvents.ITEM_ELYTRA_FLYING, SoundCategory.PLAYERS, 0.35F, 1.3F);
             }
 
             Box box = new Box(x - r, y - 1.0, z - r, x + r, y + height, z + r);

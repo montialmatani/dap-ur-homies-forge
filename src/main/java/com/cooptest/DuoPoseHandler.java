@@ -262,11 +262,11 @@ public class DuoPoseHandler {
         if (s.simultaneous) {
             Vec3d mid = p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
             ServerWorld world = p1.getServerWorld();
-            world.spawnParticles(ParticleTypes.field_11208, mid.x, mid.y, mid.z, 30, 0.5, 0.5, 0.5, 0.15);
-            world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y, mid.z, 5, 0.3, 0.3, 0.3, 0.0);
-            world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, 20, 0.4, 0.4, 0.4, 0.2);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.5F, 1.2F);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14703, SoundCategory.field_15248, 1.0F, 1.5F);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, mid.x, mid.y, mid.z, 30, 0.5, 0.5, 0.5, 0.15);
+            world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y, mid.z, 5, 0.3, 0.3, 0.3, 0.0);
+            world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, 20, 0.4, 0.4, 0.4, 0.2);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.5F, 1.2F);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 1.0F, 1.5F);
             p1.sendMessage(Text.literal("§6§l✨ Perfect sync!"), true);
             p2.sendMessage(Text.literal("§6§l✨ Perfect sync!"), true);
         }
@@ -303,9 +303,9 @@ public class DuoPoseHandler {
                 Vec3d look = p.getRotationVec(1.0F);
                 Vec3d right = new Vec3d(-look.z, 0.0, look.x).normalize();
                 Vec3d armTip = p.getEyePos().add(right.multiply(0.55)).add(look.multiply(0.4)).subtract(0.0, 0.4, 0.0);
-                world.spawnParticles(ParticleTypes.field_11208, armTip.x, armTip.y, armTip.z, 10, 0.12, 0.12, 0.12, 0.1);
-                world.spawnParticles(ParticleTypes.field_11205, armTip.x, armTip.y, armTip.z, 8, 0.1, 0.1, 0.1, 0.15);
-                world.playSound(null, armTip.x, armTip.y, armTip.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.3F);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, armTip.x, armTip.y, armTip.z, 10, 0.12, 0.12, 0.12, 0.1);
+                world.spawnParticles(ParticleTypes.CRIT, armTip.x, armTip.y, armTip.z, 8, 0.1, 0.1, 0.1, 0.15);
+                world.playSound(null, armTip.x, armTip.y, armTip.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.3F);
             }
         }
     }
@@ -316,8 +316,8 @@ public class DuoPoseHandler {
             if (p != null) {
                 ServerWorld world = p.getServerWorld();
                 Vec3d pos = p.getPos().add(0.0, 1.0, 0.0);
-                world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, 3, 0.3, 0.5, 0.3, 0.02);
-                world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 2, 0.25, 0.6, 0.25, 0.01);
+                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 3, 0.3, 0.5, 0.3, 0.02);
+                world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 2, 0.25, 0.6, 0.25, 0.01);
             }
         }
     }

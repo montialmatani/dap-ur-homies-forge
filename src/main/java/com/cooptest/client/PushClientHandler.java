@@ -27,7 +27,7 @@ public class PushClientHandler {
             }
 
             if (client.player != null && client.player.getUuid().equals(payload.playerId())) {
-                client.player.swingHand(Hand.field_5808);
+                client.player.swingHand(Hand.MAIN_HAND);
             }
         }));
     }

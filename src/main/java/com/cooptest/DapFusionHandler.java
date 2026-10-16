@@ -206,11 +206,11 @@ public class DapFusionHandler {
         s.p2WalkPos = p2Start;
         facePlayers(s.p1Ref, s.p2Ref, s.p1WalkPos, s.p2WalkPos);
         Vec3d mid = s.p1WalkPos.add(s.p2WalkPos).multiply(0.5);
-        s.world.spawnParticles(ParticleTypes.field_11221, mid.x, mid.y + 1.0, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
-        s.world.spawnParticles(ParticleTypes.field_29644, mid.x, mid.y + 1.0, mid.z, 20, 0.5, 0.5, 0.5, 0.3);
+        s.world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, mid.x, mid.y + 1.0, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
+        s.world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, mid.x, mid.y + 1.0, mid.z, 20, 0.5, 0.5, 0.5, 0.3);
         s.world
             .playSound(
-                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 1.5F, 1.5F
+                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.5F
             );
         freezeBoth(s, true);
         broadcast(s, new DapFusionHandler.FusionPhasePayload(s.p1Id, s.p2Id, 1));
@@ -226,7 +226,7 @@ public class DapFusionHandler {
         } catch (Exception var6) {
         }
 
-        s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14671, SoundCategory.field_15248, 1.5F, 1.8F);
+        s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.PLAYERS, 1.5F, 1.8F);
         broadcastServer(s, "§d§l✨ FUSION RITUAL BEGUN! §7Hit the QTE to walk forward!");
         scheduleWalkQTE(s);
     }
@@ -421,10 +421,10 @@ public class DapFusionHandler {
                                                 .multiply(0.5)
                                                 .add(0.0, 1.0, 0.0);
                                             s.world
-                                                .spawnParticles(ParticleTypes.field_11220, mid.x, mid.y, mid.z, 60, 0.8, 0.8, 0.8, 0.3);
-                                            s.world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y, mid.z, 5, 0.0, 0.0, 0.0, 0.0);
+                                                .spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y, mid.z, 60, 0.8, 0.8, 0.8, 0.3);
+                                            s.world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y, mid.z, 5, 0.0, 0.0, 0.0, 0.0);
                                             s.world
-                                                .spawnParticles(ParticleTypes.field_29644, mid.x, mid.y, mid.z, 30, 0.4, 0.4, 0.4, 0.3);
+                                                .spawnParticles(ParticleTypes.ELECTRIC_SPARK, mid.x, mid.y, mid.z, 30, 0.4, 0.4, 0.4, 0.3);
                                             s.world
                                                 .playSound(
                                                     null,
@@ -432,7 +432,7 @@ public class DapFusionHandler {
                                                     mid.y,
                                                     mid.z,
                                                     ModSounds.EPIC_DAP,
-                                                    SoundCategory.field_15248,
+                                                    SoundCategory.PLAYERS,
                                                     3.0F,
                                                     0.8F
                                                 );
@@ -442,8 +442,8 @@ public class DapFusionHandler {
                                                     mid.x,
                                                     mid.y,
                                                     mid.z,
-                                                    (SoundEvent)SoundEvents.field_15152.comp_349(),
-                                                    SoundCategory.field_15248,
+                                                    (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                                    SoundCategory.PLAYERS,
                                                     2.0F,
                                                     0.6F
                                                 );
@@ -513,11 +513,11 @@ public class DapFusionHandler {
                 spawnFusionAura(s, s.fusionStage);
                 Vec3d mid2 = s.p1Ref.getPos().add(s.p2Ref.getPos()).multiply(0.5);
                 if (s.fusionStage == 7) {
-                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.5F, 1.4F);
+                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.5F, 1.4F);
                 } else if (s.fusionStage == 8) {
-                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.FIRE_IMPACT, SoundCategory.field_15248, 1.5F, 1.2F);
+                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.FIRE_IMPACT, SoundCategory.PLAYERS, 1.5F, 1.2F);
                 } else if (s.fusionStage == 9) {
-                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.GALACTIC_DAP, SoundCategory.field_15248, 2.0F, 0.9F);
+                    s.world.playSound(null, mid2.x, mid2.y, mid2.z, ModSounds.GALACTIC_DAP, SoundCategory.PLAYERS, 2.0F, 0.9F);
                 }
             }
         }
@@ -616,8 +616,8 @@ public class DapFusionHandler {
         PoseNetworking.broadcastAnimState(s.p1Ref, 0);
         PoseNetworking.broadcastAnimState(s.p2Ref, 0);
         freezeBoth(s, false);
-        StatusEffectInstance invuln1 = new StatusEffectInstance(StatusEffects.field_5907, 300, 255, false, false);
-        StatusEffectInstance invuln2 = new StatusEffectInstance(StatusEffects.field_5907, 300, 255, false, false);
+        StatusEffectInstance invuln1 = new StatusEffectInstance(StatusEffects.RESISTANCE, 300, 255, false, false);
+        StatusEffectInstance invuln2 = new StatusEffectInstance(StatusEffects.RESISTANCE, 300, 255, false, false);
         s.p1Ref.addStatusEffect(invuln1);
         s.p2Ref.addStatusEffect(invuln2);
         s.p1Ref.setInvulnerable(true);
@@ -657,11 +657,11 @@ public class DapFusionHandler {
                                 for (int dx = -8; dx <= 8; dx += 8) {
                                     for (int dz = -8; dz <= 8; dz += 8) {
                                         s.world
-                                            .createExplosion(null, mid.x + dx, mid.y, mid.z + dz, power, true, ExplosionSourceType.field_40890);
+                                            .createExplosion(null, mid.x + dx, mid.y, mid.z + dz, power, true, ExplosionSourceType.MOB);
                                     }
                                 }
                             } else {
-                                s.world.createExplosion(null, mid.x, mid.y, mid.z, 10.0F, false, ExplosionSourceType.field_40890);
+                                s.world.createExplosion(null, mid.x, mid.y, mid.z, 10.0F, false, ExplosionSourceType.MOB);
                             }
 
                             s.p1Ref.setVelocity(Vec3d.ZERO);
@@ -690,7 +690,7 @@ public class DapFusionHandler {
                                             double oy = Math.random() * 4.0;
                                             s.world
                                                 .spawnParticles(
-                                                    ParticleTypes.field_11221,
+                                                    ParticleTypes.EXPLOSION_EMITTER,
                                                     mid.x + ox,
                                                     mid.y + oy,
                                                     mid.z + oz,
@@ -704,7 +704,7 @@ public class DapFusionHandler {
 
                                         s.world
                                             .spawnParticles(
-                                                ParticleTypes.field_11220,
+                                                ParticleTypes.TOTEM_OF_UNDYING,
                                                 mid.x,
                                                 mid.y + 2.0,
                                                 mid.z,
@@ -716,7 +716,7 @@ public class DapFusionHandler {
                                             );
                                         s.world
                                             .spawnParticles(
-                                                ParticleTypes.field_29644,
+                                                ParticleTypes.ELECTRIC_SPARK,
                                                 mid.x,
                                                 mid.y + 2.0,
                                                 mid.z,
@@ -728,7 +728,7 @@ public class DapFusionHandler {
                                             );
                                         s.world
                                             .spawnParticles(
-                                                ParticleTypes.field_11216,
+                                                ParticleTypes.DRAGON_BREATH,
                                                 mid.x,
                                                 mid.y + 1.0,
                                                 mid.z,
@@ -740,7 +740,7 @@ public class DapFusionHandler {
                                             );
                                         s.world
                                             .spawnParticles(
-                                                ParticleTypes.field_11207,
+                                                ParticleTypes.END_ROD,
                                                 mid.x,
                                                 mid.y + 1.0,
                                                 mid.z,
@@ -756,8 +756,8 @@ public class DapFusionHandler {
                                                 mid.x,
                                                 mid.y,
                                                 mid.z,
-                                                (SoundEvent)SoundEvents.field_15152.comp_349(),
-                                                SoundCategory.field_15248,
+                                                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                                SoundCategory.PLAYERS,
                                                 2.0F,
                                                 0.4F + (float)(Math.random() * 0.4F)
                                             );
@@ -769,7 +769,7 @@ public class DapFusionHandler {
                                                     mid.y,
                                                     mid.z,
                                                     ModSounds.EPIC_DAP,
-                                                    SoundCategory.field_15248,
+                                                    SoundCategory.PLAYERS,
                                                     2.5F,
                                                     0.6F
                                                 );
@@ -785,16 +785,16 @@ public class DapFusionHandler {
                             .getServer()
                             .execute(
                                 () -> {
-                                    s.world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y + 1.0, mid.z, 20, 0.0, 0.0, 0.0, 0.0);
-                                    s.world.spawnParticles(ParticleTypes.field_11220, mid.x, mid.y + 1.0, mid.z, 200, 4.0, 4.0, 4.0, 0.6);
-                                    s.world.spawnParticles(ParticleTypes.field_11221, mid.x, mid.y + 1.0, mid.z, 8, 3.0, 3.0, 3.0, 0.0);
+                                    s.world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y + 1.0, mid.z, 20, 0.0, 0.0, 0.0, 0.0);
+                                    s.world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y + 1.0, mid.z, 200, 4.0, 4.0, 4.0, 0.6);
+                                    s.world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, mid.x, mid.y + 1.0, mid.z, 8, 3.0, 3.0, 3.0, 0.0);
                                     s.world
                                         .playSound(
-                                            null, mid.x, mid.y, mid.z, ModSounds.GALACTIC_DAP, SoundCategory.field_15248, 4.0F, 0.8F
+                                            null, mid.x, mid.y, mid.z, ModSounds.GALACTIC_DAP, SoundCategory.PLAYERS, 4.0F, 0.8F
                                         );
                                     s.world
                                         .playSound(
-                                            null, mid.x, mid.y, mid.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 3.0F, 0.5F
+                                            null, mid.x, mid.y, mid.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 3.0F, 0.5F
                                         );
                                     s.p1Ref.setInvulnerable(false);
                                     s.p2Ref.setInvulnerable(false);
@@ -988,16 +988,16 @@ public class DapFusionHandler {
         Vec3d mid = s.p1Ref.getPos().add(s.p2Ref.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
         switch (stage) {
             case 1:
-                s.world.spawnParticles(ParticleTypes.field_11240, mid.x, mid.y, mid.z, 20, 0.5, 0.5, 0.5, 0.05);
-                s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14627, SoundCategory.field_15248, 1.0F, 1.5F);
+                s.world.spawnParticles(ParticleTypes.FLAME, mid.x, mid.y, mid.z, 20, 0.5, 0.5, 0.5, 0.05);
+                s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0F, 1.5F);
                 break;
             case 2:
-                s.world.spawnParticles(ParticleTypes.field_22246, mid.x, mid.y, mid.z, 30, 0.5, 0.5, 0.5, 0.1);
-                s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14970, SoundCategory.field_15248, 1.2F, 1.2F);
+                s.world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, mid.x, mid.y, mid.z, 30, 0.5, 0.5, 0.5, 0.1);
+                s.world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.2F, 1.2F);
                 break;
             case 3:
-                s.world.spawnParticles(ParticleTypes.field_11220, mid.x, mid.y, mid.z, 40, 0.6, 0.6, 0.6, 0.2);
-                s.world.playSound(null, mid.x, mid.y, mid.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.5F, 1.3F);
+                s.world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y, mid.z, 40, 0.6, 0.6, 0.6, 0.2);
+                s.world.playSound(null, mid.x, mid.y, mid.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.5F, 1.3F);
         }
     }
 
@@ -1006,10 +1006,10 @@ public class DapFusionHandler {
         int count = 5 + stage * 3;
         float intensity = 0.1F + stage * 0.05F;
         s.world
-            .spawnParticles(ParticleTypes.field_11220, mid.x, mid.y, mid.z, count, intensity, intensity, intensity, 0.1 + stage * 0.02);
-        s.world.spawnParticles(ParticleTypes.field_29644, mid.x, mid.y, mid.z, count / 2, intensity, intensity, intensity, 0.2);
+            .spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y, mid.z, count, intensity, intensity, intensity, 0.1 + stage * 0.02);
+        s.world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, mid.x, mid.y, mid.z, count / 2, intensity, intensity, intensity, 0.2);
         if (stage >= 7) {
-            s.world.spawnParticles(ParticleTypes.field_11216, mid.x, mid.y, mid.z, count, intensity, intensity, intensity, 0.15);
+            s.world.spawnParticles(ParticleTypes.DRAGON_BREATH, mid.x, mid.y, mid.z, count, intensity, intensity, intensity, 0.15);
         }
     }
 
@@ -1148,9 +1148,9 @@ public class DapFusionHandler {
 
             p1.getServerWorld()
                 .playSound(
-                    null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 1.5F, 1.5F
+                    null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.5F
                 );
-            p1.getServerWorld().spawnParticles(ParticleTypes.field_11221, mid.x, mid.y + 1.0, mid.z, 2, 0.5, 0.5, 0.5, 0.0);
+            p1.getServerWorld().spawnParticles(ParticleTypes.EXPLOSION_EMITTER, mid.x, mid.y + 1.0, mid.z, 2, 0.5, 0.5, 0.5, 0.0);
 
             try {
                 ServerPlayNetworking.send(p1, new DapFusionHandler.FusionFusedPayload(false));

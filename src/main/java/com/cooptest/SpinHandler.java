@@ -77,8 +77,8 @@ public class SpinHandler {
                                                     player.getX(),
                                                     player.getY(),
                                                     player.getZ(),
-                                                    SoundEvents.field_14706,
-                                                    SoundCategory.field_15248,
+                                                    SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+                                                    SoundCategory.PLAYERS,
                                                     0.8F,
                                                     1.6F
                                                 );
@@ -148,7 +148,7 @@ public class SpinHandler {
                         double angle = Math.toRadians(currentYaw);
                         player.getServerWorld()
                             .spawnParticles(
-                                ParticleTypes.field_11204,
+                                ParticleTypes.CLOUD,
                                 pos.x + Math.cos(angle) * 0.5,
                                 pos.y,
                                 pos.z + Math.sin(angle) * 0.5,
@@ -166,8 +166,8 @@ public class SpinHandler {
                                     player.getX(),
                                     player.getY(),
                                     player.getZ(),
-                                    SoundEvents.field_14869,
-                                    SoundCategory.field_15248,
+                                    SoundEvents.ENTITY_PHANTOM_FLAP,
+                                    SoundCategory.PLAYERS,
                                     0.5F,
                                     1.4F
                                 );
@@ -221,12 +221,12 @@ public class SpinHandler {
                         ServerPlayNetworking.send(p, launchPkt);
                     }
 
-                    world.spawnParticles(ParticleTypes.field_11227, sPos.x, sPos.y + 1.2, sPos.z, 8, 0.4, 0.2, 0.4, 0.1);
-                    world.spawnParticles(ParticleTypes.field_11220, sPos.x, sPos.y + 0.5, sPos.z, 15, 0.5, 0.5, 0.5, 0.3);
-                    world.spawnParticles(ParticleTypes.field_11236, sPos.x, sPos.y + 0.5, sPos.z, 3, 0.3, 0.3, 0.3, 0.0);
-                    world.playSound(null, sPos.x, sPos.y, sPos.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.2F, 0.7F);
-                    world.playSound(null, sPos.x, sPos.y, sPos.z, ModSounds.HELI, SoundCategory.field_15248, 1.0F, 1.0F);
-                    world.playSound(null, sPos.x, sPos.y, sPos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 0.8F, 0.5F);
+                    world.spawnParticles(ParticleTypes.SWEEP_ATTACK, sPos.x, sPos.y + 1.2, sPos.z, 8, 0.4, 0.2, 0.4, 0.1);
+                    world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, sPos.x, sPos.y + 0.5, sPos.z, 15, 0.5, 0.5, 0.5, 0.3);
+                    world.spawnParticles(ParticleTypes.EXPLOSION, sPos.x, sPos.y + 0.5, sPos.z, 3, 0.3, 0.3, 0.3, 0.0);
+                    world.playSound(null, sPos.x, sPos.y, sPos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.2F, 0.7F);
+                    world.playSound(null, sPos.x, sPos.y, sPos.z, ModSounds.HELI, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    world.playSound(null, sPos.x, sPos.y, sPos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 0.8F, 0.5F);
                     spinner.sendMessage(Text.literal("§c§l\ud83d\ude80 HELICOPTER! Press SHIFT for MEGA GROUND POUND!"), true);
                     entity.sendMessage(Text.literal("§c§l\ud83d\ude80 You're riding the helicopter!"), true);
                     break;
@@ -273,10 +273,10 @@ public class SpinHandler {
 
             ServerWorld world = spinner.getServerWorld();
             Vec3d pos = spinner.getPos().add(0.0, 1.0, 0.0);
-            world.spawnParticles(ParticleTypes.field_11236, pos.x, pos.y, pos.z, 3, 0.3, 0.3, 0.3, 0.0);
-            world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 20, 0.5, 0.5, 0.5, 0.3);
-            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.2F, 0.7F);
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 0.8F, 0.5F);
+            world.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 3, 0.3, 0.3, 0.3, 0.0);
+            world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 20, 0.5, 0.5, 0.5, 0.3);
+            world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.2F, 0.7F);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 0.8F, 0.5F);
             spinner.sendMessage(Text.literal("§c§l\ud83d\ude80 HELICOPTER LAUNCH!"), true);
             if (rider != null) {
                 rider.sendMessage(Text.literal("§c§l\ud83d\ude80 Helicopter launched!"), true);

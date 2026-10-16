@@ -185,7 +185,7 @@ public class ChargedDapClientHandler {
     }
 
     public static void register() {
-        chargedDapKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.dap", Type.field_1668, 71, "category.coopmoves"));
+        chargedDapKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.dap", Type.KEYSYM, 71, "category.coopmoves"));
         FabricLoader.getInstance().getObjectShare().put("testcoop:play_golem_dap", CoopAnimationHandler::playGolemDapByUuid);
         ClientPlayNetworking.registerGlobalReceiver(ChargedDapHandler.ChargeSyncPayload.ID, (payload, context) -> context.client().execute(() -> {
             UUID playerId = payload.playerId();
@@ -274,7 +274,7 @@ public class ChargedDapClientHandler {
                 }
             }
         }));
-        fireDapComboKey = new KeyBinding("key.coopmoves.unused_combo", Type.field_1668, InputUtil.UNKNOWN_KEY.getCode(), "category.coopmoves");
+        fireDapComboKey = new KeyBinding("key.coopmoves.unused_combo", Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), "category.coopmoves");
         ClientPlayNetworking.registerGlobalReceiver(
             ChargedDapHandler.FireDapWindowPayload.ID,
             (payload, context) -> context.client().execute(() -> FireComboClientHandler.onWindow(payload.open(), payload.armedMs(), payload.promptDelayMs()))
@@ -495,31 +495,31 @@ public class ChargedDapClientHandler {
             int particleCount;
             switch (tier) {
                 case 0:
-                    particle = ParticleTypes.field_11251;
+                    particle = ParticleTypes.SMOKE;
                     particleCount = 5;
                     break;
                 case 1:
-                    particle = ParticleTypes.field_11205;
+                    particle = ParticleTypes.CRIT;
                     particleCount = 10;
                     break;
                 case 2:
-                    particle = ParticleTypes.field_11211;
+                    particle = ParticleTypes.HAPPY_VILLAGER;
                     particleCount = 15;
                     break;
                 case 3:
-                    particle = ParticleTypes.field_11215;
+                    particle = ParticleTypes.ENCHANT;
                     particleCount = 20;
                     break;
                 case 4:
-                    particle = ParticleTypes.field_11220;
+                    particle = ParticleTypes.TOTEM_OF_UNDYING;
                     particleCount = 25;
                     break;
                 case 5:
-                    particle = ParticleTypes.field_11240;
+                    particle = ParticleTypes.FLAME;
                     particleCount = 30;
                     break;
                 default:
-                    particle = ParticleTypes.field_11205;
+                    particle = ParticleTypes.CRIT;
                     particleCount = 5;
             }
 
@@ -538,7 +538,7 @@ public class ChargedDapClientHandler {
                     double angle = i / 8.0 * Math.PI * 2.0;
                     double offsetX = Math.cos(angle) * 0.3;
                     double offsetZ = Math.sin(angle) * 0.3;
-                    client.world.addParticle(ParticleTypes.field_11215, x + offsetX, y + 0.5, z + offsetZ, 0.0, 0.1, 0.0);
+                    client.world.addParticle(ParticleTypes.ENCHANT, x + offsetX, y + 0.5, z + offsetZ, 0.0, 0.1, 0.0);
                 }
             }
         }

@@ -102,7 +102,7 @@ public class SikeFollowUpHandler {
         freezePlayer(siker, true);
         freezePlayer(victim, true);
         StrongSlapHandler.sendLookLockAtYaw(siker, yawAwayFromVictim);
-        siker.swingHand(Hand.field_5808, true);
+        siker.swingHand(Hand.MAIN_HAND, true);
     }
 
     private static void tick(MinecraftServer server) {
@@ -167,8 +167,8 @@ public class SikeFollowUpHandler {
     }
 
     private static void launchAnimation(MinecraftServer server, SikeFollowUpHandler.NoyaSession session, ServerPlayerEntity siker, ServerPlayerEntity victim) {
-        siker.swingHand(Hand.field_5808, true);
-        siker.swingHand(Hand.field_5808, true);
+        siker.swingHand(Hand.MAIN_HAND, true);
+        siker.swingHand(Hand.MAIN_HAND, true);
         PoseNetworking.broadcastAnimState(siker, 94);
         UUID sikerUUID = session.sikerId;
         UUID victimUUID = session.victimId;
@@ -209,15 +209,15 @@ public class SikeFollowUpHandler {
                                 if (v != null) {
                                     ServerWorld world = (ServerWorld)v.getWorld();
                                     Vec3d head = v.getPos().add(0.0, 1.7, 0.0);
-                                    world.spawnParticles(ParticleTypes.field_11205, head.x, head.y, head.z, 4, 0.15, 0.1, 0.15, 0.2);
-                                    world.spawnParticles(ParticleTypes.field_11208, head.x, head.y, head.z, 3, 0.1, 0.1, 0.1, 0.1);
+                                    world.spawnParticles(ParticleTypes.CRIT, head.x, head.y, head.z, 4, 0.15, 0.1, 0.15, 0.2);
+                                    world.spawnParticles(ParticleTypes.ENCHANTED_HIT, head.x, head.y, head.z, 3, 0.1, 0.1, 0.1, 0.1);
                                     world.playSound(
                                         null,
                                         head.x,
                                         head.y,
                                         head.z,
-                                        SoundEvents.field_14840,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_PLAYER_ATTACK_STRONG,
+                                        SoundCategory.PLAYERS,
                                         0.6F,
                                         1.0F + (float)(Math.random() * 0.4F)
                                     );
@@ -279,22 +279,22 @@ public class SikeFollowUpHandler {
                             if (victim != null) {
                                 ServerWorld world = (ServerWorld)victim.getWorld();
                                 Vec3d head = victim.getPos().add(0.0, 1.7, 0.0);
-                                world.spawnParticles(ParticleTypes.field_11221, head.x, head.y, head.z, 3, 0.2, 0.2, 0.2, 0.0);
-                                world.spawnParticles(ParticleTypes.field_11205, head.x, head.y, head.z, 20, 0.3, 0.3, 0.3, 0.25);
-                                world.spawnParticles(ParticleTypes.field_11208, head.x, head.y, head.z, 15, 0.25, 0.25, 0.25, 0.15);
-                                world.spawnParticles(ParticleTypes.field_11227, head.x, head.y, head.z, 6, 0.2, 0.1, 0.2, 0.05);
+                                world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, head.x, head.y, head.z, 3, 0.2, 0.2, 0.2, 0.0);
+                                world.spawnParticles(ParticleTypes.CRIT, head.x, head.y, head.z, 20, 0.3, 0.3, 0.3, 0.25);
+                                world.spawnParticles(ParticleTypes.ENCHANTED_HIT, head.x, head.y, head.z, 15, 0.25, 0.25, 0.25, 0.15);
+                                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, head.x, head.y, head.z, 6, 0.2, 0.1, 0.2, 0.05);
                                 world.playSound(
                                     null,
                                     head.x,
                                     head.y,
                                     head.z,
-                                    (SoundEvent)SoundEvents.field_15152.comp_349(),
-                                    SoundCategory.field_15248,
+                                    (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                    SoundCategory.PLAYERS,
                                     1.5F,
                                     0.9F
                                 );
                                 world.playSound(
-                                    null, head.x, head.y, head.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 0.6F
+                                    null, head.x, head.y, head.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 0.6F
                                 );
                                 Vec3d launchDir;
                                 if (siker != null) {
@@ -308,7 +308,7 @@ public class SikeFollowUpHandler {
 
                                 victim.setVelocity(launchDir.x * 1.1F, 0.6, launchDir.z * 1.1F);
                                 victim.velocityModified = true;
-                                victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 100, 1, false, true));
+                                victim.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 100, 1, false, true));
                                 victim.damage(world.getDamageSources().generic(), 4.0F);
                             }
 

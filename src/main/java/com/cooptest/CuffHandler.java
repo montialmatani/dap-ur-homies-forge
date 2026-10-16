@@ -128,7 +128,7 @@ public class CuffHandler {
         UseEntityCallback.EVENT.register((UseEntityCallback)(player, world, hand, entity, hitResult) -> {
             if (world.isClient) {
                 return ActionResult.PASS;
-            } else if (hand != Hand.field_5808) {
+            } else if (hand != Hand.MAIN_HAND) {
                 return ActionResult.PASS;
             } else if (player instanceof ServerPlayerEntity clicker) {
                 if (!(entity instanceof ServerPlayerEntity target)) {
@@ -159,7 +159,7 @@ public class CuffHandler {
 
                                 if (!clicker.isCreative()) {
                                     held.decrement(1);
-                                    ItemStack bottle = new ItemStack(Items.field_8469);
+                                    ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
                                     if (!clicker.getInventory().insertStack(bottle)) {
                                         clicker.dropStack(bottle);
                                     }
@@ -200,7 +200,7 @@ public class CuffHandler {
         UseBlockCallback.EVENT.register((UseBlockCallback)(player, world, hand, hitResult) -> {
             if (world.isClient()) {
                 return ActionResult.PASS;
-            } else if (hand != Hand.field_5808) {
+            } else if (hand != Hand.MAIN_HAND) {
                 return ActionResult.PASS;
             } else if (player instanceof ServerPlayerEntity carrier) {
                 if (!carrier.isSneaking()) {

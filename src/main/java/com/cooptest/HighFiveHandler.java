@@ -143,21 +143,21 @@ public class HighFiveHandler {
                 for (int i = 0; i < 30; i++) {
                     double y = beam.startPos.y + i * 0.5;
                     if (beam.isYellow) {
-                        beam.world.spawnParticles(ParticleTypes.field_11207, beam.startPos.x, y, beam.startPos.z, 3, 0.15, 0.0, 0.15, 0.0);
-                        beam.world.spawnParticles(ParticleTypes.field_11240, beam.startPos.x, y, beam.startPos.z, 2, 0.1, 0.0, 0.1, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.END_ROD, beam.startPos.x, y, beam.startPos.z, 3, 0.15, 0.0, 0.15, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.FLAME, beam.startPos.x, y, beam.startPos.z, 2, 0.1, 0.0, 0.1, 0.0);
                         double spiralAngle = i * 0.3;
                         double spiralRadius = 0.5;
                         double spiralX = beam.startPos.x + Math.cos(spiralAngle) * spiralRadius;
                         double spiralZ = beam.startPos.z + Math.sin(spiralAngle) * spiralRadius;
-                        beam.world.spawnParticles(ParticleTypes.field_11207, spiralX, y, spiralZ, 1, 0.0, 0.0, 0.0, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.END_ROD, spiralX, y, spiralZ, 1, 0.0, 0.0, 0.0, 0.0);
                     } else {
-                        beam.world.spawnParticles(ParticleTypes.field_11233, beam.startPos.x, y, beam.startPos.z, 3, 0.15, 0.0, 0.15, 0.0);
-                        beam.world.spawnParticles(ParticleTypes.field_11237, beam.startPos.x, y, beam.startPos.z, 2, 0.1, 0.0, 0.1, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.SQUID_INK, beam.startPos.x, y, beam.startPos.z, 3, 0.15, 0.0, 0.15, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.LARGE_SMOKE, beam.startPos.x, y, beam.startPos.z, 2, 0.1, 0.0, 0.1, 0.0);
                         double spiralAngle = i * 0.3;
                         double spiralRadius = 0.5;
                         double spiralX = beam.startPos.x + Math.cos(spiralAngle) * spiralRadius;
                         double spiralZ = beam.startPos.z + Math.sin(spiralAngle) * spiralRadius;
-                        beam.world.spawnParticles(ParticleTypes.field_11233, spiralX, y, spiralZ, 1, 0.0, 0.0, 0.0, 0.0);
+                        beam.world.spawnParticles(ParticleTypes.SQUID_INK, spiralX, y, spiralZ, 1, 0.0, 0.0, 0.0, 0.0);
                     }
                 }
             }
@@ -349,8 +349,8 @@ public class HighFiveHandler {
                         Entry<BlockPos, HighFiveHandler.BeaconRemoval> entryx = beaconIt.next();
                         HighFiveHandler.BeaconRemoval removal = entryx.getValue();
                         if (now >= removal.removeTime) {
-                            removal.world.setBlockState(removal.beaconPos, Blocks.field_10124.getDefaultState());
-                            removal.world.setBlockState(removal.glassPos, Blocks.field_10124.getDefaultState());
+                            removal.world.setBlockState(removal.beaconPos, Blocks.AIR.getDefaultState());
+                            removal.world.setBlockState(removal.glassPos, Blocks.AIR.getDefaultState());
                             beaconIt.remove();
                         }
                     }
@@ -489,9 +489,9 @@ public class HighFiveHandler {
         broadcastHighFiveAnim(player, 2);
         ServerWorld world = player.getServerWorld();
         Vec3d pos = player.getPos().add(0.0, 1.6, 0.0);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14706, SoundCategory.field_15248, 0.8F, 0.5F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15074, SoundCategory.field_15248, 0.4F, 1.2F);
-        world.spawnParticles(ParticleTypes.field_11203, pos.x, pos.y, pos.z, 6, 0.15, 0.15, 0.15, 0.01);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 0.8F, 0.5F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.PLAYERS, 0.4F, 1.2F);
+        world.spawnParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 6, 0.15, 0.15, 0.15, 0.01);
         player.sendMessage(Text.literal("§7*left hanging*"), true);
     }
 
@@ -557,8 +557,8 @@ public class HighFiveHandler {
                                         player.getX(),
                                         player.getY(),
                                         player.getZ(),
-                                        SoundEvents.field_14627,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,
+                                        SoundCategory.PLAYERS,
                                         0.3F,
                                         1.5F
                                     );
@@ -584,14 +584,14 @@ public class HighFiveHandler {
         Vec3d slot = slotPoint(player);
         double y = player.getY() + 1.0;
         ServerWorld world = player.getServerWorld();
-        world.spawnParticles(ParticleTypes.field_11207, slot.x, y, slot.z, 3, 0.0, 0.05, 0.0, 0.01);
+        world.spawnParticles(ParticleTypes.END_ROD, slot.x, y, slot.z, 3, 0.0, 0.05, 0.0, 0.01);
         int ringPoints = 16;
 
         for (int i = 0; i < ringPoints; i++) {
             double angle = (Math.PI * 2) * i / ringPoints;
             double rx = slot.x + Math.cos(angle) * 1.0;
             double rz = slot.z + Math.sin(angle) * 1.0;
-            world.spawnParticles(ParticleTypes.field_11249, rx, y, rz, 1, 0.0, 0.0, 0.0, 0.0);
+            world.spawnParticles(ParticleTypes.WITCH, rx, y, rz, 1, 0.0, 0.0, 0.0, 0.0);
         }
     }
 
@@ -891,10 +891,10 @@ public class HighFiveHandler {
             frozenPositions.put(victimId, victim.getPos());
             ServerWorld world = siker.getServerWorld();
             Vec3d mid = siker.getPos().add(victim.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15008, SoundCategory.field_15248, 1.2F, 0.7F);
-            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14661, SoundCategory.field_15248, 0.9F, 0.8F);
-            world.spawnParticles(ParticleTypes.field_11236, mid.x, mid.y, mid.z, 2, 0.3, 0.3, 0.3, 0.0);
-            world.spawnParticles(ParticleTypes.field_11231, mid.x, mid.y + 1.0, mid.z, 8, 0.4, 0.3, 0.4, 0.05);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.PLAYERS, 1.2F, 0.7F);
+            world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_DONKEY_ANGRY, SoundCategory.PLAYERS, 0.9F, 0.8F);
+            world.spawnParticles(ParticleTypes.EXPLOSION, mid.x, mid.y, mid.z, 2, 0.3, 0.3, 0.3, 0.0);
+            world.spawnParticles(ParticleTypes.ANGRY_VILLAGER, mid.x, mid.y + 1.0, mid.z, 8, 0.4, 0.3, 0.4, 0.05);
             siker.sendMessage(Text.literal("§4§l\ud83d\udca5 MUTUAL SIKE! You both suffer!"), true);
             victim.sendMessage(Text.literal("§4§l\ud83d\udca5 MUTUAL SIKE! You both suffer!"), true);
             highFiveCooldown.put(sikerId, now);
@@ -914,18 +914,18 @@ public class HighFiveHandler {
 
             siker.getServerWorld()
                 .playSound(
-                    null, siker.getX(), siker.getY(), siker.getZ(), SoundEvents.field_19153, SoundCategory.field_15248, 1.0F, 1.0F
+                    null, siker.getX(), siker.getY(), siker.getZ(), SoundEvents.ENTITY_WITCH_CELEBRATE, SoundCategory.PLAYERS, 1.0F, 1.0F
                 );
             ServerWorld world = victim.getServerWorld();
             Vec3d vp = victim.getPos().add(0.0, 1.8, 0.0);
-            world.playSound(null, vp.x, vp.y, vp.z, SoundEvents.field_15008, SoundCategory.field_15248, 1.0F, 0.8F);
-            world.playSound(null, vp.x, vp.y, vp.z, SoundEvents.field_14641, SoundCategory.field_15248, 0.7F, 0.6F);
-            world.spawnParticles(ParticleTypes.field_18306, vp.x - 0.15, vp.y, vp.z, 6, 0.1, 0.05, 0.1, 0.01);
-            world.spawnParticles(ParticleTypes.field_18306, vp.x + 0.15, vp.y, vp.z, 6, 0.1, 0.05, 0.1, 0.01);
-            world.spawnParticles(ParticleTypes.field_11202, vp.x, vp.y - 0.5, vp.z, 10, 0.2, 0.05, 0.2, 0.02);
-            world.spawnParticles(ParticleTypes.field_11203, vp.x, vp.y + 0.3, vp.z, 8, 0.2, 0.1, 0.2, 0.03);
-            world.spawnParticles(ParticleTypes.field_11231, vp.x, vp.y + 0.6, vp.z, 4, 0.3, 0.2, 0.3, 0.05);
-            world.spawnParticles(ParticleTypes.field_11237, vp.x, vp.y, vp.z, 5, 0.15, 0.2, 0.15, 0.01);
+            world.playSound(null, vp.x, vp.y, vp.z, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.PLAYERS, 1.0F, 0.8F);
+            world.playSound(null, vp.x, vp.y, vp.z, SoundEvents.UI_TOAST_OUT, SoundCategory.PLAYERS, 0.7F, 0.6F);
+            world.spawnParticles(ParticleTypes.FALLING_WATER, vp.x - 0.15, vp.y, vp.z, 6, 0.1, 0.05, 0.1, 0.01);
+            world.spawnParticles(ParticleTypes.FALLING_WATER, vp.x + 0.15, vp.y, vp.z, 6, 0.1, 0.05, 0.1, 0.01);
+            world.spawnParticles(ParticleTypes.SPLASH, vp.x, vp.y - 0.5, vp.z, 10, 0.2, 0.05, 0.2, 0.02);
+            world.spawnParticles(ParticleTypes.POOF, vp.x, vp.y + 0.3, vp.z, 8, 0.2, 0.1, 0.2, 0.03);
+            world.spawnParticles(ParticleTypes.ANGRY_VILLAGER, vp.x, vp.y + 0.6, vp.z, 4, 0.3, 0.2, 0.3, 0.05);
+            world.spawnParticles(ParticleTypes.LARGE_SMOKE, vp.x, vp.y, vp.z, 5, 0.15, 0.2, 0.15, 0.01);
             siker.sendMessage(Text.literal("§6§l\ud83d\ude02 SIKE!"), true);
             victim.sendMessage(Text.literal("§c§lSIKE!"), true);
             SikeFollowUpHandler.onSikeExecuted(siker, victim);
@@ -956,7 +956,7 @@ public class HighFiveHandler {
             highFivePos.y,
             highFivePos.z,
             ModSounds.DAP_HIT,
-            SoundCategory.field_15248,
+            SoundCategory.PLAYERS,
             0.55F + tier * 0.15F,
             1.45F - tier * 0.09F
         );
@@ -965,8 +965,8 @@ public class HighFiveHandler {
             highFivePos.x,
             highFivePos.y,
             highFivePos.z,
-            SoundEvents.field_14840,
-            SoundCategory.field_15248,
+            SoundEvents.ENTITY_PLAYER_ATTACK_STRONG,
+            SoundCategory.PLAYERS,
             0.45F * m,
             1.5F - tier * 0.08F
         );
@@ -977,14 +977,14 @@ public class HighFiveHandler {
                 highFivePos.y,
                 highFivePos.z,
                 ModSounds.CLAP_SOUNDS[tier % ModSounds.CLAP_SOUNDS.length],
-                SoundCategory.field_15248,
+                SoundCategory.PLAYERS,
                 0.5F + tier * 0.12F,
                 1.2F
             );
         }
 
         world.spawnParticles(
-            ParticleTypes.field_11205,
+            ParticleTypes.CRIT,
             highFivePos.x,
             highFivePos.y,
             highFivePos.z,
@@ -995,7 +995,7 @@ public class HighFiveHandler {
             0.12 * m
         );
         world.spawnParticles(
-            ParticleTypes.field_11208,
+            ParticleTypes.ENCHANTED_HIT,
             highFivePos.x,
             highFivePos.y,
             highFivePos.z,
@@ -1035,52 +1035,52 @@ public class HighFiveHandler {
     }
 
     private static void executeTier0(ServerWorld world, Vec3d pos, ServerPlayerEntity p1, ServerPlayerEntity p2) {
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 1.1F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14627, SoundCategory.field_15248, 0.8F, 1.8F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 1.1F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.8F, 1.8F);
         spawnStarBurst(world, pos, 10, 0.3);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 8, 0.1, 0.1, 0.1, 0.08);
-        world.spawnParticles(ParticleTypes.field_29642, pos.x, pos.y, pos.z, 6, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 8, 0.1, 0.1, 0.1, 0.08);
+        world.spawnParticles(ParticleTypes.WAX_ON, pos.x, pos.y, pos.z, 6, 0.2, 0.2, 0.2, 0.02);
         applyKnockback(p1, p2, pos, 0.1);
     }
 
     private static void executeTier1(ServerWorld world, Vec3d pos, ServerPlayerEntity p1, ServerPlayerEntity p2) {
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.5F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14627, SoundCategory.field_15248, 1.0F, 2.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14800, SoundCategory.field_15248, 0.8F, 1.2F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.5F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0F, 2.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_TWINKLE, SoundCategory.PLAYERS, 0.8F, 1.2F);
         spawnStarBurst(world, pos, 16, 0.5);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 15, 0.15, 0.15, 0.15, 0.12);
-        world.spawnParticles(ParticleTypes.field_29642, pos.x, pos.y, pos.z, 10, 0.25, 0.25, 0.25, 0.03);
-        world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 5, 0.2, 0.2, 0.2, 0.05);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 15, 0.15, 0.15, 0.15, 0.12);
+        world.spawnParticles(ParticleTypes.WAX_ON, pos.x, pos.y, pos.z, 10, 0.25, 0.25, 0.25, 0.03);
+        world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 5, 0.2, 0.2, 0.2, 0.05);
         applyKnockback(p1, p2, pos, 0.4);
     }
 
     private static void executeTier2(ServerWorld world, Vec3d pos, ServerPlayerEntity p1, ServerPlayerEntity p2) {
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 2.0F, 0.9F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14917, SoundCategory.field_15248, 1.2F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14627, SoundCategory.field_15248, 1.2F, 2.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 2.0F, 0.9F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 1.2F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.2F, 2.0F);
         spawnStarBurst(world, pos, 24, 0.7);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 25, 0.2, 0.2, 0.2, 0.18);
-        world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 15, 0.3, 0.3, 0.3, 0.1);
-        world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_29642, pos.x, pos.y, pos.z, 15, 0.3, 0.3, 0.3, 0.05);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 25, 0.2, 0.2, 0.2, 0.18);
+        world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 15, 0.3, 0.3, 0.3, 0.1);
+        world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.WAX_ON, pos.x, pos.y, pos.z, 15, 0.3, 0.3, 0.3, 0.05);
         applyKnockback(p1, p2, pos, 0.8);
     }
 
     private static void executeTier3(ServerWorld world, Vec3d pos, ServerPlayerEntity p1, ServerPlayerEntity p2) {
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 2.0F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.5F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 2.0F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.5F, 1.0F);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15248, 1.2F, 1.3F
+            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.2F, 1.3F
         );
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.5F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_19167, SoundCategory.field_15248, 2.0F, 0.5F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.5F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_BELL_RESONATE, SoundCategory.PLAYERS, 2.0F, 0.5F);
         spawnStarBurst(world, pos, 32, 1.0);
-        world.spawnParticles(ParticleTypes.field_11236, pos.x, pos.y, pos.z, 3, 0.5, 0.5, 0.5, 0.0);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 40, 0.3, 0.3, 0.3, 0.25);
-        world.spawnParticles(ParticleTypes.field_11207, pos.x, pos.y, pos.z, 25, 0.5, 0.5, 0.5, 0.15);
-        world.spawnParticles(ParticleTypes.field_17909, pos.x, pos.y, pos.z, 2, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_22246, pos.x, pos.y, pos.z, 20, 0.4, 0.4, 0.4, 0.1);
-        world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 30, 0.5, 0.5, 0.5, 0.3);
+        world.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 3, 0.5, 0.5, 0.5, 0.0);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 40, 0.3, 0.3, 0.3, 0.25);
+        world.spawnParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 25, 0.5, 0.5, 0.5, 0.15);
+        world.spawnParticles(ParticleTypes.FLASH, pos.x, pos.y, pos.z, 2, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y, pos.z, 20, 0.4, 0.4, 0.4, 0.1);
+        world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 30, 0.5, 0.5, 0.5, 0.3);
         createBattleShockwave(world, pos, p1, p2, 10.0);
         ChargedDapHandler.applyImpactFreeze(p1, p2, 3);
         applyKnockback(p1, p2, pos, 0.3);
@@ -1098,11 +1098,11 @@ public class HighFiveHandler {
                 double x = pos.x + Math.cos(angle) * r;
                 double z = pos.z + Math.sin(angle) * r;
                 if (ring <= 2) {
-                    world.spawnParticles(ParticleTypes.field_11204, x, pos.y, z, 1, 0.1, 0.2, 0.1, 0.02);
+                    world.spawnParticles(ParticleTypes.CLOUD, x, pos.y, z, 1, 0.1, 0.2, 0.1, 0.02);
                 } else if (ring <= 4) {
-                    world.spawnParticles(ParticleTypes.field_11227, x, pos.y + 0.5, z, 1, 0.0, 0.0, 0.0, 0.0);
+                    world.spawnParticles(ParticleTypes.SWEEP_ATTACK, x, pos.y + 0.5, z, 1, 0.0, 0.0, 0.0, 0.0);
                 } else {
-                    world.spawnParticles(ParticleTypes.field_11205, x, pos.y + 0.5, z, 2, 0.1, 0.1, 0.1, 0.05);
+                    world.spawnParticles(ParticleTypes.CRIT, x, pos.y + 0.5, z, 2, 0.1, 0.1, 0.1, 0.05);
                 }
             }
         }
@@ -1128,7 +1128,7 @@ public class HighFiveHandler {
 
                     entity.addVelocity(dir.x * strength, strength * 0.6, dir.z * strength);
                     entity.velocityModified = true;
-                    world.spawnParticles(ParticleTypes.field_11205, entity.getX(), entity.getY() + 1.0, entity.getZ(), 5, 0.2, 0.2, 0.2, 0.1);
+                    world.spawnParticles(ParticleTypes.CRIT, entity.getX(), entity.getY() + 1.0, entity.getZ(), 5, 0.2, 0.2, 0.2, 0.1);
                 }
             }
         }
@@ -1139,7 +1139,7 @@ public class HighFiveHandler {
             double angle = (Math.PI * 2) * i / rays;
             double dx = Math.cos(angle) * spread;
             double dz = Math.sin(angle) * spread;
-            world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 2, dx, 0.2, dz, 0.15);
+            world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 2, dx, 0.2, dz, 0.15);
         }
     }
 
@@ -1290,10 +1290,10 @@ public class HighFiveHandler {
     private static void executeSecondImpact(ServerPlayerEntity p1, ServerPlayerEntity p2) {
         Vec3d pos = p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 0.5, 0.0);
         ServerWorld world = p1.getServerWorld();
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_WEAK, SoundCategory.field_15248, 1.0F, 1.0F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.5F, 1.0F);
-        world.spawnParticles(ParticleTypes.field_11220, pos.x, pos.y, pos.z, 30, 0.3, 0.3, 0.3, 0.1);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 20, 0.3, 0.3, 0.3, 0.15);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.DAP_WEAK, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.5F, 1.0F);
+        world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, pos.x, pos.y, pos.z, 30, 0.3, 0.3, 0.3, 0.1);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 20, 0.3, 0.3, 0.3, 0.15);
         p1.sendMessage(Text.literal("§e⚡ PERFECT! ⚡"), true);
         p2.sendMessage(Text.literal("§e⚡ PERFECT! ⚡"), true);
     }
@@ -1306,17 +1306,17 @@ public class HighFiveHandler {
             double angle = (Math.PI * 2) * i / particleCount;
             double x1 = pos1.x + Math.cos(angle) * radius;
             double z1 = pos1.z + Math.sin(angle) * radius;
-            world.spawnParticles(ParticleTypes.field_11233, x1, pos1.y + 1.0, z1, 1, 0.1, 0.3, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.SQUID_INK, x1, pos1.y + 1.0, z1, 1, 0.1, 0.3, 0.1, 0.02);
             double innerRadius = radius * 0.7;
             double x1Inner = pos1.x + Math.cos(angle) * innerRadius;
             double z1Inner = pos1.z + Math.sin(angle) * innerRadius;
-            world.spawnParticles(ParticleTypes.field_11207, x1Inner, pos1.y + 1.0, z1Inner, 1, 0.1, 0.3, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.END_ROD, x1Inner, pos1.y + 1.0, z1Inner, 1, 0.1, 0.3, 0.1, 0.02);
             double x2 = pos2.x + Math.cos(angle) * radius;
             double z2 = pos2.z + Math.sin(angle) * radius;
-            world.spawnParticles(ParticleTypes.field_11233, x2, pos2.y + 1.0, z2, 1, 0.1, 0.3, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.SQUID_INK, x2, pos2.y + 1.0, z2, 1, 0.1, 0.3, 0.1, 0.02);
             double x2Inner = pos2.x + Math.cos(angle) * innerRadius;
             double z2Inner = pos2.z + Math.sin(angle) * innerRadius;
-            world.spawnParticles(ParticleTypes.field_11207, x2Inner, pos2.y + 1.0, z2Inner, 1, 0.1, 0.3, 0.1, 0.02);
+            world.spawnParticles(ParticleTypes.END_ROD, x2Inner, pos2.y + 1.0, z2Inner, 1, 0.1, 0.3, 0.1, 0.02);
         }
     }
 
@@ -1345,7 +1345,7 @@ public class HighFiveHandler {
     }
 
     private static void applySikeSlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(SIKE_SLOW_ID);
             attr.addTemporaryModifier(new EntityAttributeModifier(SIKE_SLOW_ID, -1.0, Operation.MULTIPLY_TOTAL));
@@ -1353,7 +1353,7 @@ public class HighFiveHandler {
     }
 
     private static void removeSikeSlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(SIKE_SLOW_ID);
         }
@@ -1384,12 +1384,12 @@ public class HighFiveHandler {
         p2.setVelocity(toP2.multiply(0.65).add(0.0, 0.5, 0.0));
         p2.velocityModified = true;
         Vec3d mid = p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, 24, 0.4, 0.4, 0.4, 0.2);
-        world.spawnParticles(ParticleTypes.field_11251, mid.x, mid.y, mid.z, 12, 0.3, 0.3, 0.3, 0.02);
-        world.spawnParticles(ParticleTypes.field_18306, mid.x, mid.y + 0.5, mid.z, 20, 0.3, 0.2, 0.3, 0.02);
-        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 0.7F);
-        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15008, SoundCategory.field_15248, 1.0F, 0.8F);
-        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_19153, SoundCategory.field_15248, 0.8F, 1.2F);
+        world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, 24, 0.4, 0.4, 0.4, 0.2);
+        world.spawnParticles(ParticleTypes.SMOKE, mid.x, mid.y, mid.z, 12, 0.3, 0.3, 0.3, 0.02);
+        world.spawnParticles(ParticleTypes.FALLING_WATER, mid.x, mid.y + 0.5, mid.z, 20, 0.3, 0.2, 0.3, 0.02);
+        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 0.7F);
+        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.PLAYERS, 1.0F, 0.8F);
+        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_WITCH_CELEBRATE, SoundCategory.PLAYERS, 0.8F, 1.2F);
         p1.sendMessage(Text.literal("§c§l\ud83d\udca5 MUTUAL SIKE! You both played dirty!"), true);
         p2.sendMessage(Text.literal("§c§l\ud83d\udca5 MUTUAL SIKE! You both played dirty!"), true);
     }

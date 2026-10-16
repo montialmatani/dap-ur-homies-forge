@@ -19,11 +19,11 @@ public class MahitoCraftingHandler {
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (!stack.isEmpty()) {
-                if (stack.isOf(Items.field_8070)) {
+                if (stack.isOf(Items.GHAST_TEAR)) {
                     ghastTearCount += stack.getCount();
-                } else if (stack.isOf(Items.field_8511)) {
+                } else if (stack.isOf(Items.ROTTEN_FLESH)) {
                     rottenFleshCount += stack.getCount();
-                } else if (stack.isOf(Items.field_8574)) {
+                } else if (stack.isOf(Items.POTION)) {
                     net.minecraft.potion.Potion potionType = PotionUtil.getPotion(stack);
                     if (potionType != null && potionType != net.minecraft.potion.Potions.EMPTY) {
                         String potionId = net.minecraft.registry.Registries.POTION.getId(potionType).toString();
@@ -56,14 +56,14 @@ public class MahitoCraftingHandler {
         for (int i = 0; i < inventory.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (!stack.isEmpty()) {
-                if (stack.isOf(Items.field_8070) && !ghastTearConsumed) {
+                if (stack.isOf(Items.GHAST_TEAR) && !ghastTearConsumed) {
                     stack.decrement(1);
                     ghastTearConsumed = true;
-                } else if (stack.isOf(Items.field_8511) && fleshToConsume > 0) {
+                } else if (stack.isOf(Items.ROTTEN_FLESH) && fleshToConsume > 0) {
                     int toRemove = Math.min(stack.getCount(), fleshToConsume);
                     stack.decrement(toRemove);
                     fleshToConsume -= toRemove;
-                } else if (stack.isOf(Items.field_8574) && !waterBottleConsumed) {
+                } else if (stack.isOf(Items.POTION) && !waterBottleConsumed) {
                     stack.decrement(1);
                     waterBottleConsumed = true;
                 }

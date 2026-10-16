@@ -59,8 +59,8 @@ public class DapFlairClientHandler {
             CoopCameraShakeHandler.shake(payload.shake(), payload.shakeMs());
             MinecraftClient c = ctx.client();
             if (c.player != null) {
-                c.player.playSound((SoundEvent)SoundEvents.field_14725.comp_349(), 1.0F, 2.0F);
-                c.player.playSound(SoundEvents.field_14627, 0.8F, 1.4F);
+                c.player.playSound((SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), 1.0F, 2.0F);
+                c.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8F, 1.4F);
             }
 
             armedUntil = 0L;
@@ -108,7 +108,7 @@ public class DapFlairClientHandler {
 
     private static Key dapKey() {
         KeyBinding kb = ChargedDapClientHandler.getChargedDapKey();
-        return kb == null ? Type.field_1668.createFromCode(71) : KeyBindingHelper.getBoundKeyOf(kb);
+        return kb == null ? Type.KEYSYM.createFromCode(71) : KeyBindingHelper.getBoundKeyOf(kb);
     }
 
     private static boolean isDapKeyDown(MinecraftClient client) {
@@ -119,7 +119,7 @@ public class DapFlairClientHandler {
                 return false;
             } else {
                 long win = client.getWindow().getHandle();
-                return key.getCategory() == Type.field_1672 ? GLFW.glfwGetMouseButton(win, code) == 1 : InputUtil.isKeyPressed(win, code);
+                return key.getCategory() == Type.MOUSE ? GLFW.glfwGetMouseButton(win, code) == 1 : InputUtil.isKeyPressed(win, code);
             }
         } else {
             return false;

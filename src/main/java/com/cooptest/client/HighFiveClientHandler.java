@@ -39,7 +39,7 @@ public class HighFiveClientHandler {
     private static final Map<UUID, Boolean> frozenPlayers = new HashMap<>();
 
     public static void register() {
-        highFiveKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.highfive", Type.field_1668, 72, "category.coopmoves"));
+        highFiveKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.highfive", Type.KEYSYM, 72, "category.coopmoves"));
         ClientPlayNetworking.registerGlobalReceiver(HighFiveHandler.HandRaisedSyncPayload.ID, (payload, context) -> context.client().execute(() -> {
             raisedHands.put(payload.playerId(), payload.raised());
             MinecraftClient client = context.client();
@@ -253,7 +253,7 @@ public class HighFiveClientHandler {
             if (myId.equals(player1) || myId.equals(player2)) {
                 flashStartTime = now;
                 currentTier = tier;
-                client.player.swingHand(Hand.field_5808);
+                client.player.swingHand(Hand.MAIN_HAND);
 
                 String message = switch (tier) {
                     case 0 -> "§6 High Five!";

@@ -222,7 +222,7 @@ public class NormalFacingDapHandler {
                 broadcast(b, 84);
                 s.stage(NormalFacingDapHandler.Stage.HOLD_IDLE, now);
                 PactHandler.onHandshakeStart(a, b);
-                playAt(a, b, SoundEvents.field_14840, 0.7F, 0.8F);
+                playAt(a, b, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, 0.7F, 0.8F);
                 shake(a, b, 2.0F, 150L);
             } else {
                 fizzle(a, b);
@@ -246,13 +246,13 @@ public class NormalFacingDapHandler {
 
             if (now - s.lastShakeSfx >= 170L) {
                 s.lastShakeSfx = now;
-                playAt(a, b, SoundEvents.field_14914, 0.35F, 1.7F);
+                playAt(a, b, SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE, 0.35F, 1.7F);
             }
 
             if (s.tickCounter % 20 == 0) {
                 ServerWorld w = (ServerWorld)a.getWorld();
                 Vec3d m = mid(a, b);
-                w.spawnParticles(ParticleTypes.field_11205, m.x, m.y, m.z, 1, 0.03, 0.03, 0.03, 0.005);
+                w.spawnParticles(ParticleTypes.CRIT, m.x, m.y, m.z, 1, 0.03, 0.03, 0.03, 0.005);
             }
 
             if (!PactHandler.isSealing(s.a)) {
@@ -289,8 +289,8 @@ public class NormalFacingDapHandler {
                 p2.teleport((ServerWorld)p2.getWorld(), pos2.x, p2.getY(), pos2.z, yaw2, p2.getPitch());
                 applyYaw(p1, yaw1);
                 applyYaw(p2, yaw2);
-                p1.swingHand(Hand.field_5808, true);
-                p2.swingHand(Hand.field_5808, true);
+                p1.swingHand(Hand.MAIN_HAND, true);
+                p2.swingHand(Hand.MAIN_HAND, true);
                 long now = System.currentTimeMillis();
                 NormalFacingDapHandler.Session s = new NormalFacingDapHandler.Session(id1, id2, yaw1, yaw2, now);
                 sessions.put(id1, s);
@@ -319,25 +319,25 @@ public class NormalFacingDapHandler {
     private static void impact(ServerPlayerEntity a, ServerPlayerEntity b) {
         ServerWorld w = (ServerWorld)a.getWorld();
         Vec3d m = mid(a, b);
-        w.playSound(null, m.x, m.y, m.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 1.5F, 1.0F);
-        w.playSound(null, m.x, m.y, m.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.2F);
-        w.spawnParticles(ParticleTypes.field_11205, m.x, m.y, m.z, 12, 0.2, 0.2, 0.2, 0.1);
-        w.spawnParticles(ParticleTypes.field_11208, m.x, m.y, m.z, 6, 0.15, 0.15, 0.15, 0.07);
-        w.spawnParticles(ParticleTypes.field_17909, m.x, m.y, m.z, 2, 0.0, 0.0, 0.0, 0.0);
+        w.playSound(null, m.x, m.y, m.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 1.5F, 1.0F);
+        w.playSound(null, m.x, m.y, m.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.2F);
+        w.spawnParticles(ParticleTypes.CRIT, m.x, m.y, m.z, 12, 0.2, 0.2, 0.2, 0.1);
+        w.spawnParticles(ParticleTypes.ENCHANTED_HIT, m.x, m.y, m.z, 6, 0.15, 0.15, 0.15, 0.07);
+        w.spawnParticles(ParticleTypes.FLASH, m.x, m.y, m.z, 2, 0.0, 0.0, 0.0, 0.0);
     }
 
     private static void fizzle(ServerPlayerEntity a, ServerPlayerEntity b) {
         ServerWorld w = (ServerWorld)a.getWorld();
         Vec3d m = mid(a, b);
-        w.playSound(null, m.x, m.y, m.z, SoundEvents.field_15102, SoundCategory.field_15248, 0.8F, 1.4F);
-        w.playSound(null, m.x, m.y, m.z, ModSounds.DAP_MISS, SoundCategory.field_15248, 0.7F, 1.0F);
-        w.spawnParticles(ParticleTypes.field_11251, m.x, m.y, m.z, 14, 0.2, 0.2, 0.2, 0.02);
+        w.playSound(null, m.x, m.y, m.z, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.8F, 1.4F);
+        w.playSound(null, m.x, m.y, m.z, ModSounds.DAP_MISS, SoundCategory.PLAYERS, 0.7F, 1.0F);
+        w.spawnParticles(ParticleTypes.SMOKE, m.x, m.y, m.z, 14, 0.2, 0.2, 0.2, 0.02);
     }
 
     private static void playAt(ServerPlayerEntity a, ServerPlayerEntity b, SoundEvent sound, float vol, float pitch) {
         ServerWorld w = (ServerWorld)a.getWorld();
         Vec3d m = mid(a, b);
-        w.playSound(null, m.x, m.y, m.z, sound, SoundCategory.field_15248, vol, pitch);
+        w.playSound(null, m.x, m.y, m.z, sound, SoundCategory.PLAYERS, vol, pitch);
     }
 
     private static Vec3d mid(ServerPlayerEntity a, ServerPlayerEntity b) {

@@ -88,8 +88,8 @@ public class DapHoldHandler {
     private static void makeFaceEachOther(ServerPlayerEntity p1, ServerPlayerEntity p2) {
         Vec3d p1Pos = p1.getPos();
         Vec3d p2Pos = p2.getPos();
-        p1.swingHand(Hand.field_5808);
-        p2.swingHand(Hand.field_5808);
+        p1.swingHand(Hand.MAIN_HAND);
+        p2.swingHand(Hand.MAIN_HAND);
         double dx = p2Pos.x - p1Pos.x;
         double dz = p2Pos.z - p1Pos.z;
         float yawP1 = (float)(Math.atan2(dz, dx) * 180.0 / Math.PI) - 90.0F;
@@ -166,8 +166,8 @@ public class DapHoldHandler {
 
                     updateHandStand(hfPlayer, dapPlayer, hfId);
                     if (elapsed % 500L < 50L) {
-                        hfPlayer.swingHand(Hand.field_5808);
-                        dapPlayer.swingHand(Hand.field_5808);
+                        hfPlayer.swingHand(Hand.MAIN_HAND);
+                        dapPlayer.swingHand(Hand.MAIN_HAND);
                     }
 
                     if (!windowOpen.contains(hfId) && elapsed >= 330L) {
@@ -220,7 +220,7 @@ public class DapHoldHandler {
                 ArmorStandEntity stand = handStands.get(hfId);
                 if (stand != null && !stand.isRemoved()) {
                     Vec3d impactPos = stand.getPos();
-                    world.spawnParticles(ParticleTypes.field_11205, impactPos.x, impactPos.y, impactPos.z, 2, 0.1, 0.1, 0.1, 0.02);
+                    world.spawnParticles(ParticleTypes.CRIT, impactPos.x, impactPos.y, impactPos.z, 2, 0.1, 0.1, 0.1, 0.02);
                 }
 
                 Set<UUID> joiners = groupJoiners.get(hfId);
@@ -273,7 +273,7 @@ public class DapHoldHandler {
 
                         Vec3d mid = getGroupMidpoint(hfId, server);
                         int chargeParticles = joiners.size() + 1;
-                        world.spawnParticles(ParticleTypes.field_11208, mid.x, mid.y + 1.2, mid.z, chargeParticles, 0.3, 0.2, 0.3, 0.05);
+                        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, mid.x, mid.y + 1.2, mid.z, chargeParticles, 0.3, 0.2, 0.3, 0.05);
                     }
                 }
             }
@@ -444,8 +444,8 @@ public class DapHoldHandler {
                                     if (p.isAlive()) {
                                         p.addVelocity(0.0, 0.4 + memberCount * 0.1, 0.0);
                                         p.velocityModified = true;
-                                        p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, 120, Math.min(2, memberCount - 1)));
-                                        p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5913, 120, 0));
+                                        p.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 120, Math.min(2, memberCount - 1)));
+                                        p.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 120, 0));
                                         p.sendMessage(Text.literal("§6§l✨ PERFECT GROUP DAP! §e" + memberCount + " players!"), true);
                                     }
                                 }
@@ -454,7 +454,7 @@ public class DapHoldHandler {
                                     double ox = (world.random.nextDouble() - 0.5) * 3.0;
                                     double oz = (world.random.nextDouble() - 0.5) * 3.0;
                                     world.spawnParticles(
-                                        ParticleTypes.field_11248,
+                                        ParticleTypes.FIREWORK,
                                         center.x + ox,
                                         center.y + 2.0 + i * 0.5,
                                         center.z + oz,
@@ -467,10 +467,10 @@ public class DapHoldHandler {
                                 }
 
                                 world.spawnParticles(
-                                    ParticleTypes.field_11220, center.x, center.y + 1.5, center.z, memberCount * 5, 0.6, 0.6, 0.6, 0.3
+                                    ParticleTypes.TOTEM_OF_UNDYING, center.x, center.y + 1.5, center.z, memberCount * 5, 0.6, 0.6, 0.6, 0.3
                                 );
                                 world.spawnParticles(
-                                    ParticleTypes.field_11221, center.x, center.y + 1.0, center.z, memberCount, 0.4, 0.3, 0.4, 0.0
+                                    ParticleTypes.EXPLOSION_EMITTER, center.x, center.y + 1.0, center.z, memberCount, 0.4, 0.3, 0.4, 0.0
                                 );
                                 world.playSound(
                                     null,
@@ -478,12 +478,12 @@ public class DapHoldHandler {
                                     center.y,
                                     center.z,
                                     ModSounds.EPIC_DAP,
-                                    SoundCategory.field_15248,
+                                    SoundCategory.PLAYERS,
                                     1.5F,
                                     0.9F + memberCount * 0.05F
                                 );
                                 world.playSound(
-                                    null, center.x, center.y, center.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.2F, 0.8F
+                                    null, center.x, center.y, center.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.2F, 0.8F
                                 );
                             }
                         );
@@ -502,8 +502,8 @@ public class DapHoldHandler {
                 p.sendMessage(Text.literal("§c❌ Release not synced!"), true);
             }
 
-            world.spawnParticles(ParticleTypes.field_11203, center.x, center.y + 1.0, center.z, 12, 0.4, 0.3, 0.4, 0.05);
-            world.playSound(null, center.x, center.y, center.z, SoundEvents.field_14833, SoundCategory.field_15248, 0.6F, 0.8F);
+            world.spawnParticles(ParticleTypes.POOF, center.x, center.y + 1.0, center.z, 12, 0.4, 0.3, 0.4, 0.05);
+            world.playSound(null, center.x, center.y, center.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.6F, 0.8F);
         }
 
         sendToAll(server, new DapHoldHandler.GroupResultPayload(perfect, memberCount));
@@ -658,7 +658,7 @@ public class DapHoldHandler {
     private static void spawnHandStand(ServerPlayerEntity hf, ServerPlayerEntity dap) {
         ServerWorld world = hf.getServerWorld();
         Vec3d mid = hf.getPos().add(0.0, 1.4, 0.0).add(dap.getPos().add(0.0, 1.4, 0.0)).multiply(0.5);
-        ArmorStandEntity stand = new ArmorStandEntity(EntityType.field_6131, world);
+        ArmorStandEntity stand = new ArmorStandEntity(EntityType.ARMOR_STAND, world);
         stand.setPosition(mid.x, mid.y, mid.z);
         stand.setInvisible(true);
         stand.setNoGravity(true);
@@ -693,22 +693,22 @@ public class DapHoldHandler {
             z = mid.z;
         }
 
-        world.spawnParticles(ParticleTypes.field_17909, x, y, z, 3, 0.0, 0.0, 0.0, 0.0);
-        world.spawnParticles(ParticleTypes.field_11207, x, y, z, 40, 0.4, 0.4, 0.4, 0.15);
-        world.spawnParticles(ParticleTypes.field_23956, x, y, z, 80, 0.6, 0.6, 0.6, 0.08);
-        world.spawnParticles(ParticleTypes.field_11204, x, y, z, 20, 0.3, 0.3, 0.3, 0.05);
-        world.spawnParticles(ParticleTypes.field_11236, x, y, z, 5, 0.3, 0.3, 0.3, 0.0);
+        world.spawnParticles(ParticleTypes.FLASH, x, y, z, 3, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(ParticleTypes.END_ROD, x, y, z, 40, 0.4, 0.4, 0.4, 0.15);
+        world.spawnParticles(ParticleTypes.WHITE_ASH, x, y, z, 80, 0.6, 0.6, 0.6, 0.08);
+        world.spawnParticles(ParticleTypes.CLOUD, x, y, z, 20, 0.3, 0.3, 0.3, 0.05);
+        world.spawnParticles(ParticleTypes.EXPLOSION, x, y, z, 5, 0.3, 0.3, 0.3, 0.0);
         double groundY = hf.getY() + 0.1;
 
         for (double angle = 0.0; angle < 360.0; angle += 8.0) {
             double rad = Math.toRadians(angle);
 
             for (double r = 0.5; r <= 3.0; r += 0.5) {
-                world.spawnParticles(ParticleTypes.field_11207, x + Math.cos(rad) * r, groundY, z + Math.sin(rad) * r, 2, 0.05, 0.05, 0.05, 0.02);
+                world.spawnParticles(ParticleTypes.END_ROD, x + Math.cos(rad) * r, groundY, z + Math.sin(rad) * r, 2, 0.05, 0.05, 0.05, 0.02);
             }
         }
 
-        world.playSound(null, x, y, z, ModSounds.DAP_WEAK, SoundCategory.field_15248, 1.0F, 1.0F);
+        world.playSound(null, x, y, z, ModSounds.DAP_WEAK, SoundCategory.PLAYERS, 1.0F, 1.0F);
     }
 
     private static void sendFreeze(MinecraftServer server, UUID targetId, boolean freeze) {

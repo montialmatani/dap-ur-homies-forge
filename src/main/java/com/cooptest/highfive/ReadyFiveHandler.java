@@ -209,15 +209,15 @@ public class ReadyFiveHandler {
         double y = (a.getY() + b.getY()) / 2.0 + 1.5;
         double z = (a.getZ() + b.getZ()) / 2.0;
         if (air) {
-            world.playSound(null, x, y, z, SoundEvents.field_15016, SoundCategory.field_15248, 1.3F, 1.2F);
-            world.playSound(null, x, y, z, SoundEvents.field_14917, SoundCategory.field_15248, 0.7F, 1.6F);
-            world.spawnParticles(ParticleTypes.field_11207, x, y, z, 24, 0.35, 0.35, 0.35, 0.12);
-            world.spawnParticles(ParticleTypes.field_11248, x, y, z, 16, 0.25, 0.25, 0.25, 0.08);
-            world.spawnParticles(ParticleTypes.field_11204, x, y, z, 12, 0.3, 0.2, 0.3, 0.04);
+            world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.3F, 1.2F);
+            world.playSound(null, x, y, z, SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.PLAYERS, 0.7F, 1.6F);
+            world.spawnParticles(ParticleTypes.END_ROD, x, y, z, 24, 0.35, 0.35, 0.35, 0.12);
+            world.spawnParticles(ParticleTypes.FIREWORK, x, y, z, 16, 0.25, 0.25, 0.25, 0.08);
+            world.spawnParticles(ParticleTypes.CLOUD, x, y, z, 12, 0.3, 0.2, 0.3, 0.04);
         } else {
-            world.playSound(null, x, y, z, SoundEvents.field_14840, SoundCategory.field_15248, 1.2F, 1.0F);
-            world.spawnParticles(ParticleTypes.field_11205, x, y, z, 14, 0.25, 0.25, 0.25, 0.1);
-            world.spawnParticles(ParticleTypes.field_11208, x, y, z, 10, 0.2, 0.2, 0.2, 0.06);
+            world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.2F, 1.0F);
+            world.spawnParticles(ParticleTypes.CRIT, x, y, z, 14, 0.25, 0.25, 0.25, 0.1);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, x, y, z, 10, 0.2, 0.2, 0.2, 0.06);
         }
 
         ReadyFiveHandler.ReadyFiveImpactPayload payload = new ReadyFiveHandler.ReadyFiveImpactPayload(air ? 0.55F : 0.35F, 120, air);

@@ -209,9 +209,9 @@ public class HuddleHandler {
                     gain += 0.05;
                     ServerWorld w = (ServerWorld)player.getWorld();
                     Vec3d c = s.center.add(0.0, 1.2, 0.0);
-                    w.spawnParticles(ParticleTypes.field_11220, c.x, c.y, c.z, 14, 0.4, 0.4, 0.4, 0.25);
+                    w.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, c.x, c.y, c.z, 14, 0.4, 0.4, 0.4, 0.25);
                     w.playSound(
-                        null, c.x, c.y, c.z, (SoundEvent)SoundEvents.field_14725.comp_349(), SoundCategory.field_15248, 0.9F, 1.8F
+                        null, c.x, c.y, c.z, (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), SoundCategory.PLAYERS, 0.9F, 1.8F
                     );
                     MinecraftServer srv = w.getServer();
                     if (srv != null) {
@@ -344,7 +344,7 @@ public class HuddleHandler {
                                 for (UUID uid : s.players) {
                                     ServerPlayerEntity pp = server.getPlayerManager().getPlayer(uid);
                                     if (pp != null) {
-                                        pp.swingHand(Hand.field_5808, true);
+                                        pp.swingHand(Hand.MAIN_HAND, true);
                                     }
                                 }
 
@@ -356,7 +356,7 @@ public class HuddleHandler {
                                             for (UUID uidx : allNow) {
                                                 ServerPlayerEntity pp = server.getPlayerManager().getPlayer(uidx);
                                                 if (pp != null) {
-                                                    pp.swingHand(Hand.field_5808, true);
+                                                    pp.swingHand(Hand.MAIN_HAND, true);
                                                 }
                                             }
                                         });
@@ -369,7 +369,7 @@ public class HuddleHandler {
                                             for (UUID uid : allNow) {
                                                 ServerPlayerEntity pp = server.getPlayerManager().getPlayer(uid);
                                                 if (pp != null) {
-                                                    pp.swingHand(Hand.field_5808, true);
+                                                    pp.swingHand(Hand.MAIN_HAND, true);
                                                 }
                                             }
                                         });
@@ -388,7 +388,7 @@ public class HuddleHandler {
                                                                 .add(pj.getRotationVec(1.0F).multiply(0.4));
                                                             ((ServerWorld)pj.getWorld())
                                                                 .spawnParticles(
-                                                                    ParticleTypes.field_11205,
+                                                                    ParticleTypes.CRIT,
                                                                     arm.x,
                                                                     arm.y,
                                                                     arm.z,
@@ -400,7 +400,7 @@ public class HuddleHandler {
                                                                 );
                                                             ((ServerWorld)pj.getWorld())
                                                                 .spawnParticles(
-                                                                    ParticleTypes.field_11208,
+                                                                    ParticleTypes.ENCHANTED_HIT,
                                                                     arm.x,
                                                                     arm.y,
                                                                     arm.z,
@@ -416,8 +416,8 @@ public class HuddleHandler {
                                                                     arm.x,
                                                                     arm.y,
                                                                     arm.z,
-                                                                    (SoundEvent)SoundEvents.field_14793.comp_349(),
-                                                                    SoundCategory.field_15248,
+                                                                    (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                                                                    SoundCategory.PLAYERS,
                                                                     0.8F,
                                                                     2.0F
                                                                 );
@@ -434,8 +434,8 @@ public class HuddleHandler {
                                         s.center.x,
                                         s.center.y,
                                         s.center.z,
-                                        (SoundEvent)SoundEvents.field_14793.comp_349(),
-                                        SoundCategory.field_15248,
+                                        (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                                        SoundCategory.PLAYERS,
                                         1.0F,
                                         1.7F
                                     );
@@ -505,7 +505,7 @@ public class HuddleHandler {
             ServerPlayerEntity p = server.getPlayerManager().getPlayer(uid);
             if (p != null) {
                 PoseNetworking.broadcastAnimState(p, 70);
-                p.swingHand(Hand.field_5808, true);
+                p.swingHand(Hand.MAIN_HAND, true);
             }
         }
 
@@ -517,7 +517,7 @@ public class HuddleHandler {
                     for (UUID uidx : foundersSnap) {
                         ServerPlayerEntity p = pa.getServer().getPlayerManager().getPlayer(uidx);
                         if (p != null) {
-                            p.swingHand(Hand.field_5808, true);
+                            p.swingHand(Hand.MAIN_HAND, true);
                         }
                     }
                 });
@@ -530,7 +530,7 @@ public class HuddleHandler {
                     for (UUID uid : foundersSnap) {
                         ServerPlayerEntity p = pa.getServer().getPlayerManager().getPlayer(uid);
                         if (p != null) {
-                            p.swingHand(Hand.field_5808, true);
+                            p.swingHand(Hand.MAIN_HAND, true);
                         }
                     }
                 });
@@ -541,12 +541,12 @@ public class HuddleHandler {
             s.center.x,
             s.center.y,
             s.center.z,
-            (SoundEvent)SoundEvents.field_14793.comp_349(),
-            SoundCategory.field_15248,
+            (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+            SoundCategory.PLAYERS,
             1.0F,
             1.5F
         );
-        world.spawnParticles(ParticleTypes.field_11208, s.center.x, s.center.y + 1.0, s.center.z, 12, 0.4, 0.4, 0.4, 0.06);
+        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, s.center.x, s.center.y + 1.0, s.center.z, 12, 0.4, 0.4, 0.4, 0.06);
     }
 
     private static void smoothRepositionAll(HuddleHandler.HuddleSession s, MinecraftServer server) {
@@ -692,7 +692,7 @@ public class HuddleHandler {
                                 double a = s.auraAngle + (Math.PI / 2) * i;
                                 double px = center.x + r * Math.cos(a);
                                 double pz = center.z + r * Math.sin(a);
-                                ((ServerWorld)p1.getWorld()).spawnParticles(ParticleTypes.field_11207, px, center.y + 0.05, pz, 1, 0.0, 0.0, 0.0, 0.01);
+                                ((ServerWorld)p1.getWorld()).spawnParticles(ParticleTypes.END_ROD, px, center.y + 0.05, pz, 1, 0.0, 0.0, 0.0, 0.01);
                             }
 
                             double r2 = 0.7;
@@ -701,7 +701,7 @@ public class HuddleHandler {
                                 double a = -s.auraAngle * 1.5 + (Math.PI * 2.0 / 3.0) * i;
                                 double px = center.x + r2 * Math.cos(a);
                                 double pz = center.z + r2 * Math.sin(a);
-                                ((ServerWorld)p1.getWorld()).spawnParticles(ParticleTypes.field_11208, px, center.y + 0.3, pz, 1, 0.0, 0.0, 0.0, 0.005);
+                                ((ServerWorld)p1.getWorld()).spawnParticles(ParticleTypes.ENCHANTED_HIT, px, center.y + 0.3, pz, 1, 0.0, 0.0, 0.0, 0.005);
                             }
                         }
 
@@ -710,10 +710,10 @@ public class HuddleHandler {
                                 ? s.center.add(0.0, 1.0, 0.0)
                                 : p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 1.0, 0.0);
                             ServerWorld w0 = (ServerWorld)p1.getWorld();
-                            w0.playSound(null, midx.x, midx.y, midx.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.3F);
-                            w0.playSound(null, midx.x, midx.y, midx.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 0.9F, 1.4F);
-                            w0.spawnParticles(ParticleTypes.field_11205, midx.x, midx.y, midx.z, 12, 0.25, 0.25, 0.25, 0.1);
-                            w0.spawnParticles(ParticleTypes.field_11208, midx.x, midx.y, midx.z, 6, 0.2, 0.2, 0.2, 0.06);
+                            w0.playSound(null, midx.x, midx.y, midx.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.3F);
+                            w0.playSound(null, midx.x, midx.y, midx.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 0.9F, 1.4F);
+                            w0.spawnParticles(ParticleTypes.CRIT, midx.x, midx.y, midx.z, 12, 0.25, 0.25, 0.25, 0.1);
+                            w0.spawnParticles(ParticleTypes.ENCHANTED_HIT, midx.x, midx.y, midx.z, 6, 0.2, 0.2, 0.2, 0.06);
 
                             for (UUID uid : s.players) {
                                 ServerPlayerEntity lpx = server.getPlayerManager().getPlayer(uid);
@@ -754,17 +754,17 @@ public class HuddleHandler {
                             ServerWorld sw = (ServerWorld)p1.getWorld();
                             switch (wantStage) {
                                 case 2:
-                                    sw.spawnParticles(ParticleTypes.field_11208, sc.x, sc.y, sc.z, 26, 0.5, 0.4, 0.5, 0.22);
-                                    sw.spawnParticles(ParticleTypes.field_29643, sc.x, sc.y, sc.z, 18, 0.4, 0.4, 0.4, 0.16);
+                                    sw.spawnParticles(ParticleTypes.ENCHANTED_HIT, sc.x, sc.y, sc.z, 26, 0.5, 0.4, 0.5, 0.22);
+                                    sw.spawnParticles(ParticleTypes.WAX_OFF, sc.x, sc.y, sc.z, 18, 0.4, 0.4, 0.4, 0.16);
                                     break;
                                 case 3:
-                                    sw.spawnParticles(ParticleTypes.field_22246, sc.x, sc.y, sc.z, 30, 0.5, 0.5, 0.5, 0.2);
-                                    sw.spawnParticles(ParticleTypes.field_28479, sc.x, sc.y, sc.z, 26, 0.45, 0.45, 0.45, 0.18);
-                                    sw.spawnParticles(ParticleTypes.field_11207, sc.x, sc.y, sc.z, 20, 0.3, 0.6, 0.3, 0.26);
+                                    sw.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, sc.x, sc.y, sc.z, 30, 0.5, 0.5, 0.5, 0.2);
+                                    sw.spawnParticles(ParticleTypes.GLOW, sc.x, sc.y, sc.z, 26, 0.45, 0.45, 0.45, 0.18);
+                                    sw.spawnParticles(ParticleTypes.END_ROD, sc.x, sc.y, sc.z, 20, 0.3, 0.6, 0.3, 0.26);
                                     break;
                                 default:
-                                    sw.spawnParticles(ParticleTypes.field_11205, sc.x, sc.y, sc.z, 20, 0.4, 0.35, 0.4, 0.18);
-                                    sw.spawnParticles(ParticleTypes.field_29644, sc.x, sc.y, sc.z, 16, 0.35, 0.35, 0.35, 0.15);
+                                    sw.spawnParticles(ParticleTypes.CRIT, sc.x, sc.y, sc.z, 20, 0.4, 0.35, 0.4, 0.18);
+                                    sw.spawnParticles(ParticleTypes.ELECTRIC_SPARK, sc.x, sc.y, sc.z, 16, 0.35, 0.35, 0.35, 0.15);
                             }
 
                             for (ServerPlayerEntity lp : live) {
@@ -778,8 +778,8 @@ public class HuddleHandler {
                                     c.x,
                                     c.y,
                                     c.z,
-                                    (SoundEvent)SoundEvents.field_14793.comp_349(),
-                                    SoundCategory.field_15248,
+                                    (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                                    SoundCategory.PLAYERS,
                                     1.0F,
                                     0.9F + wantStage * 0.25F
                                 );
@@ -801,9 +801,9 @@ public class HuddleHandler {
                         Vec3d mid = s.center.add(0.0, 1.0, 0.0);
                         ServerWorld w = (ServerWorld)p1.getWorld();
                         int swirl = (int)Math.round(2.0 + s.bar * 10.0);
-                        w.spawnParticles(ParticleTypes.field_29644, mid.x, mid.y, mid.z, swirl, 0.35, 0.35, 0.35, 0.1 + s.bar * 0.25);
+                        w.spawnParticles(ParticleTypes.ELECTRIC_SPARK, mid.x, mid.y, mid.z, swirl, 0.35, 0.35, 0.35, 0.1 + s.bar * 0.25);
                         if (s.bar > 0.5) {
-                            w.spawnParticles(ParticleTypes.field_11207, mid.x, mid.y, mid.z, (int)(s.bar * 8.0), 0.25, 0.45, 0.25, 0.18);
+                            w.spawnParticles(ParticleTypes.END_ROD, mid.x, mid.y, mid.z, (int)(s.bar * 8.0), 0.25, 0.45, 0.25, 0.18);
                         }
 
                         if (s.bar >= 1.0) {
@@ -819,8 +819,8 @@ public class HuddleHandler {
 
                             for (ServerPlayerEntity lpx : live) {
                                 int tier = Math.min(8, live.size());
-                                lpx.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, 400, Math.min(2, tier / 3), false, true));
-                                lpx.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5910, 400, Math.min(2, tier / 4), false, true));
+                                lpx.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 400, Math.min(2, tier / 3), false, true));
+                                lpx.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, Math.min(2, tier / 4), false, true));
                             }
 
                             successHuddle(s, server, live, now);
@@ -862,12 +862,12 @@ public class HuddleHandler {
         int tier = Math.min(8, Math.max(2, playerCount));
         double m = tier / 2.0;
         Vec3d hands = center.add(0.0, 1.1, 0.0);
-        w.spawnParticles(ParticleTypes.field_11248, hands.x, hands.y, hands.z, (int)(30.0 * m), 0.5, 0.5, 0.5, 0.3 * m);
-        w.spawnParticles(ParticleTypes.field_11220, hands.x, hands.y, hands.z, (int)(24.0 * m), 0.5, 0.5, 0.5, 0.28 * m);
-        w.spawnParticles(ParticleTypes.field_11207, hands.x, hands.y, hands.z, (int)(20.0 * m), 0.4, 0.4, 0.4, 0.35 * m);
-        w.spawnParticles(ParticleTypes.field_11236, hands.x, hands.y, hands.z, (int)(2.0 * m), 0.5, 0.5, 0.5, 0.0);
-        w.playSound(null, center.x, center.y, center.z, SoundEvents.field_15188, SoundCategory.field_15248, 1.4F, 1.3F - tier * 0.04F);
-        w.playSound(null, center.x, center.y, center.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.field_15248, 1.0F, 1.0F);
+        w.spawnParticles(ParticleTypes.FIREWORK, hands.x, hands.y, hands.z, (int)(30.0 * m), 0.5, 0.5, 0.5, 0.3 * m);
+        w.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, hands.x, hands.y, hands.z, (int)(24.0 * m), 0.5, 0.5, 0.5, 0.28 * m);
+        w.spawnParticles(ParticleTypes.END_ROD, hands.x, hands.y, hands.z, (int)(20.0 * m), 0.4, 0.4, 0.4, 0.35 * m);
+        w.spawnParticles(ParticleTypes.EXPLOSION, hands.x, hands.y, hands.z, (int)(2.0 * m), 0.5, 0.5, 0.5, 0.0);
+        w.playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.4F, 1.3F - tier * 0.04F);
+        w.playSound(null, center.x, center.y, center.z, ModSounds.TRUE_FRIENDSHIP, SoundCategory.PLAYERS, 1.0F, 1.0F);
         MinecraftServer srv = w.getServer();
         if (srv != null) {
             int height = (int)(6.0 * m);
@@ -876,14 +876,14 @@ public class HuddleHandler {
                     double y = hands.y + step * 0.55;
                     boolean top = step == height;
                     srv.execute(() -> {
-                        w.spawnParticles(ParticleTypes.field_11207, hands.x, y, hands.z, (int)(6.0 * m), 0.14, 0.06, 0.14, 0.05);
-                        w.spawnParticles(ParticleTypes.field_11248, hands.x, y, hands.z, (int)(4.0 * m), 0.1, 0.05, 0.1, 0.04);
+                        w.spawnParticles(ParticleTypes.END_ROD, hands.x, y, hands.z, (int)(6.0 * m), 0.14, 0.06, 0.14, 0.05);
+                        w.spawnParticles(ParticleTypes.FIREWORK, hands.x, y, hands.z, (int)(4.0 * m), 0.1, 0.05, 0.1, 0.04);
                         if (top) {
-                            w.spawnParticles(ParticleTypes.field_11221, hands.x, y, hands.z, (int)Math.max(1.0, m), 0.6, 0.3, 0.6, 0.0);
-                            w.spawnParticles(ParticleTypes.field_11248, hands.x, y, hands.z, (int)(50.0 * m), 1.4, 1.0, 1.4, 0.55);
-                            w.spawnParticles(ParticleTypes.field_11220, hands.x, y, hands.z, (int)(36.0 * m), 1.2, 0.9, 1.2, 0.45);
-                            w.playSound(null, hands.x, y, hands.z, SoundEvents.field_14800, SoundCategory.field_15248, 1.6F, 1.0F);
-                            w.playSound(null, hands.x, y, hands.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.3F, 1.1F);
+                            w.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, hands.x, y, hands.z, (int)Math.max(1.0, m), 0.6, 0.3, 0.6, 0.0);
+                            w.spawnParticles(ParticleTypes.FIREWORK, hands.x, y, hands.z, (int)(50.0 * m), 1.4, 1.0, 1.4, 0.55);
+                            w.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, hands.x, y, hands.z, (int)(36.0 * m), 1.2, 0.9, 1.2, 0.45);
+                            w.playSound(null, hands.x, y, hands.z, SoundEvents.ENTITY_FIREWORK_ROCKET_TWINKLE, SoundCategory.PLAYERS, 1.6F, 1.0F);
+                            w.playSound(null, hands.x, y, hands.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.3F, 1.1F);
                         }
                     });
 
@@ -926,10 +926,10 @@ public class HuddleHandler {
         }
 
         for (ServerPlayerEntity lp : live) {
-            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 200, 2));
-            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5904, 400, 2));
-            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5910, 400, 1));
-            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 200, 0));
+            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 2));
+            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 400, 2));
+            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 1));
+            lp.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 200, 0));
             lp.experienceLevel += 2;
             lp.sendMessage(Text.literal("§d§l✦ HUDDLE! ✦ §7+Regen III, Speed III, Strength II, Resistance I"), true);
         }
@@ -938,9 +938,9 @@ public class HuddleHandler {
         ServerPlayerEntity p2 = live.get(1);
         Vec3d center = s.center != null ? s.center : p1.getPos().add(p2.getPos()).multiply(0.5);
         ServerWorld flashWorld = (ServerWorld)p1.getWorld();
-        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.field_15057, SoundCategory.field_15248, 2.0F, 0.6F);
-        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.field_14709, SoundCategory.field_15248, 2.0F, 0.8F);
-        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.field_15195, SoundCategory.field_15248, 1.5F, 1.0F);
+        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 2.0F, 0.6F);
+        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 2.0F, 0.8F);
+        flashWorld.playSound(null, center.x, center.y, center.z, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS, 1.5F, 1.0F);
         final List<ServerPlayerEntity> liveFinal = new ArrayList<>(live);
         new Timer()
             .schedule(
@@ -958,17 +958,17 @@ public class HuddleHandler {
 
                                     Vec3d mid = sum.multiply(1.0 / liveFinal.size()).add(0.0, 1.0, 0.0);
                                     ServerWorld world = (ServerWorld)liveFinal.get(0).getWorld();
-                                    world.spawnParticles(ParticleTypes.field_11211, mid.x, mid.y, mid.z, 80, 0.8, 0.8, 0.8, 0.5);
-                                    world.spawnParticles(ParticleTypes.field_17741, mid.x, mid.y, mid.z, 60, 0.6, 0.6, 0.6, 0.4);
-                                    world.spawnParticles(ParticleTypes.field_11220, mid.x, mid.y, mid.z, 40, 0.6, 0.6, 0.6, 0.3);
-                                    world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y, mid.z, 3, 0.1, 0.1, 0.1, 0.0);
-                                    world.spawnParticles(ParticleTypes.field_11248, mid.x, mid.y, mid.z, 40, 0.5, 0.6, 0.5, 0.25);
-                                    world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y - 0.5, mid.z, 20, 1.0, 0.0, 1.0, 0.05);
-                                    world.spawnParticles(ParticleTypes.field_11201, mid.x, mid.y, mid.z, 15, 0.6, 0.4, 0.6, 0.1);
+                                    world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, mid.x, mid.y, mid.z, 80, 0.8, 0.8, 0.8, 0.5);
+                                    world.spawnParticles(ParticleTypes.COMPOSTER, mid.x, mid.y, mid.z, 60, 0.6, 0.6, 0.6, 0.4);
+                                    world.spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, mid.x, mid.y, mid.z, 40, 0.6, 0.6, 0.6, 0.3);
+                                    world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y, mid.z, 3, 0.1, 0.1, 0.1, 0.0);
+                                    world.spawnParticles(ParticleTypes.FIREWORK, mid.x, mid.y, mid.z, 40, 0.5, 0.6, 0.5, 0.25);
+                                    world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y - 0.5, mid.z, 20, 1.0, 0.0, 1.0, 0.05);
+                                    world.spawnParticles(ParticleTypes.HEART, mid.x, mid.y, mid.z, 15, 0.6, 0.4, 0.6, 0.1);
 
                                     for (double a = 0.0; a < Math.PI * 2; a += 0.4) {
                                         world.spawnParticles(
-                                            ParticleTypes.field_11211,
+                                            ParticleTypes.HAPPY_VILLAGER,
                                             mid.x + Math.cos(a) * 1.5,
                                             mid.y - 0.9,
                                             mid.z + Math.sin(a) * 1.5,
@@ -981,22 +981,22 @@ public class HuddleHandler {
                                     }
 
                                     world.playSound(
-                                        null, mid.x, mid.y, mid.z, SoundEvents.field_14709, SoundCategory.field_15248, 2.0F, 1.2F
+                                        null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 2.0F, 1.2F
                                     );
                                     world.playSound(
-                                        null, mid.x, mid.y, mid.z, SoundEvents.field_15195, SoundCategory.field_15248, 1.5F, 1.2F
+                                        null, mid.x, mid.y, mid.z, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS, 1.5F, 1.2F
                                     );
                                     world.playSound(
                                         null,
                                         mid.x,
                                         mid.y,
                                         mid.z,
-                                        (SoundEvent)SoundEvents.field_14793.comp_349(),
-                                        SoundCategory.field_15248,
+                                        (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                                        SoundCategory.PLAYERS,
                                         1.5F,
                                         2.0F
                                     );
-                                    ItemStack fw = new ItemStack(Items.field_8639);
+                                    ItemStack fw = new ItemStack(Items.FIREWORK_ROCKET);
 
                                     for (int ri = 0; ri < 5; ri++) {
                                         double ox = (HuddleHandler.RANDOM.nextDouble() - 0.5) * 1.2;
@@ -1039,7 +1039,7 @@ public class HuddleHandler {
                                                                 float fade = 1.0F - pp * 0.25F;
                                                                 int cnt = (int)(20.0F * fade);
                                                                 world.spawnParticles(
-                                                                    ParticleTypes.field_11211,
+                                                                    ParticleTypes.HAPPY_VILLAGER,
                                                                     mid.x,
                                                                     mid.y,
                                                                     mid.z,
@@ -1050,7 +1050,7 @@ public class HuddleHandler {
                                                                     0.15
                                                                 );
                                                                 world.spawnParticles(
-                                                                    ParticleTypes.field_17741,
+                                                                    ParticleTypes.COMPOSTER,
                                                                     mid.x,
                                                                     mid.y,
                                                                     mid.z,
@@ -1097,8 +1097,8 @@ public class HuddleHandler {
             for (ServerPlayerEntity lp : live) {
                 ServerPlayNetworking.send(lp, new DapFusionHandler.FusionQTEPayload(lp.getUuid(), "G", 0, 0L, 0L, false, 0));
                 PoseNetworking.broadcastAnimState(lp, 0);
-                lp.removeStatusEffect(StatusEffects.field_5904);
-                lp.removeStatusEffect(StatusEffects.field_5910);
+                lp.removeStatusEffect(StatusEffects.SPEED);
+                lp.removeStatusEffect(StatusEffects.STRENGTH);
                 lp.sendMessage(Text.literal("§c✗ Huddle failed!"), true);
                 ServerPlayNetworking.send(lp, new HuddleHandler.HuddleEndPayload(s.p1, s.p2, false));
             }
@@ -1113,9 +1113,9 @@ public class HuddleHandler {
                 }
 
                 ((ServerWorld)live.get(0).getWorld())
-                    .spawnParticles(ParticleTypes.field_11231, center.x, center.y + 1.0, center.z, 8, 0.3, 0.3, 0.3, 0.05);
+                    .spawnParticles(ParticleTypes.ANGRY_VILLAGER, center.x, center.y + 1.0, center.z, 8, 0.3, 0.3, 0.3, 0.05);
                 ((ServerWorld)live.get(0).getWorld())
-                    .playSound(null, center.x, center.y, center.z, SoundEvents.field_14986, SoundCategory.field_15248, 0.7F, 1.5F);
+                    .playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_ZOMBIE_INFECT, SoundCategory.PLAYERS, 0.7F, 1.5F);
             }
 
             cleanupSession(s, server);

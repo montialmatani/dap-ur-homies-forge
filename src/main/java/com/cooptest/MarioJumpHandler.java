@@ -134,7 +134,7 @@ public class MarioJumpHandler {
         System.out.println("[MARIO JUMP] Animations broadcast complete IT WORKING FINALLY!");
         marioAnimEnd.put(jumper.getUuid(), now + 500L);
         popAnimEnd.put(target.getUuid(), now + 417L);
-        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.MARIO_JUMP, SoundCategory.field_15248, 1.0F, 1.0F);
+        world.playSound(null, pos.x, pos.y, pos.z, ModSounds.MARIO_JUMP, SoundCategory.PLAYERS, 1.0F, 1.0F);
         jumper.sendMessage(Text.literal("§a WAHOO!"), true);
         target.sendMessage(Text.literal("§c BONK!"), true);
     }

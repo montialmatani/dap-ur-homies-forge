@@ -54,7 +54,7 @@ public class DivineFlamCombo {
         ServerPlayNetworking.send(p1, new DivineFlamCombo.DivineStartPayload());
         ServerPlayNetworking.send(p2, new DivineFlamCombo.DivineStartPayload());
         ServerWorld world = p1.getServerWorld();
-        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, ModSounds.EPIC_DAP, SoundCategory.field_15248, 1.5F, 1.1F);
+        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 1.5F, 1.1F);
     }
 
     private static void onPlayerPressJ(ServerPlayerEntity player) {
@@ -93,11 +93,11 @@ public class DivineFlamCombo {
         PoseNetworking.broadcastAnimState(p2, 38);
         ServerWorld world = p1.getServerWorld();
         Vec3d midpoint = p1.getPos().add(p2.getPos()).multiply(0.5);
-        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, SoundEvents.field_14970, SoundCategory.field_15248, 10.0F, 0.2F);
-        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, SoundEvents.field_15231, SoundCategory.field_15248, 5.0F, 0.5F);
-        world.spawnParticles(ParticleTypes.field_11240, midpoint.x, midpoint.y + 1.0, midpoint.z, 100, 1.0, 1.0, 1.0, 0.2);
-        world.spawnParticles(ParticleTypes.field_22246, midpoint.x, midpoint.y + 1.0, midpoint.z, 50, 0.8, 0.8, 0.8, 0.15);
-        world.spawnParticles(ParticleTypes.field_11239, midpoint.x, midpoint.y + 1.0, midpoint.z, 30, 0.5, 0.5, 0.5, 0.1);
+        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 10.0F, 0.2F);
+        world.playSound(null, midpoint.x, midpoint.y, midpoint.z, SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.PLAYERS, 5.0F, 0.5F);
+        world.spawnParticles(ParticleTypes.FLAME, midpoint.x, midpoint.y + 1.0, midpoint.z, 100, 1.0, 1.0, 1.0, 0.2);
+        world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, midpoint.x, midpoint.y + 1.0, midpoint.z, 50, 0.8, 0.8, 0.8, 0.15);
+        world.spawnParticles(ParticleTypes.LAVA, midpoint.x, midpoint.y + 1.0, midpoint.z, 30, 0.5, 0.5, 0.5, 0.1);
     }
 
     public static void tick(ServerWorld world) {

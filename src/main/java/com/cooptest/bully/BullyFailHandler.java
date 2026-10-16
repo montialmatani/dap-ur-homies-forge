@@ -57,7 +57,7 @@ public class BullyFailHandler {
                     player.damage(world.getDamageSources().fall(), extra);
                 }
 
-                ArmorStandEntity stand = new ArmorStandEntity(EntityType.field_6131, world);
+                ArmorStandEntity stand = new ArmorStandEntity(EntityType.ARMOR_STAND, world);
                 stand.setPosition(pos.x, pos.y + -0.5, pos.z);
                 stand.setInvisible(true);
                 stand.setNoGravity(true);

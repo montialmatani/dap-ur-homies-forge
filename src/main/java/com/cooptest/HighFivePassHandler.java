@@ -135,11 +135,11 @@ public class HighFivePassHandler {
     private static void spawnImpactEffects(ServerPlayerEntity p1, ServerPlayerEntity p2) {
         ServerWorld world = p1.getServerWorld();
         Vec3d pos = p1.getPos().add(p2.getPos()).multiply(0.5).add(0.0, 1.4, 0.0);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 1.1F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14627, SoundCategory.field_15248, 0.8F, 1.8F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 1.1F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.8F, 1.8F);
         spawnStarBurst(world, pos, 10, 0.3);
-        world.spawnParticles(ParticleTypes.field_11248, pos.x, pos.y, pos.z, 8, 0.1, 0.1, 0.1, 0.08);
-        world.spawnParticles(ParticleTypes.field_29642, pos.x, pos.y, pos.z, 6, 0.2, 0.2, 0.2, 0.02);
+        world.spawnParticles(ParticleTypes.FIREWORK, pos.x, pos.y, pos.z, 8, 0.1, 0.1, 0.1, 0.08);
+        world.spawnParticles(ParticleTypes.WAX_ON, pos.x, pos.y, pos.z, 6, 0.2, 0.2, 0.2, 0.02);
     }
 
     private static void spawnStarBurst(ServerWorld world, Vec3d pos, int rays, double spread) {
@@ -147,7 +147,7 @@ public class HighFivePassHandler {
             double angle = (Math.PI * 2) * i / rays;
             double dx = Math.cos(angle) * spread;
             double dz = Math.sin(angle) * spread;
-            world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 2, dx, 0.2, dz, 0.15);
+            world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 2, dx, 0.2, dz, 0.15);
         }
     }
 
@@ -160,7 +160,7 @@ public class HighFivePassHandler {
     }
 
     private static void applySlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(PASS_SLOW_ID);
             attr.addTemporaryModifier(new EntityAttributeModifier(PASS_SLOW_ID, -0.25, Operation.MULTIPLY_TOTAL));
@@ -168,7 +168,7 @@ public class HighFivePassHandler {
     }
 
     private static void removeSlow(ServerPlayerEntity player) {
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.field_23719);
+        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(PASS_SLOW_ID);
         }

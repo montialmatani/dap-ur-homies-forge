@@ -50,7 +50,7 @@ public class HeavenCrater {
         int x = MathHelper.floor(handPos.x);
         int z = MathHelper.floor(handPos.z);
         int feetY = MathHelper.floor(handPos.y - 1.4);
-        int surfaceY = world.getTopY(Type.field_13203, x, z);
+        int surfaceY = world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, x, z);
         int groundY = Math.min(feetY, surfaceY);
         HeavenCrater.Settings cfg = new HeavenCrater.Settings(CoopMovesConfig.get(), carve);
         jobs.add(new HeavenCrater.Job(world, x, groundY, z, cfg, p1, p2));
@@ -59,11 +59,11 @@ public class HeavenCrater {
     }
 
     public static void returnBlast(ServerWorld world, Vec3d pos) {
-        forceParticles(world, ParticleTypes.field_11221, pos.x, pos.y + 1.0, pos.z, 25, 8.0, 3.0, 8.0, 0.0);
-        forceParticles(world, ParticleTypes.field_17909, pos.x, pos.y + 1.0, pos.z, 5, 0.0, 0.0, 0.0, 0.0);
-        forceParticles(world, ParticleTypes.field_11204, pos.x, pos.y + 0.5, pos.z, 400, 14.0, 0.5, 14.0, 0.6);
+        forceParticles(world, ParticleTypes.EXPLOSION_EMITTER, pos.x, pos.y + 1.0, pos.z, 25, 8.0, 3.0, 8.0, 0.0);
+        forceParticles(world, ParticleTypes.FLASH, pos.x, pos.y + 1.0, pos.z, 5, 0.0, 0.0, 0.0, 0.0);
+        forceParticles(world, ParticleTypes.CLOUD, pos.x, pos.y + 0.5, pos.z, 400, 14.0, 0.5, 14.0, 0.6);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15245, 24.0F, 0.5F
+            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 24.0F, 0.5F
         );
     }
 
@@ -112,15 +112,15 @@ public class HeavenCrater {
                 int x = job.cx + dx;
                 int z = job.cz + dz;
                 if (world.isChunkLoaded(x >> 4, z >> 4)) {
-                    int topY = world.getTopY(Type.field_13202, x, z) - 1;
+                    int topY = world.getTopY(Type.WORLD_SURFACE, x, z) - 1;
                     if (d2 <= leafR2) {
-                        int leafFrom = world.getTopY(Type.field_13203, x, z);
+                        int leafFrom = world.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, x, z);
 
                         for (int y = leafFrom; y <= topY; y++) {
                             m.set(x, y, z);
                             BlockState state = world.getBlockState(m);
-                            if (state.isIn(BlockTags.field_15503)) {
-                                world.setBlockState(m, Blocks.field_10124.getDefaultState(), 50);
+                            if (state.isIn(BlockTags.LEAVES)) {
+                                world.setBlockState(m, Blocks.AIR.getDefaultState(), 50);
                                 blocks++;
                             }
                         }
@@ -137,7 +137,7 @@ public class HeavenCrater {
                             m.set(x, yx, z);
                             BlockState state = world.getBlockState(m);
                             if (!state.isAir() && !(state.getHardness(world, m) < 0.0F)) {
-                                world.setBlockState(m, Blocks.field_10124.getDefaultState(), 50);
+                                world.setBlockState(m, Blocks.AIR.getDefaultState(), 50);
                                 blocks++;
                             }
                         }
@@ -223,7 +223,7 @@ public class HeavenCrater {
                         e.setVelocity(nx * k, c.pushUp * (0.6 + 0.4 * f), nz * k);
                         e.velocityModified = true;
                         if (c.protect && e instanceof ServerPlayerEntity sp) {
-                            sp.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 160, 255, false, false));
+                            sp.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 160, 255, false, false));
                         }
                     }
                 }
@@ -236,14 +236,14 @@ public class HeavenCrater {
         double x = job.cx + 0.5;
         double y = job.cy + 1;
         double z = job.cz + 0.5;
-        forceParticles(w, ParticleTypes.field_17909, x, y, z, 8, 0.0, 0.0, 0.0, 0.0);
-        forceParticles(w, ParticleTypes.field_11221, x, y + 6.0, z, 70, 14.0, 10.0, 14.0, 0.0);
-        forceParticles(w, ParticleTypes.field_17431, x, y + 15.0, z, 250, 5.0, 20.0, 5.0, 0.12);
-        forceParticles(w, ParticleTypes.field_11221, x, y + 45.0, z, 30, 18.0, 4.0, 18.0, 0.0);
-        forceParticles(w, ParticleTypes.field_11239, x, y, z, 150, 10.0, 4.0, 10.0, 0.0);
-        w.playSound(null, x, y, z, (SoundEvent)SoundEvents.field_15152.comp_349(), SoundCategory.field_15245, 48.0F, 0.35F);
-        w.playSound(null, x, y, z, SoundEvents.field_14865, SoundCategory.field_15252, 48.0F, 0.45F);
-        w.playSound(null, x, y, z, SoundEvents.field_38830, SoundCategory.field_15245, 32.0F, 0.5F);
+        forceParticles(w, ParticleTypes.FLASH, x, y, z, 8, 0.0, 0.0, 0.0, 0.0);
+        forceParticles(w, ParticleTypes.EXPLOSION_EMITTER, x, y + 6.0, z, 70, 14.0, 10.0, 14.0, 0.0);
+        forceParticles(w, ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, x, y + 15.0, z, 250, 5.0, 20.0, 5.0, 0.12);
+        forceParticles(w, ParticleTypes.EXPLOSION_EMITTER, x, y + 45.0, z, 30, 18.0, 4.0, 18.0, 0.0);
+        forceParticles(w, ParticleTypes.LAVA, x, y, z, 150, 10.0, 4.0, 10.0, 0.0);
+        w.playSound(null, x, y, z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 48.0F, 0.35F);
+        w.playSound(null, x, y, z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 48.0F, 0.45F);
+        w.playSound(null, x, y, z, SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.BLOCKS, 32.0F, 0.5F);
     }
 
     private static void frontFx(HeavenCrater.Job job, double r) {
@@ -255,10 +255,10 @@ public class HeavenCrater {
             double px = job.cx + 0.5 + Math.cos(a) * r;
             double pz = job.cz + 0.5 + Math.sin(a) * r;
             int gy = w.isChunkLoaded(MathHelper.floor(px) >> 4, MathHelper.floor(pz) >> 4)
-                ? w.getTopY(Type.field_13203, MathHelper.floor(px), MathHelper.floor(pz))
+                ? w.getTopY(Type.MOTION_BLOCKING_NO_LEAVES, MathHelper.floor(px), MathHelper.floor(pz))
                 : job.cy;
-            forceParticles(w, ParticleTypes.field_11221, px, gy + 1, pz, 1, 1.5, 1.0, 1.5, 0.0);
-            forceParticles(w, ParticleTypes.field_11237, px, gy + 2, pz, 8, 3.0, 2.0, 3.0, 0.06);
+            forceParticles(w, ParticleTypes.EXPLOSION_EMITTER, px, gy + 1, pz, 1, 1.5, 1.0, 1.5, 0.0);
+            forceParticles(w, ParticleTypes.LARGE_SMOKE, px, gy + 2, pz, 8, 3.0, 2.0, 3.0, 0.06);
         }
 
         if (job.ticks % 6 == 0) {
@@ -267,8 +267,8 @@ public class HeavenCrater {
                 job.cx + 0.5,
                 job.cy,
                 job.cz + 0.5,
-                (SoundEvent)SoundEvents.field_15152.comp_349(),
-                SoundCategory.field_15245,
+                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                SoundCategory.BLOCKS,
                 24.0F,
                 0.45F + w.random.nextFloat() * 0.3F
             );

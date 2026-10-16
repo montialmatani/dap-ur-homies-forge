@@ -243,8 +243,8 @@ public final class SpearStrikeHandler {
                         p.getX(),
                         p.getY(),
                         p.getZ(),
-                        (SoundEvent)SoundEvents.field_14622.comp_349(),
-                        SoundCategory.field_15248,
+                        (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(),
+                        SoundCategory.PLAYERS,
                         0.5F,
                         nukeArmed ? 0.6F : 1.8F
                     );
@@ -276,20 +276,20 @@ public final class SpearStrikeHandler {
                         s.chain++;
                         sendLock(p, s, -2, 0.0F, 0.0F, false);
                         setClientVelocity(p, s.motion.multiply(0.45).add(0.0, c.spearBounce, 0.0));
-                        w.spawnParticles(ParticleTypes.field_11227, center.x, center.y, center.z, 1, 0.0, 0.0, 0.0, 0.0);
-                        w.spawnParticles(ParticleTypes.field_11205, center.x, center.y, center.z, 14, 0.3, 0.4, 0.3, 0.4);
+                        w.spawnParticles(ParticleTypes.SWEEP_ATTACK, center.x, center.y, center.z, 1, 0.0, 0.0, 0.0, 0.0);
+                        w.spawnParticles(ParticleTypes.CRIT, center.x, center.y, center.z, 14, 0.3, 0.4, 0.3, 0.4);
                         w.playSound(
                             null,
                             center.x,
                             center.y,
                             center.z,
-                            SoundEvents.field_15016,
-                            SoundCategory.field_15248,
+                            SoundEvents.ENTITY_PLAYER_ATTACK_CRIT,
+                            SoundCategory.PLAYERS,
                             1.1F,
                             0.8F + s.chain * 0.1F
                         );
                         w.playSound(
-                            null, center.x, center.y, center.z, SoundEvents.field_14840, SoundCategory.field_15248, 1.0F, 0.7F
+                            null, center.x, center.y, center.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.0F, 0.7F
                         );
                         p.sendMessage(
                             Text.literal(String.format("§6§lSPEAR STRIKE §7%.1f❤%s", dmg / 2.0F, s.chain > 1 ? "  §e§lx" + s.chain : "")), true
@@ -299,7 +299,7 @@ public final class SpearStrikeHandler {
                     sendLock(p, s, target.getId(), (float)c.spearHomingMinSpeed, (float)c.spearHomingTurn, false);
                     if (s.ticks % 2 == 0) {
                         Vec3d mid = from.add(toTarget.multiply(0.5));
-                        DefaultParticleType fx = nukeArmed ? ParticleTypes.field_11240 : ParticleTypes.field_29644;
+                        DefaultParticleType fx = nukeArmed ? ParticleTypes.FLAME : ParticleTypes.ELECTRIC_SPARK;
                         w.spawnParticles(fx, mid.x, mid.y, mid.z, 1, 0.0, 0.0, 0.0, 0.0);
                         w.spawnParticles(fx, center.x, center.y + 0.6, center.z, 1, 0.1, 0.1, 0.1, 0.0);
                     }
@@ -323,14 +323,14 @@ public final class SpearStrikeHandler {
 
                 if (target != null) {
                     s.lockedId = target.getId();
-                    w.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.field_14702, SoundCategory.field_15248, 1.5F, 0.6F);
+                    w.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, SoundCategory.PLAYERS, 1.5F, 0.6F);
                     w.playSound(
                         null,
                         p.getX(),
                         p.getY(),
                         p.getZ(),
-                        (SoundEvent)SoundEvents.field_14622.comp_349(),
-                        SoundCategory.field_15248,
+                        (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(),
+                        SoundCategory.PLAYERS,
                         0.8F,
                         0.5F
                     );
@@ -349,12 +349,12 @@ public final class SpearStrikeHandler {
                     hurt(w, target, w.getDamageSources().playerAttack(p), c.spearMissileDamage);
                     Vec3d kb = at.subtract(from).normalize();
                     target.takeKnockback(c.spearKnockback * 2.0, -kb.x, -kb.z);
-                    w.createExplosion(p, at.x, at.y, at.z, 2.0F, false, ExplosionSourceType.field_40888);
+                    w.createExplosion(p, at.x, at.y, at.z, 2.0F, false, ExplosionSourceType.NONE);
                     s.lockedId = -1;
                     s.missileSpent = true;
                     sendLock(p, s, -2, 0.0F, 0.0F, true);
                     setClientVelocity(p, new Vec3d(0.0, c.spearBounce, 0.0));
-                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5906, 80, 0, false, false));
+                    p.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 80, 0, false, false));
                     p.sendMessage(Text.literal("§c§l\ud83d\udca5 DIRECT HIT §7" + target.getName().getString()), true);
                     return;
                 }
@@ -373,14 +373,14 @@ public final class SpearStrikeHandler {
 
             sendLock(p, s, target != null ? target.getId() : -1, (float)c.spearMissileSpeed, (float)c.spearMissileTurn, true);
             w.spawnParticles(
-                nukeArmed ? ParticleTypes.field_11240 : ParticleTypes.field_11248, p.getX(), p.getY() + 0.9, p.getZ(), 2, 0.1, 0.1, 0.1, 0.01
+                nukeArmed ? ParticleTypes.FLAME : ParticleTypes.FIREWORK, p.getX(), p.getY() + 0.9, p.getZ(), 2, 0.1, 0.1, 0.1, 0.01
             );
             if (s.ticks % 2 == 0) {
-                w.spawnParticles(ParticleTypes.field_17430, p.getX(), p.getY() + 0.9, p.getZ(), 1, 0.05, 0.05, 0.05, 0.005);
+                w.spawnParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, p.getX(), p.getY() + 0.9, p.getZ(), 1, 0.05, 0.05, 0.05, 0.005);
             }
 
             if (s.ticks % 12 == 0) {
-                w.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.field_14702, SoundCategory.field_15248, 0.7F, 0.8F);
+                w.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, SoundCategory.PLAYERS, 0.7F, 0.8F);
             }
         }
     }
@@ -475,7 +475,7 @@ public final class SpearStrikeHandler {
     private static void tickNukes() {
         if (!nukeStages.isEmpty()) {
             CoopMovesConfig c = CoopMovesConfig.get();
-            ExplosionSourceType type = c.noGriefMode ? ExplosionSourceType.field_40888 : ExplosionSourceType.field_40891;
+            ExplosionSourceType type = c.noGriefMode ? ExplosionSourceType.NONE : ExplosionSourceType.TNT;
             Iterator<SpearStrikeHandler.NukeStage> it = nukeStages.iterator();
 
             while (it.hasNext()) {
@@ -506,18 +506,18 @@ public final class SpearStrikeHandler {
                             o.damage(w.getDamageSources().explosion(o, o), 10000.0F);
                         }
 
-                        w.spawnParticles(ParticleTypes.field_17909, at.x, at.y, at.z, 3, 0.0, 0.0, 0.0, 0.0);
-                        w.spawnParticles(ParticleTypes.field_11221, at.x, at.y, at.z, 4, 2.0, 1.0, 2.0, 0.0);
+                        w.spawnParticles(ParticleTypes.FLASH, at.x, at.y, at.z, 3, 0.0, 0.0, 0.0, 0.0);
+                        w.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, at.x, at.y, at.z, 4, 2.0, 1.0, 2.0, 0.0);
 
                         for (int i = 0; i < 40; i++) {
                             double h = i * 0.4;
                             double rr = i > 28 ? (i - 28) * 0.5 : 0.6;
-                            w.spawnParticles(ParticleTypes.field_17430, at.x, at.y + h, at.z, 2, rr, 0.2, rr, 0.01);
+                            w.spawnParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, at.x, at.y + h, at.z, 2, rr, 0.2, rr, 0.01);
                         }
 
-                        w.spawnParticles(ParticleTypes.field_11239, at.x, at.y + 1.0, at.z, 40, 3.0, 1.0, 3.0, 0.2);
-                        w.playSound(null, at.x, at.y, at.z, SoundEvents.field_14865, SoundCategory.field_15248, 6.0F, 0.5F);
-                        w.playSound(null, at.x, at.y, at.z, SoundEvents.field_38830, SoundCategory.field_15248, 4.0F, 0.6F);
+                        w.spawnParticles(ParticleTypes.LAVA, at.x, at.y + 1.0, at.z, 40, 3.0, 1.0, 3.0, 0.2);
+                        w.playSound(null, at.x, at.y, at.z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 6.0F, 0.5F);
+                        w.playSound(null, at.x, at.y, at.z, SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.PLAYERS, 4.0F, 0.6F);
                     }
                 }
             }

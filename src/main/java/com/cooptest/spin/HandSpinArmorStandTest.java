@@ -45,7 +45,7 @@ public class HandSpinArmorStandTest {
             Vec3d standPos = new Vec3d(
                 playerPos.x + fwd.x * spawnDist, playerPos.y, playerPos.z + fwd.z * spawnDist
             );
-            ArmorStandEntity stand = new ArmorStandEntity(EntityType.field_6131, player.getServerWorld());
+            ArmorStandEntity stand = new ArmorStandEntity(EntityType.ARMOR_STAND, player.getServerWorld());
             stand.setPos(standPos.x, standPos.y, standPos.z);
             stand.setInvulnerable(true);
             stand.setCustomName(Text.literal("HandSpin Test Partner"));
@@ -59,9 +59,9 @@ public class HandSpinArmorStandTest {
             s.continuousYaw2 = stand.getYaw();
             sessions.put(id, s);
             ServerWorld world = player.getServerWorld();
-            world.playSound(null, center.x, center.y + 1.0, center.z, SoundEvents.field_14706, SoundCategory.field_15248, 1.0F, 1.3F);
-            world.spawnParticles(ParticleTypes.field_11204, center.x, center.y + 1.0, center.z, 14, 0.5, 0.4, 0.5, 0.03);
-            world.spawnParticles(ParticleTypes.field_11205, center.x, center.y + 1.0, center.z, 10, 0.4, 0.3, 0.4, 0.05);
+            world.playSound(null, center.x, center.y + 1.0, center.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0F, 1.3F);
+            world.spawnParticles(ParticleTypes.CLOUD, center.x, center.y + 1.0, center.z, 14, 0.5, 0.4, 0.5, 0.03);
+            world.spawnParticles(ParticleTypes.CRIT, center.x, center.y + 1.0, center.z, 10, 0.4, 0.3, 0.4, 0.05);
             player.sendMessage(Text.literal("§aHand Spin test started. §7/testspin cancel | cancel slow | damage | stop"), false);
             return 1;
         }
@@ -208,16 +208,16 @@ public class HandSpinArmorStandTest {
         long tick = server.getTicks();
         if (s.lastHandSwingTick == -1L || tick - s.lastHandSwingTick >= 4L) {
             s.lastHandSwingTick = tick;
-            player.swingHand(Hand.field_5808, true);
+            player.swingHand(Hand.MAIN_HAND, true);
         }
     }
 
     private static void playLoopEffects(HandSpinArmorStandTest.TestSession s, ServerPlayerEntity player, MinecraftServer server) {
         ServerWorld world = player.getServerWorld();
-        world.spawnParticles(ParticleTypes.field_11205, s.center.x, s.center.y + 1.0, s.center.z, 2, 0.5, 0.4, 0.5, 0.02);
+        world.spawnParticles(ParticleTypes.CRIT, s.center.x, s.center.y + 1.0, s.center.z, 2, 0.5, 0.4, 0.5, 0.02);
         if (server.getTicks() % 10 == 0) {
             world.playSound(
-                null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.field_14706, SoundCategory.field_15248, 0.5F, 1.6F
+                null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 0.5F, 1.6F
             );
         }
     }
@@ -246,7 +246,7 @@ public class HandSpinArmorStandTest {
         PoseNetworking.broadcastAnimState(player, 0);
         ServerWorld world = player.getServerWorld();
         world.playSound(
-            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.field_14840, SoundCategory.field_15248, 1.2F, 0.7F
+            null, s.center.x, s.center.y + 1.0, s.center.z, SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.2F, 0.7F
         );
         s.endAnimStartTick = server.getTicks();
     }

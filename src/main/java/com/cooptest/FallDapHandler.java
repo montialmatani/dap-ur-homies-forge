@@ -58,16 +58,16 @@ public class FallDapHandler {
                 squashIt.remove();
                 if (player != null) {
                     PoseNetworking.broadcastAnimState(player, 0);
-                    player.removeStatusEffect(StatusEffects.field_5909);
-                    player.removeStatusEffect(StatusEffects.field_5913);
+                    player.removeStatusEffect(StatusEffects.SLOWNESS);
+                    player.removeStatusEffect(StatusEffects.JUMP_BOOST);
                 }
             } else if (player != null) {
-                if (!player.hasStatusEffect(StatusEffects.field_5909) || player.getStatusEffect(StatusEffects.field_5909).getDuration() < 40) {
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 60, 2, false, false));
+                if (!player.hasStatusEffect(StatusEffects.SLOWNESS) || player.getStatusEffect(StatusEffects.SLOWNESS).getDuration() < 40) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 2, false, false));
                 }
 
-                if (!player.hasStatusEffect(StatusEffects.field_5913) || player.getStatusEffect(StatusEffects.field_5913).getDuration() < 40) {
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5913, 60, 250, false, false));
+                if (!player.hasStatusEffect(StatusEffects.JUMP_BOOST) || player.getStatusEffect(StatusEffects.JUMP_BOOST).getDuration() < 40) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 60, 250, false, false));
                 }
             }
         }
@@ -75,7 +75,7 @@ public class FallDapHandler {
         for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
             UUID playerId = player.getUuid();
             if (!isSquashed(playerId)) {
-                if (player.getEquippedStack(EquipmentSlot.field_6174).isOf(Items.field_8833)) {
+                if (player.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.ELYTRA)) {
                     cleanup(playerId);
                 } else if (player.isSprinting() && ChargedDapHandler.isFullyCharged(playerId)) {
                     cleanup(playerId);
@@ -169,15 +169,15 @@ public class FallDapHandler {
     private static void squashPlayer(ServerPlayerEntity attacker, ServerPlayerEntity victim) {
         ServerWorld world = attacker.getServerWorld();
         Vec3d pos = victim.getPos();
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14833, SoundCategory.field_15248, 2.0F, 0.5F);
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_15115, SoundCategory.field_15248, 1.0F, 0.8F);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y + 1.0, pos.z, 30, 0.5, 0.3, 0.5, 0.2);
-        world.spawnParticles(ParticleTypes.field_11251, pos.x, pos.y, pos.z, 20, 0.5, 0.2, 0.5, 0.05);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 2.0F, 0.5F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.8F);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y + 1.0, pos.z, 30, 0.5, 0.3, 0.5, 0.2);
+        world.spawnParticles(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 20, 0.5, 0.2, 0.5, 0.05);
         dropHandItems(victim, world, pos);
         victim.damage(world.getDamageSources().playerAttack(attacker), 10.0F);
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 420, 2, false, false));
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5913, 420, 250, false, false));
-        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 300, 0, false, false));
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 420, 2, false, false));
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 420, 250, false, false));
+        victim.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 300, 0, false, false));
         victim.setVelocity(0.0, 0.0, 0.0);
         victim.velocityModified = true;
         squashedPlayers.put(victim.getUuid(), System.currentTimeMillis() + 25000L);
@@ -198,7 +198,7 @@ public class FallDapHandler {
                 (world.random.nextDouble() - 0.5) * 0.3, world.random.nextDouble() * 0.2 + 0.1, (world.random.nextDouble() - 0.5) * 0.3
             );
             world.spawnEntity(mainItem);
-            player.setStackInHand(Hand.field_5808, ItemStack.EMPTY);
+            player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
         }
 
         ItemStack offStack = player.getOffHandStack();
@@ -208,17 +208,17 @@ public class FallDapHandler {
                 (world.random.nextDouble() - 0.5) * 0.3, world.random.nextDouble() * 0.2 + 0.1, (world.random.nextDouble() - 0.5) * 0.3
             );
             world.spawnEntity(offItem);
-            player.setStackInHand(Hand.field_5810, ItemStack.EMPTY);
+            player.setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
         }
 
-        ItemStack helmet = player.getEquippedStack(EquipmentSlot.field_6169);
+        ItemStack helmet = player.getEquippedStack(EquipmentSlot.HEAD);
         if (!helmet.isEmpty()) {
             ItemEntity helmetItem = new ItemEntity(world, pos.x, pos.y + 1.0, pos.z, helmet.copy());
             helmetItem.setVelocity(
                 (world.random.nextDouble() - 0.5) * 0.4, world.random.nextDouble() * 0.4 + 0.3, (world.random.nextDouble() - 0.5) * 0.4
             );
             world.spawnEntity(helmetItem);
-            player.equipStack(EquipmentSlot.field_6169, ItemStack.EMPTY);
+            player.equipStack(EquipmentSlot.HEAD, ItemStack.EMPTY);
         }
     }
 

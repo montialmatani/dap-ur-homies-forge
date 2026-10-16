@@ -65,7 +65,7 @@ public class ReadyPushHandler {
         UseEntityCallback.EVENT.register((UseEntityCallback)(player, world, hand, entity, hitResult) -> {
             if (world.isClient()) {
                 return ActionResult.PASS;
-            } else if (hand != Hand.field_5808) {
+            } else if (hand != Hand.MAIN_HAND) {
                 return ActionResult.PASS;
             } else if (!CoopMovesConfig.get().enablePush) {
                 return ActionResult.PASS;
@@ -180,7 +180,7 @@ public class ReadyPushHandler {
             Vec3d pos = p.getPos();
             p.getServerWorld()
                 .playSound(
-                    null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.field_14793.comp_349(), SoundCategory.field_15248, 1.0F, 1.8F
+                    null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(), SoundCategory.PLAYERS, 1.0F, 1.8F
                 );
             p.sendMessage(Text.literal("§eReady to boost — homie right-clicks you!"), true);
         }

@@ -208,10 +208,10 @@ public class BonkHandler {
                         () -> {
                             spawnImpactParticles(world, handPos);
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.2F
+                                null, handPos.x, handPos.y, handPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.2F
                             );
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 0.9F, 1.1F
+                                null, handPos.x, handPos.y, handPos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 0.9F, 1.1F
                             );
                             ServerPlayNetworking.send(victim, new BonkHandler.BonkCameraPayload(40.0F, 0.0F));
                         }
@@ -223,10 +223,10 @@ public class BonkHandler {
                         () -> {
                             spawnImpactParticles(world, handPos);
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.0F
+                                null, handPos.x, handPos.y, handPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.0F
                             );
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, ModSounds.DAP_HIT, SoundCategory.field_15248, 0.9F, 0.9F
+                                null, handPos.x, handPos.y, handPos.z, ModSounds.DAP_HIT, SoundCategory.PLAYERS, 0.9F, 0.9F
                             );
                             ServerPlayNetworking.send(victim, new BonkHandler.BonkCameraPayload(-40.0F, 0.0F));
                         }
@@ -238,19 +238,19 @@ public class BonkHandler {
                         () -> {
                             spawnImpactParticles(world, handPos);
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.0F, 1.3F
+                                null, handPos.x, handPos.y, handPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0F, 1.3F
                             );
                             ServerPlayNetworking.send(victim, new BonkHandler.BonkCameraPayload(40.0F, 0.0F));
                         }
                     );
                     fireIfInWindow(loopElapsed, 2542L, bonkerId, () -> {
                         Vec3d mid = victim.getPos().add(0.0, 1.0, 0.0);
-                        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_14833, SoundCategory.field_15248, 1.5F, 0.8F);
-                        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.field_15016, SoundCategory.field_15248, 1.2F, 0.6F);
-                        world.spawnParticles(ParticleTypes.field_11205, mid.x, mid.y, mid.z, 20, 0.4, 0.3, 0.4, 0.15);
-                        world.spawnParticles(ParticleTypes.field_11208, mid.x, mid.y, mid.z, 12, 0.3, 0.2, 0.3, 0.1);
-                        world.spawnParticles(ParticleTypes.field_17909, mid.x, mid.y, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
-                        world.spawnParticles(ParticleTypes.field_11236, mid.x, mid.y, mid.z, 3, 0.2, 0.1, 0.2, 0.05);
+                        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 1.5F, 0.8F);
+                        world.playSound(null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.2F, 0.6F);
+                        world.spawnParticles(ParticleTypes.CRIT, mid.x, mid.y, mid.z, 20, 0.4, 0.3, 0.4, 0.15);
+                        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, mid.x, mid.y, mid.z, 12, 0.3, 0.2, 0.3, 0.1);
+                        world.spawnParticles(ParticleTypes.FLASH, mid.x, mid.y, mid.z, 2, 0.0, 0.0, 0.0, 0.0);
+                        world.spawnParticles(ParticleTypes.EXPLOSION, mid.x, mid.y, mid.z, 3, 0.2, 0.1, 0.2, 0.05);
                         ServerPlayNetworking.send(victim, new BonkHandler.BonkCameraPayload(0.0F, -55.0F));
                     });
                     fireIfInWindow(
@@ -260,7 +260,7 @@ public class BonkHandler {
                         () -> {
                             spawnImpactParticles(world, handPos);
                             world.playSound(
-                                null, handPos.x, handPos.y, handPos.z, SoundEvents.field_15016, SoundCategory.field_15248, 0.9F, 1.1F
+                                null, handPos.x, handPos.y, handPos.z, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 0.9F, 1.1F
                             );
                             ServerPlayNetworking.send(victim, new BonkHandler.BonkCameraPayload(-40.0F, 0.0F));
                         }
@@ -286,8 +286,8 @@ public class BonkHandler {
     }
 
     private static void spawnImpactParticles(ServerWorld world, Vec3d pos) {
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y, pos.z, 8, 0.2, 0.2, 0.2, 0.1);
-        world.spawnParticles(ParticleTypes.field_11208, pos.x, pos.y, pos.z, 4, 0.15, 0.15, 0.15, 0.06);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y, pos.z, 8, 0.2, 0.2, 0.2, 0.1);
+        world.spawnParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 4, 0.15, 0.15, 0.15, 0.06);
     }
 
     private static UUID findNearbyLaying(ServerPlayerEntity bonker) {

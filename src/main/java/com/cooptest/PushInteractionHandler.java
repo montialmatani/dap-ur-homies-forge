@@ -144,8 +144,8 @@ public class PushInteractionHandler {
                             mid.x,
                             mid.y,
                             mid.z,
-                            (SoundEvent)SoundEvents.field_14793.comp_349(),
-                            SoundCategory.field_15248,
+                            (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(),
+                            SoundCategory.PLAYERS,
                             1.0F,
                             1.8F
                         );

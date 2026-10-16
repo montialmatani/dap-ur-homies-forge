@@ -178,10 +178,10 @@ public class SpinYeetHandler {
                             for (int dy = -r; dy <= r; dy++) {
                                 for (int dz = -r; dz <= r; dz++) {
                                     if (!(dx * dx + dy * dy + dz * dz > rSq)) {
-                                        BlockPos bp = center.method_10069(dx, dy, dz);
+                                        BlockPos bp = center.add(dx, dy, dz);
                                         BlockState state = w.getBlockState(bp);
                                         if (!state.isAir() && !(state.getHardness(w, bp) < 0.0F)) {
-                                            w.setBlockState(bp, Blocks.field_10124.getDefaultState(), 19);
+                                            w.setBlockState(bp, Blocks.AIR.getDefaultState(), 19);
                                             hitAny = true;
                                         }
                                     }
@@ -190,14 +190,14 @@ public class SpinYeetHandler {
                         }
 
                         if (hitAny) {
-                            w.spawnParticles(ParticleTypes.field_11236, pos.x, pos.y + 0.5, pos.z, 2, 0.4, 0.4, 0.4, 0.0);
+                            w.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y + 0.5, pos.z, 2, 0.4, 0.4, 0.4, 0.0);
                             w.playSound(
                                 null,
                                 pos.x,
                                 pos.y,
                                 pos.z,
-                                (SoundEvent)SoundEvents.field_15152.comp_349(),
-                                SoundCategory.field_15245,
+                                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                SoundCategory.BLOCKS,
                                 0.6F,
                                 1.6F
                             );

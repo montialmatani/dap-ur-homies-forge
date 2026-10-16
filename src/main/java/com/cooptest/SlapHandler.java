@@ -50,10 +50,10 @@ public class SlapHandler {
             return true;
         } else {
             ItemStack held = attacker.getMainHandStack();
-            boolean holdingFish = held.isOf(Items.field_8429)
-                || held.isOf(Items.field_8209)
-                || held.isOf(Items.field_8323)
-                || held.isOf(Items.field_8846);
+            boolean holdingFish = held.isOf(Items.COD)
+                || held.isOf(Items.SALMON)
+                || held.isOf(Items.PUFFERFISH)
+                || held.isOf(Items.TROPICAL_FISH);
             Vec3d aEye = attacker.getPos().add(0.0, attacker.getEyeHeight(attacker.getPose()), 0.0);
             Vec3d aLook = attacker.getRotationVec(1.0F);
             ServerPlayerEntity victim = null;
@@ -133,19 +133,19 @@ public class SlapHandler {
         attacker.setBodyYaw(yaw);
         attacker.setHeadYaw(yaw);
         attacker.prevBodyYaw = yaw;
-        attacker.swingHand(Hand.field_5808, true);
-        attacker.swingHand(Hand.field_5808, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
         PoseNetworking.broadcastAnimState(attacker, 67);
         if (isJumpSlap) {
             Vec3d impactPos = victimPos.add(0.0, 1.2, 0.0);
-            world.spawnParticles(ParticleTypes.field_11221, impactPos.x, impactPos.y, impactPos.z, 2, 0.1, 0.1, 0.1, 0.0);
-            world.spawnParticles(ParticleTypes.field_11205, impactPos.x, impactPos.y, impactPos.z, 25, 0.35, 0.35, 0.35, 0.2);
-            world.spawnParticles(ParticleTypes.field_11227, impactPos.x, impactPos.y, impactPos.z, 8, 0.2, 0.1, 0.2, 0.05);
-            world.spawnParticles(ParticleTypes.field_11208, impactPos.x, impactPos.y, impactPos.z, 12, 0.2, 0.2, 0.2, 0.1);
+            world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, impactPos.x, impactPos.y, impactPos.z, 2, 0.1, 0.1, 0.1, 0.0);
+            world.spawnParticles(ParticleTypes.CRIT, impactPos.x, impactPos.y, impactPos.z, 25, 0.35, 0.35, 0.35, 0.2);
+            world.spawnParticles(ParticleTypes.SWEEP_ATTACK, impactPos.x, impactPos.y, impactPos.z, 8, 0.2, 0.1, 0.2, 0.05);
+            world.spawnParticles(ParticleTypes.ENCHANTED_HIT, impactPos.x, impactPos.y, impactPos.z, 12, 0.2, 0.2, 0.2, 0.1);
             world.playSound(
-                null, impactPos.x, impactPos.y, impactPos.z, SoundEvents.field_15152, SoundCategory.field_15248, 1.5F, 1.1F
+                null, impactPos.x, impactPos.y, impactPos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 1.1F
             );
-            world.playSound(null, impactPos.x, impactPos.y, impactPos.z, ModSounds.SLAP, SoundCategory.field_15248, 2.2F, 0.8F);
+            world.playSound(null, impactPos.x, impactPos.y, impactPos.z, ModSounds.SLAP, SoundCategory.PLAYERS, 2.2F, 0.8F);
         }
 
         UUID victimId = victim.getUuid();
@@ -164,14 +164,14 @@ public class SlapHandler {
                                     Vec3d hitPos = v.getPos().add(0.0, 1.7, 0.0);
                                     if (isJumpSlap) {
                                         v.damage(v.getServerWorld().getDamageSources().playerAttack(attacker), 10.0F);
-                                        v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 200, 1, false, true));
+                                        v.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1, false, true));
                                         world.playSound(
                                             null,
                                             hitPos.x,
                                             hitPos.y,
                                             hitPos.z,
-                                            SoundEvents.field_15016,
-                                            SoundCategory.field_15248,
+                                            SoundEvents.ENTITY_PLAYER_ATTACK_CRIT,
+                                            SoundCategory.PLAYERS,
                                             1.5F,
                                             0.9F
                                         );
@@ -196,10 +196,10 @@ public class SlapHandler {
                                             });
                                         }).start();
                                     } else {
-                                        v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 60, 0, false, true));
+                                        v.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60, 0, false, true));
                                     }
 
-                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 40, 6, false, true));
+                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 6, false, true));
                                     float reactYaw = v.getHeadYaw() + 90.0F;
                                     v.setHeadYaw(reactYaw);
                                     SlapHandler.CameraFlickPayload flick = new SlapHandler.CameraFlickPayload(victimId, 70.0F);
@@ -212,20 +212,20 @@ public class SlapHandler {
                                     v.sendMessage(Text.literal(isJumpSlap ? "§c§l✋ AERIAL SLAP!" : "§c§l✋ I like ya cut G"), true);
                                     attacker.sendMessage(Text.literal(isJumpSlap ? "§6§l✋ JUMP SLAP!" : "§6§l✋ SLAP!"), true);
                                     world.spawnParticles(
-                                        ParticleTypes.field_11205, hitPos.x, hitPos.y, hitPos.z, 10, 0.15, 0.1, 0.15, 0.15
+                                        ParticleTypes.CRIT, hitPos.x, hitPos.y, hitPos.z, 10, 0.15, 0.1, 0.15, 0.15
                                     );
-                                    world.spawnParticles(ParticleTypes.field_11227, hitPos.x, hitPos.y, hitPos.z, 4, 0.1, 0.05, 0.1, 0.05);
-                                    world.spawnParticles(ParticleTypes.field_11208, hitPos.x, hitPos.y, hitPos.z, 6, 0.1, 0.1, 0.1, 0.08);
+                                    world.spawnParticles(ParticleTypes.SWEEP_ATTACK, hitPos.x, hitPos.y, hitPos.z, 4, 0.1, 0.05, 0.1, 0.05);
+                                    world.spawnParticles(ParticleTypes.ENCHANTED_HIT, hitPos.x, hitPos.y, hitPos.z, 6, 0.1, 0.1, 0.1, 0.08);
                                     world.playSound(
-                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.field_15248, 1.4F, 1.0F
+                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.PLAYERS, 1.4F, 1.0F
                                     );
                                     world.playSound(
                                         null,
                                         hitPos.x,
                                         hitPos.y,
                                         hitPos.z,
-                                        SoundEvents.field_14840,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_PLAYER_ATTACK_STRONG,
+                                        SoundCategory.PLAYERS,
                                         0.8F,
                                         2.0F
                                     );
@@ -244,8 +244,8 @@ public class SlapHandler {
         attacker.setYaw(yaw);
         attacker.setBodyYaw(yaw);
         attacker.setHeadYaw(yaw);
-        attacker.swingHand(Hand.field_5808, true);
-        attacker.swingHand(Hand.field_5808, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
         PoseNetworking.broadcastAnimState(attacker, 67);
         UUID victimId = victim.getUuid();
         new Thread(
@@ -261,20 +261,20 @@ public class SlapHandler {
                                 ServerPlayerEntity v = attacker.getServer().getPlayerManager().getPlayer(victimId);
                                 if (v != null) {
                                     Vec3d hitPos = v.getPos().add(0.0, 1.6, 0.0);
-                                    world.spawnParticles(ParticleTypes.field_11202, hitPos.x, hitPos.y, hitPos.z, 60, 0.5, 0.3, 0.5, 0.2);
-                                    world.spawnParticles(ParticleTypes.field_11232, hitPos.x, hitPos.y, hitPos.z, 40, 0.4, 0.4, 0.4, 0.06);
-                                    world.spawnParticles(ParticleTypes.field_11241, hitPos.x, hitPos.y, hitPos.z, 30, 0.3, 0.2, 0.3, 0.15);
+                                    world.spawnParticles(ParticleTypes.SPLASH, hitPos.x, hitPos.y, hitPos.z, 60, 0.5, 0.3, 0.5, 0.2);
+                                    world.spawnParticles(ParticleTypes.DRIPPING_WATER, hitPos.x, hitPos.y, hitPos.z, 40, 0.4, 0.4, 0.4, 0.06);
+                                    world.spawnParticles(ParticleTypes.BUBBLE_POP, hitPos.x, hitPos.y, hitPos.z, 30, 0.3, 0.2, 0.3, 0.15);
                                     world.spawnParticles(
-                                        ParticleTypes.field_11242, hitPos.x, hitPos.y + 1.0, hitPos.z, 50, 0.6, 0.5, 0.6, 0.0
+                                        ParticleTypes.RAIN, hitPos.x, hitPos.y + 1.0, hitPos.z, 50, 0.6, 0.5, 0.6, 0.0
                                     );
-                                    world.spawnParticles(ParticleTypes.field_11244, hitPos.x, hitPos.y, hitPos.z, 20, 0.3, 0.1, 0.3, 0.12);
+                                    world.spawnParticles(ParticleTypes.FISHING, hitPos.x, hitPos.y, hitPos.z, 20, 0.3, 0.1, 0.3, 0.12);
                                     world.playSound(
                                         null,
                                         hitPos.x,
                                         hitPos.y,
                                         hitPos.z,
-                                        SoundEvents.field_14591,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_FISH_SWIM,
+                                        SoundCategory.PLAYERS,
                                         2.5F,
                                         0.7F
                                     );
@@ -283,8 +283,8 @@ public class SlapHandler {
                                         hitPos.x,
                                         hitPos.y,
                                         hitPos.z,
-                                        SoundEvents.field_14810,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_PLAYER_SPLASH,
+                                        SoundCategory.PLAYERS,
                                         2.0F,
                                         1.1F
                                     );
@@ -293,15 +293,15 @@ public class SlapHandler {
                                         hitPos.x,
                                         hitPos.y,
                                         hitPos.z,
-                                        SoundEvents.field_14876,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED,
+                                        SoundCategory.PLAYERS,
                                         1.5F,
                                         0.9F
                                     );
                                     world.playSound(
-                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.field_15248, 1.4F, 0.6F
+                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.PLAYERS, 1.4F, 0.6F
                                     );
-                                    CodEntity cod = (CodEntity)EntityType.field_6070.create(world);
+                                    CodEntity cod = (CodEntity)EntityType.COD.create(world);
                                     if (cod != null) {
                                         cod.setPosition(hitPos);
                                         cod.setVelocity((Math.random() - 0.5) * 0.4, 0.4 + Math.random() * 0.3, (Math.random() - 0.5) * 0.4);
@@ -314,8 +314,8 @@ public class SlapHandler {
                                         ServerPlayNetworking.send(p, flick);
                                     }
 
-                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5916, 100, 1, false, true));
-                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 40, 3, false, true));
+                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 100, 1, false, true));
+                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 3, false, true));
                                     ServerPlayNetworking.send(v, new SlapHandler.FishSlapPayload(victimId));
                                     ServerPlayNetworking.send(v, new SlapHandler.ScreenClosePayload(victimId));
                                     v.sendMessage(Text.literal("§b§l\ud83d\udc1f YOU JUST GOT FISH SLAPPED"), true);
@@ -335,8 +335,8 @@ public class SlapHandler {
         attacker.setYaw(yaw);
         attacker.setBodyYaw(yaw);
         attacker.setHeadYaw(yaw);
-        attacker.swingHand(Hand.field_5808, true);
-        attacker.swingHand(Hand.field_5808, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
+        attacker.swingHand(Hand.MAIN_HAND, true);
         PoseNetworking.broadcastAnimState(attacker, 82);
         UUID victimId = victim.getUuid();
         new Thread(
@@ -352,7 +352,7 @@ public class SlapHandler {
                                 ServerPlayerEntity v = attacker.getServer().getPlayerManager().getPlayer(victimId);
                                 if (v != null) {
                                     Vec3d hitPos = v.getPos().add(0.0, 1.7, 0.0);
-                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5909, 40, 5, false, true));
+                                    v.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 5, false, true));
                                     SlapHandler.CameraYawFlickPayload yawFlick = new SlapHandler.CameraYawFlickPayload(victimId, 45.0F);
 
                                     for (ServerPlayerEntity p : attacker.getServer().getPlayerManager().getPlayerList()) {
@@ -361,19 +361,19 @@ public class SlapHandler {
 
                                     ServerPlayNetworking.send(v, new SlapHandler.ScreenClosePayload(victimId));
                                     world.spawnParticles(
-                                        ParticleTypes.field_11205, hitPos.x, hitPos.y, hitPos.z, 10, 0.15, 0.1, 0.15, 0.15
+                                        ParticleTypes.CRIT, hitPos.x, hitPos.y, hitPos.z, 10, 0.15, 0.1, 0.15, 0.15
                                     );
-                                    world.spawnParticles(ParticleTypes.field_11227, hitPos.x, hitPos.y, hitPos.z, 4, 0.1, 0.05, 0.1, 0.05);
+                                    world.spawnParticles(ParticleTypes.SWEEP_ATTACK, hitPos.x, hitPos.y, hitPos.z, 4, 0.1, 0.05, 0.1, 0.05);
                                     world.playSound(
-                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.field_15248, 1.4F, 0.9F
+                                        null, hitPos.x, hitPos.y, hitPos.z, ModSounds.SLAP, SoundCategory.PLAYERS, 1.4F, 0.9F
                                     );
                                     world.playSound(
                                         null,
                                         hitPos.x,
                                         hitPos.y,
                                         hitPos.z,
-                                        SoundEvents.field_14840,
-                                        SoundCategory.field_15248,
+                                        SoundEvents.ENTITY_PLAYER_ATTACK_STRONG,
+                                        SoundCategory.PLAYERS,
                                         0.8F,
                                         1.8F
                                     );

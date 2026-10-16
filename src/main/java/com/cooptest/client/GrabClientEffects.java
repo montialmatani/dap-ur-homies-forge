@@ -37,13 +37,13 @@ public class GrabClientEffects {
                     chargeSoundTicks++;
                     if (chargeSoundTicks >= 4) {
                         float pitch = 0.5F + 1.5F * chargeProgress;
-                        player.playSound((SoundEvent)SoundEvents.field_14624.comp_349(), 0.3F, pitch);
+                        player.playSound((SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), 0.3F, pitch);
                         chargeSoundTicks = 0;
                     }
 
                     if (chargeProgress >= 0.99F && !wasFullyCharged) {
-                        player.playSound((SoundEvent)SoundEvents.field_14622.comp_349(), 1.0F, 2.0F);
-                        player.playSound(SoundEvents.field_14627, 0.5F, 1.5F);
+                        player.playSound((SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(), 1.0F, 2.0F);
+                        player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 1.5F);
                         wasFullyCharged = true;
                     }
 
@@ -60,7 +60,7 @@ public class GrabClientEffects {
 
                 boolean isBeingHeld = pose == PoseState.GRABBED && player.hasVehicle();
                 if (isBeingHeld && !wasBeingHeld) {
-                    player.playSound(SoundEvents.field_14706, 1.0F, 0.8F);
+                    player.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 1.0F, 0.8F);
                 }
 
                 if (isBeingHeld && player.getVehicle() != null) {
@@ -80,7 +80,7 @@ public class GrabClientEffects {
                 if (wasInGrabbedPose && nowInNormalPose && !player.hasVehicle()) {
                     isLandingShaking = true;
                     landingShakeStartTime = System.currentTimeMillis();
-                    player.playSound(SoundEvents.field_14794, 1.0F, 1.0F);
+                    player.playSound(SoundEvents.ENTITY_PLAYER_BIG_FALL, 1.0F, 1.0F);
                 }
 
                 wasGrabbed = pose == PoseState.GRABBED;

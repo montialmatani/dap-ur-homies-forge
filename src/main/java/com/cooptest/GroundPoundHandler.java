@@ -81,8 +81,8 @@ public class GroundPoundHandler {
                                                     player.getX(),
                                                     player.getY(),
                                                     player.getZ(),
-                                                    SoundEvents.field_14550,
-                                                    SoundCategory.field_15248,
+                                                    SoundEvents.ENTITY_ENDER_DRAGON_FLAP,
+                                                    SoundCategory.PLAYERS,
                                                     1.0F,
                                                     0.6F
                                                 );
@@ -187,7 +187,7 @@ public class GroundPoundHandler {
         }
 
         float explosionPower = isMega ? 6.0F : 3.5F;
-        world.createExplosion(player, pos.x, pos.y, pos.z, explosionPower, false, ExplosionSourceType.field_40891);
+        world.createExplosion(player, pos.x, pos.y, pos.z, explosionPower, false, ExplosionSourceType.TNT);
         int rings = (int)(scaledPower * 3.0) + 1;
 
         for (int ring = 1; ring <= rings; ring++) {
@@ -198,20 +198,20 @@ public class GroundPoundHandler {
                 double angle = (Math.PI * 2) / count * i;
                 double rx = pos.x + Math.cos(angle) * radius;
                 double rz = pos.z + Math.sin(angle) * radius;
-                world.spawnParticles(ParticleTypes.field_11236, rx, pos.y + 0.1, rz, 1, 0.0, 0.0, 0.0, 0.0);
-                world.spawnParticles(ParticleTypes.field_11227, rx, pos.y + 0.1, rz, 1, 0.0, 0.0, 0.0, 0.0);
+                world.spawnParticles(ParticleTypes.EXPLOSION, rx, pos.y + 0.1, rz, 1, 0.0, 0.0, 0.0, 0.0);
+                world.spawnParticles(ParticleTypes.SWEEP_ATTACK, rx, pos.y + 0.1, rz, 1, 0.0, 0.0, 0.0, 0.0);
             }
         }
 
-        world.spawnParticles(ParticleTypes.field_11221, pos.x, pos.y + 0.3, pos.z, 2, 0.3, 0.0, 0.3, 0.0);
-        world.spawnParticles(ParticleTypes.field_11205, pos.x, pos.y + 0.5, pos.z, 20, 0.8, 0.5, 0.8, 0.2);
-        world.spawnParticles(ParticleTypes.field_11237, pos.x, pos.y + 0.2, pos.z, 8, 0.4, 0.1, 0.4, 0.02);
+        world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x, pos.y + 0.3, pos.z, 2, 0.3, 0.0, 0.3, 0.0);
+        world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y + 0.5, pos.z, 20, 0.8, 0.5, 0.8, 0.2);
+        world.spawnParticles(ParticleTypes.LARGE_SMOKE, pos.x, pos.y + 0.2, pos.z, 8, 0.4, 0.1, 0.4, 0.02);
 
         for (int i = 0; i < 24; i++) {
             double a = (Math.PI / 12) * i;
             double r = 1.5 + scaledPower;
             world.spawnParticles(
-                ParticleTypes.field_11204,
+                ParticleTypes.CLOUD,
                 pos.x + Math.cos(a) * r,
                 pos.y + 0.1,
                 pos.z + Math.sin(a) * r,
@@ -228,14 +228,14 @@ public class GroundPoundHandler {
             pos.x,
             pos.y,
             pos.z,
-            (SoundEvent)SoundEvents.field_15152.comp_349(),
-            SoundCategory.field_15248,
+            (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+            SoundCategory.PLAYERS,
             0.8F + (float)scaledPower * 0.4F,
             0.7F - (float)scaledPower * 0.2F
         );
-        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.field_14833, SoundCategory.field_15248, 0.9F, 0.6F);
+        world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.9F, 0.6F);
         if (scaledPower > 0.5) {
-            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.field_15248, 1.0F, 0.8F);
+            world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.0F, 0.8F);
         }
 
         PoseNetworking.broadcastAnimState(player, 66);
