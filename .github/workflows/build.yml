@@ -178,7 +178,8 @@ jobs:
             line=$(grep "Starting process 'command" /tmp/capture.log | grep -i devlaunchinjector | head -1)
             wd=$(echo "$line" | sed -E 's/.*Working directory: (.*) Command: .*/\1/')
             cmd=$(echo "$line" | sed -E 's/.*Command: //')
-            printf '#!/bin/bash\ncd %s\nexec %s\n' "$wd" "$cmd" > "$3"
+            mc="coopmoves%%$GITHUB_WORKSPACE/build/classes/java/main:coopmoves%%$GITHUB_WORKSPACE/build/resources/main"
+            printf '#!/bin/bash\nexport MOD_CLASSES="%s"\ncd %s\nexec %s\n' "$mc" "$wd" "$cmd" > "$3"
             chmod +x "$3"
             echo "captured $3 (wd=$wd, $(echo "$cmd" | wc -c) chars)"
           }
