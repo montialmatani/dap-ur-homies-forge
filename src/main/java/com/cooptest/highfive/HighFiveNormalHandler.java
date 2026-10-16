@@ -15,7 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 
 public class HighFiveNormalHandler {
-    private static final Identifier FAST_SLOW_ID = new Identifier("testcoop", "highfive_fast_slow");
+    private static final java.util.UUID FAST_SLOW_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("testcoop", "highfive_fast_slow"));
     private static final double FAST_SLOW_MULT = -0.35;
     private static final long FAST_SLOW_DUR_MS = 400L;
     private static final List<HighFiveNormalHandler.PendingRepos> pendingSlide = new ArrayList<>();
@@ -168,7 +168,7 @@ public class HighFiveNormalHandler {
         EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(FAST_SLOW_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(FAST_SLOW_ID, -0.35, Operation.MULTIPLY_TOTAL));
+            attr.addTemporaryModifier(new EntityAttributeModifier(FAST_SLOW_ID, "fast_slow_id", -0.35, Operation.MULTIPLY_TOTAL));
         }
     }
 

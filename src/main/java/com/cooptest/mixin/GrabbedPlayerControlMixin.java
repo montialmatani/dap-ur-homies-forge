@@ -17,7 +17,7 @@ public abstract class GrabbedPlayerControlMixin {
         cancellable = true
     )
     private void lockGrabbedMovement(Vec3d movementInput, CallbackInfo ci) {
-        PlayerEntity self = (PlayerEntity)this;
+        PlayerEntity self = (PlayerEntity)(Object)this;
         PoseState pose = PoseNetworking.poseStates.getOrDefault(self.getUuid(), PoseState.NONE);
         if (pose == PoseState.GRABBED && self.hasVehicle()) {
             ci.cancel();
@@ -29,7 +29,7 @@ public abstract class GrabbedPlayerControlMixin {
         at = {@At("TAIL")}
     )
     private void lockGrabbedRotation(CallbackInfo ci) {
-        PlayerEntity self = (PlayerEntity)this;
+        PlayerEntity self = (PlayerEntity)(Object)this;
         PoseState pose = PoseNetworking.poseStates.getOrDefault(self.getUuid(), PoseState.NONE);
         if (pose == PoseState.GRABBED && self.hasVehicle() && self.getVehicle() instanceof PlayerEntity holder) {
             float yaw = holder.getYaw();

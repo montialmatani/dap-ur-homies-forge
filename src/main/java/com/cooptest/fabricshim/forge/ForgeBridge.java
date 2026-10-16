@@ -29,7 +29,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -255,6 +255,6 @@ public final class ForgeBridge {
     private static void onBuildTabs(BuildCreativeModeTabContentsEvent e) {
         var event = ItemGroupEvents.EVENTS.get(e.getTabKey());
         if (event == null) return;
-        for (ItemGroupEvents.ModifyEntries l : event.listeners()) l.modifyEntries(stack -> e.accept(stack));
+        for (ItemGroupEvents.ModifyEntries l : event.listeners()) l.modifyEntries(stack -> e.add(stack));
     }
 }

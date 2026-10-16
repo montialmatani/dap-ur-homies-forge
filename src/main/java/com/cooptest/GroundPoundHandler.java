@@ -228,7 +228,7 @@ public class GroundPoundHandler {
             pos.x,
             pos.y,
             pos.z,
-            (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+            SoundEvents.ENTITY_GENERIC_EXPLODE,
             SoundCategory.PLAYERS,
             0.8F + (float)scaledPower * 0.4F,
             0.7F - (float)scaledPower * 0.2F

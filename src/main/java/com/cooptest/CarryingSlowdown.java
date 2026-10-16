@@ -12,7 +12,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 public class CarryingSlowdown {
     public static final float CARRY_SPEED_MULTIPLIER = 0.6F;
     private static final double SLOWDOWN_AMOUNT = -0.039999997615814215;
-    private static final Identifier MODIFIER_ID = new Identifier("cooptest", "carrying_slowdown");
+    private static final java.util.UUID MODIFIER_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("cooptest", "carrying_slowdown"));
 
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register((EndTick)server -> {
@@ -30,7 +30,7 @@ public class CarryingSlowdown {
             EntityAttributeModifier existingModifier = speedAttr.getModifier(MODIFIER_ID);
             if (isCarrying) {
                 if (existingModifier == null) {
-                    speedAttr.addTemporaryModifier(new EntityAttributeModifier(MODIFIER_ID, -0.039999997615814215, Operation.MULTIPLY_TOTAL));
+                    speedAttr.addTemporaryModifier(new EntityAttributeModifier(MODIFIER_ID, "modifier_id", -0.039999997615814215, Operation.MULTIPLY_TOTAL));
                 }
             } else if (existingModifier != null) {
                 speedAttr.removeModifier(MODIFIER_ID);

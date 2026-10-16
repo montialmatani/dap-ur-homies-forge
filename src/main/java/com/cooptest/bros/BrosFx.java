@@ -46,7 +46,7 @@ public final class BrosFx {
             double z = s.cz;
             double y = Math.min(s.ya, s.yb) + 1.45;
             if (s.ticks == 6) {
-                sw.playSound(null, x, y, z, (SoundEvent)SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 0.8F, 1.25F);
+                sw.playSound(null, x, y, z, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 0.8F, 1.25F);
                 sw.playSound(null, x, y, z, (SoundEvent)SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), SoundCategory.PLAYERS, 0.35F, 1.5F);
                 sw.spawnParticles(ParticleTypes.WAX_ON, x, y, z, 4, 0.25, 0.08, 0.25, 0.0);
             }
@@ -73,7 +73,7 @@ public final class BrosFx {
     static void onEnd(BrosHandler.Session s, UUID skip) {
         broadcast(s, 131, 134, skip);
         if (s.world instanceof ServerWorld sw) {
-            sw.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.45, s.cz, (SoundEvent)SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.PLAYERS, 0.6F, 0.9F);
+            sw.playSound(null, s.cx, Math.min(s.ya, s.yb) + 1.45, s.cz, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 0.6F, 0.9F);
         }
     }
 

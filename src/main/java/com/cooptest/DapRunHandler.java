@@ -55,7 +55,7 @@ public class DapRunHandler {
     private static final Map<UUID, Long> armed = new HashMap<>();
     private static final long JUST_FIRED_MS = 300L;
     private static final List<DapRunHandler.Pending> pendingImpact = new ArrayList<>();
-    private static final Identifier SLOW_ID = new Identifier("testcoop", "dap_run_slow");
+    private static final java.util.UUID SLOW_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("testcoop", "dap_run_slow"));
     private static final List<DapRunHandler.PendingSlow> pendingSlow = new ArrayList<>();
 
     public static boolean justFired(UUID id) {
@@ -298,7 +298,7 @@ public class DapRunHandler {
         if (attr != null) {
             double mult = -0.22 + -0.09 * (tier - 1);
             attr.removeModifier(SLOW_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(SLOW_ID, mult, Operation.MULTIPLY_TOTAL));
+            attr.addTemporaryModifier(new EntityAttributeModifier(SLOW_ID, "slow_id", mult, Operation.MULTIPLY_TOTAL));
             pendingSlow.add(new DapRunHandler.PendingSlow(p, System.currentTimeMillis() + 260L));
         }
     }

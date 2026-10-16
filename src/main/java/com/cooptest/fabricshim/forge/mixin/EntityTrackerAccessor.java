@@ -1,7 +1,7 @@
 package com.cooptest.fabricshim.forge.mixin;
 
 import java.util.Set;
-import net.minecraft.server.network.EntityTrackingListener;
+import net.minecraft.server.world.EntityTrackingListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

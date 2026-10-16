@@ -128,7 +128,7 @@ public class HandSpinRenderSync {
             }
         } else {
             if (isTick) {
-                p.updateTrackedPositionAndAngles(x, y, z, yaw, p.getPitch(), 0);
+                p.updateTrackedPositionAndAngles(x, y, z, yaw, p.getPitch(), 0, false);
             }
 
             p.setPosition(x, y, z);

@@ -466,7 +466,7 @@ public final class BrosAbilities {
 
                 sw.spawnParticles(ParticleTypes.EXPLOSION, s.cx, var18 + 1.0, s.cz, 1, 0.0, 0.0, 0.0, 0.0);
                 sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 1.0F, 0.7F);
-                sw.playSound(null, s.cx, var18 + 1.0, s.cz, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 0.5F, 1.6F);
+                sw.playSound(null, s.cx, var18 + 1.0, s.cz, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.5F, 1.6F);
             }
         }
     }

@@ -2010,7 +2010,7 @@ public class ChargedDapHandler {
         } else if (bothCharging) {
             world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 2.0F, 0.5F);
             world.playSound(
-                null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 2.0F, 0.7F
+                null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 2.0F, 0.7F
             );
             world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.PLAYERS, 2.0F, 0.8F);
             spawnStarBurst(world, pos, 40, 1.5);
@@ -2042,7 +2042,7 @@ public class ChargedDapHandler {
         } else {
             world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 2.0F, 0.9F);
             world.playSound(
-                null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 2.0F, 1.0F
+                null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 2.0F, 1.0F
             );
             world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 2.0F, 0.9F);
             spawnStarBurst(world, pos, 30, 1.0);
@@ -2341,7 +2341,7 @@ public class ChargedDapHandler {
         }
 
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 3.0F, 0.5F
+            null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 3.0F, 0.5F
         );
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.PLAYERS, 3.0F, 0.6F);
     }
@@ -2360,7 +2360,7 @@ public class ChargedDapHandler {
             world.playSound(null, pos.x, pos.y, pos.z, ModSounds.FIRE_IMPACT, SoundCategory.PLAYERS, 2.0F, 1.0F);
             world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.5F, 1.0F);
             world.playSound(
-                null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.3F
+                null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 1.3F
             );
             world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 2.0F, 0.8F);
             spawnFireDapSonicBoom(world, pos);
@@ -2609,7 +2609,7 @@ public class ChargedDapHandler {
         }
 
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 0.6F, 1.5F
+            null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.6F, 1.5F
         );
     }
 

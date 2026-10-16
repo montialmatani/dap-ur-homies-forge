@@ -210,7 +210,7 @@ public class DapFusionHandler {
         s.world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, mid.x, mid.y + 1.0, mid.z, 20, 0.5, 0.5, 0.5, 0.3);
         s.world
             .playSound(
-                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.5F
+                null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 1.5F
             );
         freezeBoth(s, true);
         broadcast(s, new DapFusionHandler.FusionPhasePayload(s.p1Id, s.p2Id, 1));
@@ -442,7 +442,7 @@ public class DapFusionHandler {
                                                     mid.x,
                                                     mid.y,
                                                     mid.z,
-                                                    (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                                    SoundEvents.ENTITY_GENERIC_EXPLODE,
                                                     SoundCategory.PLAYERS,
                                                     2.0F,
                                                     0.6F
@@ -756,7 +756,7 @@ public class DapFusionHandler {
                                                 mid.x,
                                                 mid.y,
                                                 mid.z,
-                                                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                                SoundEvents.ENTITY_GENERIC_EXPLODE,
                                                 SoundCategory.PLAYERS,
                                                 2.0F,
                                                 0.4F + (float)(Math.random() * 0.4F)
@@ -1148,7 +1148,7 @@ public class DapFusionHandler {
 
             p1.getServerWorld()
                 .playSound(
-                    null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.5F
+                    null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 1.5F
                 );
             p1.getServerWorld().spawnParticles(ParticleTypes.EXPLOSION_EMITTER, mid.x, mid.y + 1.0, mid.z, 2, 0.5, 0.5, 0.5, 0.0);
 

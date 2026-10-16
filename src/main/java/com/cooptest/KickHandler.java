@@ -47,7 +47,7 @@ public class KickHandler {
     private static final long KICK_ANIM_MS = 1000L;
     private static final long DROP_KICK_ANIM_MS = 1750L;
     private static final long DROP_KICK_SLOW_DELAY = 830L;
-    private static final Identifier KICK_SLOW_ID = new Identifier("testcoop", "kick_slow");
+    private static final java.util.UUID KICK_SLOW_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("testcoop", "kick_slow"));
     private static final int ANIM_KICK = 61;
     private static final int ANIM_DROP_KICK = 62;
     private static final Map<UUID, Long> chargeStart = new HashMap<>();
@@ -278,7 +278,7 @@ public class KickHandler {
             }
 
             world.playSound(
-                null, mid.x, mid.y, mid.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.2F, 0.8F
+                null, mid.x, mid.y, mid.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.2F, 0.8F
             );
             world.playSound(null, mid.x, mid.y, mid.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.0F, 0.7F);
             hitAny = false;
@@ -323,7 +323,7 @@ public class KickHandler {
         EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(KICK_SLOW_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(KICK_SLOW_ID, amount, Operation.MULTIPLY_TOTAL));
+            attr.addTemporaryModifier(new EntityAttributeModifier(KICK_SLOW_ID, "kick_slow_id", amount, Operation.MULTIPLY_TOTAL));
         }
     }
 

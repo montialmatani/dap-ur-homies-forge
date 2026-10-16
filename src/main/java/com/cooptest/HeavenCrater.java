@@ -63,7 +63,7 @@ public class HeavenCrater {
         forceParticles(world, ParticleTypes.FLASH, pos.x, pos.y + 1.0, pos.z, 5, 0.0, 0.0, 0.0, 0.0);
         forceParticles(world, ParticleTypes.CLOUD, pos.x, pos.y + 0.5, pos.z, 400, 14.0, 0.5, 14.0, 0.6);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 24.0F, 0.5F
+            null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 24.0F, 0.5F
         );
     }
 
@@ -241,7 +241,7 @@ public class HeavenCrater {
         forceParticles(w, ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, x, y + 15.0, z, 250, 5.0, 20.0, 5.0, 0.12);
         forceParticles(w, ParticleTypes.EXPLOSION_EMITTER, x, y + 45.0, z, 30, 18.0, 4.0, 18.0, 0.0);
         forceParticles(w, ParticleTypes.LAVA, x, y, z, 150, 10.0, 4.0, 10.0, 0.0);
-        w.playSound(null, x, y, z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 48.0F, 0.35F);
+        w.playSound(null, x, y, z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 48.0F, 0.35F);
         w.playSound(null, x, y, z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 48.0F, 0.45F);
         w.playSound(null, x, y, z, SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.BLOCKS, 32.0F, 0.5F);
     }
@@ -267,7 +267,7 @@ public class HeavenCrater {
                 job.cx + 0.5,
                 job.cy,
                 job.cz + 0.5,
-                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                SoundEvents.ENTITY_GENERIC_EXPLODE,
                 SoundCategory.BLOCKS,
                 24.0F,
                 0.45F + w.random.nextFloat() * 0.3F

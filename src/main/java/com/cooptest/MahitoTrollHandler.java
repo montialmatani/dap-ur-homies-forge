@@ -112,7 +112,7 @@ public class MahitoTrollHandler {
         world.spawnParticles(ParticleTypes.SOUL_FIRE_FLAME, x, y + 2.0, z, 30, 0.4, 0.4, 0.4, 0.15);
         world.spawnParticles(ParticleTypes.DRAGON_BREATH, x, y + 2.0, z, 20, 0.3, 0.3, 0.3, 0.1);
         world.playSound(null, x, y, z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 2.0F, 1.0F);
-        world.playSound(null, x, y, z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.5F, 1.2F);
+        world.playSound(null, x, y, z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.5F, 1.2F);
         world.playSound(null, x, y, z, SoundEvents.ENTITY_PLAYER_HURT, SoundCategory.PLAYERS, 1.0F, 0.5F);
         victim.damage(world.getDamageSources().magic(), Float.MAX_VALUE);
 

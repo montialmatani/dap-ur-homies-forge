@@ -29,7 +29,7 @@ public final class CoopSlowCleanup {
             if (attr != null) {
                 for (Identifier id : SLOW_IDS) {
                     try {
-                        attr.removeModifier(id);
+                        attr.removeModifier(com.cooptest.fabricshim.mc.ModifierIds.of(id));
                     } catch (Throwable var7) {
                     }
                 }

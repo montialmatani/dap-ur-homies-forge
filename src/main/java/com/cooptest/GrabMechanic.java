@@ -514,7 +514,7 @@ public class GrabMechanic {
         world.spawnParticles(ParticleTypes.POOF, pos.x, pos.y + 0.3, pos.z, 15, 0.5, 0.3, 0.5, 0.05);
         world.spawnParticles(ParticleTypes.CRIT, pos.x, pos.y + 0.5, pos.z, 10, 0.5, 0.5, 0.5, 0.3);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 0.5F, 1.2F
+            null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.5F, 1.2F
         );
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.3F, 0.8F);
     }

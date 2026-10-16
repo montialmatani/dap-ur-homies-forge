@@ -288,7 +288,7 @@ public class SikeFollowUpHandler {
                                     head.x,
                                     head.y,
                                     head.z,
-                                    (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                    SoundEvents.ENTITY_GENERIC_EXPLODE,
                                     SoundCategory.PLAYERS,
                                     1.5F,
                                     0.9F

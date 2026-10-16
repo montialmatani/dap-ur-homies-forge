@@ -34,7 +34,7 @@ public class HighFivePassHandler {
     public static final double MAX_REPOSITION = 1.5;
     public static final long REPOSITION_DURATION_MS = 250L;
     public static final boolean PASS_TP_DEBUG = false;
-    private static final Identifier PASS_SLOW_ID = new Identifier("testcoop", "highfive_pass_slow");
+    private static final java.util.UUID PASS_SLOW_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("testcoop", "highfive_pass_slow"));
     private static final List<HighFivePassHandler.PendingPass> pendingFlinch = new ArrayList<>();
     private static final List<HighFivePassHandler.PendingPass> pendingSlow = new ArrayList<>();
     private static final List<HighFivePassHandler.PendingPass> pendingCleanup = new ArrayList<>();
@@ -163,7 +163,7 @@ public class HighFivePassHandler {
         EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(PASS_SLOW_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(PASS_SLOW_ID, -0.25, Operation.MULTIPLY_TOTAL));
+            attr.addTemporaryModifier(new EntityAttributeModifier(PASS_SLOW_ID, "pass_slow_id", -0.25, Operation.MULTIPLY_TOTAL));
         }
     }
 

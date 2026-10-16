@@ -37,14 +37,14 @@ public class MovementFreezeMixin {
             || isLocalPlayerCuffed()
             || isInHandSpin();
         if (shouldFreeze) {
-            Input input = (Input)this;
+            Input input = (Input)(Object)this;
             input.movementForward = 0.0F;
             input.movementSideways = 0.0F;
             input.jumping = false;
             input.sneaking = false;
         } else {
             if (HuddleClientHandler.isSuppressingSneak()) {
-                Input input = (Input)this;
+                Input input = (Input)(Object)this;
                 input.sneaking = false;
             }
         }

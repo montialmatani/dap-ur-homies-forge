@@ -297,7 +297,7 @@ public class MeteorStrikeHandler {
         world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, center.x, center.y, center.z, 20, 5.0, 5.0, 5.0, 0.0);
         world.spawnParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 200, 8.0, 4.0, 8.0, 0.5);
         world.playSound(
-            null, center.x, center.y, center.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 5.0F, 0.3F
+            null, center.x, center.y, center.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 5.0F, 0.3F
         );
         world.playSound(null, center.x, center.y, center.z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 5.0F, 0.5F);
     }

@@ -101,7 +101,7 @@ public class PlayerModelMixin<T extends LivingEntity> {
             UUID playerId = player.getUuid();
             PoseState pose = PoseNetworking.poseStates.getOrDefault(playerId, PoseState.NONE);
             PoseState lastPose = ArmPoseTracker.lastPose.getOrDefault(playerId, PoseState.NONE);
-            PlayerEntityModel<?> model = (PlayerEntityModel<?>)this;
+            PlayerEntityModel<?> model = (PlayerEntityModel<?>)(Object)this;
             ModelPart rightArm = model.rightArm;
             ModelPart leftArm = model.leftArm;
             ModelPart body = model.body;

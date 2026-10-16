@@ -196,7 +196,7 @@ public class SpinYeetHandler {
                                 pos.x,
                                 pos.y,
                                 pos.z,
-                                (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(),
+                                SoundEvents.ENTITY_GENERIC_EXPLODE,
                                 SoundCategory.BLOCKS,
                                 0.6F,
                                 1.6F

@@ -117,7 +117,7 @@ public class HighFiveHandler {
     private static final Map<UUID, Long> sikeSlowEnd = new HashMap<>();
     private static final long SIKE_ANIM_MS = 1458L;
     private static final long SIKE_SLOW_MS = 2000L;
-    private static final Identifier SIKE_SLOW_ID = new Identifier("testcoop", "sike_slow");
+    private static final java.util.UUID SIKE_SLOW_ID = com.cooptest.fabricshim.mc.ModifierIds.of(new Identifier("testcoop", "sike_slow"));
     public static final float HF_SHAKE_BASE = 0.35F;
     public static final float HF_SHAKE_PER_TIER = 0.25F;
     public static final int HF_SHAKE_MS = 200;
@@ -1070,7 +1070,7 @@ public class HighFiveHandler {
         world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EPIC_DAP, SoundCategory.PLAYERS, 2.0F, 1.0F);
         world.playSound(null, pos.x, pos.y, pos.z, ModSounds.EXPLOSION_IMPACT, SoundCategory.PLAYERS, 1.5F, 1.0F);
         world.playSound(
-            null, pos.x, pos.y, pos.z, (SoundEvent)SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.PLAYERS, 1.2F, 1.3F
+            null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.2F, 1.3F
         );
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.PLAYERS, 1.5F, 1.0F);
         world.playSound(null, pos.x, pos.y, pos.z, SoundEvents.BLOCK_BELL_RESONATE, SoundCategory.PLAYERS, 2.0F, 0.5F);
@@ -1348,7 +1348,7 @@ public class HighFiveHandler {
         EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (attr != null) {
             attr.removeModifier(SIKE_SLOW_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(SIKE_SLOW_ID, -1.0, Operation.MULTIPLY_TOTAL));
+            attr.addTemporaryModifier(new EntityAttributeModifier(SIKE_SLOW_ID, "sike_slow_id", -1.0, Operation.MULTIPLY_TOTAL));
         }
     }
 

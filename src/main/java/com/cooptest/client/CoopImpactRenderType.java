@@ -11,8 +11,6 @@ import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters;
 import net.minecraft.client.render.VertexFormat.DrawMode;
-import net.minecraft.client.render.RenderPhase.Texture;
-import net.minecraft.client.render.RenderPhase.ShaderProgram;
 import org.jetbrains.annotations.Nullable;
 
 public class CoopImpactRenderType {
@@ -88,9 +86,17 @@ public class CoopImpactRenderType {
     }
 
     private static RenderLayer buildLayer(String name, Identifier texture, Supplier<ShaderProgram> program) {
-        return (RenderLayer)(program.get() == null
-            ? RenderLayer.getEntityCutout(texture)
-            : RenderLayer.of(
+        return program.get() == null ? RenderLayer.getEntityCutout(texture) : Layers.build(name, texture, program);
+    }
+
+    /** Subclass of RenderLayer purely to reach RenderPhase's protected phases (Fabric widens these, Forge doesn't). */
+    private abstract static class Layers extends RenderLayer {
+        private Layers() {
+            super("coop_dummy", VertexFormats.POSITION, DrawMode.QUADS, 256, false, false, () -> {}, () -> {});
+        }
+
+        static RenderLayer build(String name, Identifier texture, Supplier<ShaderProgram> program) {
+            return RenderLayer.of(
                 name,
                 VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
                 DrawMode.QUADS,
@@ -98,13 +104,14 @@ public class CoopImpactRenderType {
                 false,
                 false,
                 MultiPhaseParameters.builder()
-                    .program(new ShaderProgram(program))
-                    .texture(new Texture(texture, false, false))
-                    .transparency(RenderPhase.NO_TRANSPARENCY)
-                    .lightmap(RenderPhase.ENABLE_LIGHTMAP)
-                    .overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+                    .program(new RenderPhase.ShaderProgram(program))
+                    .texture(new RenderPhase.Texture(texture, false, false))
+                    .transparency(NO_TRANSPARENCY)
+                    .lightmap(ENABLE_LIGHTMAP)
+                    .overlay(ENABLE_OVERLAY_COLOR)
                     .build(false)
-            ));
+            );
+        }
     }
 
     public static SimpleSynchronousResourceReloadListener createReloadListener() {

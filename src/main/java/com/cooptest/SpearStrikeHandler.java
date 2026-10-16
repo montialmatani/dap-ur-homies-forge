@@ -153,7 +153,7 @@ public final class SpearStrikeHandler {
             s.hitThisThrow.clear();
             s.chain = 0;
             if (fire) {
-                p.setOnFireFor(8.0F);
+                p.setOnFireFor(8);
             }
 
             Vec3d look = p.getRotationVector();

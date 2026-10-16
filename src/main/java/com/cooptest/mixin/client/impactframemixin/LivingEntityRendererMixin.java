@@ -26,7 +26,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
     private void coopSwapRenderLayer(T entity, boolean showBody, boolean translucent, boolean showOutline, CallbackInfoReturnable<RenderLayer> cir) {
         if (CoopImpactHandler.playing) {
             if (CoopImpactRenderType.isReady()) {
-                Identifier texture = ((EntityRenderer)this).getTexture(entity);
+                Identifier texture = ((EntityRenderer)(Object)this).getTexture(entity);
                 switch (CoopImpactHandler.currentFrameType) {
                     case WHITE:
                     case RED:

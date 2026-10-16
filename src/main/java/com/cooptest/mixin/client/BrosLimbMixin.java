@@ -15,7 +15,7 @@ public abstract class BrosLimbMixin {
         cancellable = true
     )
     private void cooptest$brosLegs(float posDelta, CallbackInfo ci) {
-        LivingEntity self = (LivingEntity)this;
+        LivingEntity self = (LivingEntity)(Object)this;
         if (self.getWorld().isClient()) {
             if (BrosClientHandler.isLegDriven(self.getId())) {
                 ci.cancel();

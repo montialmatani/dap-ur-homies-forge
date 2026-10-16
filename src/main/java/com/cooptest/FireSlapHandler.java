@@ -50,7 +50,7 @@ public class FireSlapHandler {
         Vec3d direction = targetPos.subtract(playerPos).normalize();
         target.setVelocity(direction.x * 2.5, 0.5, direction.z * 2.5);
         target.velocityModified = true;
-        target.setOnFireFor(2.0F);
+        target.setOnFireFor(2);
         double x = target.getX();
         double y = target.getY() + target.getHeight() / 2.0F;
         double z = target.getZ();
