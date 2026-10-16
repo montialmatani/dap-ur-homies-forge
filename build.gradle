@@ -22,6 +22,14 @@ loom {
     mixin {
         defaultRefmapName = "coopmoves.refmap.json"
     }
+    runs {
+        client {
+            if (project.hasProperty("smoke")) {
+                vmArgs "-Dcoopmoves.smoke=true"
+                programArgs "--quickPlaySingleplayer", "world"
+            }
+        }
+    }
 }
 
 repositories {

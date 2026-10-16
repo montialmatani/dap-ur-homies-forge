@@ -11,5 +11,8 @@ final class CoopMovesForgeClient {
         ForgeClientBridge.register(modBus);
         CoopAnimLib.init(modBus);
         new TestCoopClient().onInitializeClient();
+        if (Boolean.getBoolean("coopmoves.smoke")) {
+            SmokeTest.init();
+        }
     }
 }
