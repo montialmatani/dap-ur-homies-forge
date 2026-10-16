@@ -171,11 +171,11 @@ jobs:
           capture() {
             gradle $1 $2 --info --no-daemon > /tmp/capture.log 2>&1 &
             gp=$!
-            for i in $(seq 1 150); do grep -q "Starting process 'command" /tmp/capture.log && break; sleep 2; done
+            for i in $(seq 1 150); do grep "Starting process 'command" /tmp/capture.log | grep -qi devlaunchinjector && break; sleep 2; done
             sleep 3
             pkill -KILL -f devlaunchinjector || true
             kill $gp 2>/dev/null; wait $gp 2>/dev/null || true
-            line=$(grep "Starting process 'command" /tmp/capture.log | head -1)
+            line=$(grep "Starting process 'command" /tmp/capture.log | grep -i devlaunchinjector | head -1)
             wd=$(echo "$line" | sed -E 's/.*Working directory: (.*) Command: .*/\1/')
             cmd=$(echo "$line" | sed -E 's/.*Command: //')
             printf '#!/bin/bash\ncd %s\nexec %s\n' "$wd" "$cmd" > "$3"
