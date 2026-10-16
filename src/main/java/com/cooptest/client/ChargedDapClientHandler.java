@@ -186,7 +186,7 @@ public class ChargedDapClientHandler {
 
     public static void register() {
         chargedDapKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.coopmoves.dap", Type.KEYSYM, 71, "category.coopmoves"));
-        FabricLoader.getInstance().getObjectShare().put("testcoop:play_golem_dap", CoopAnimationHandler::playGolemDapByUuid);
+        FabricLoader.getInstance().getObjectShare().put("testcoop:play_golem_dap", (java.util.function.Consumer<UUID>)CoopAnimationHandler::playGolemDapByUuid);
         ClientPlayNetworking.registerGlobalReceiver(ChargedDapHandler.ChargeSyncPayload.ID, (payload, context) -> context.client().execute(() -> {
             UUID playerId = payload.playerId();
             MinecraftClient client = MinecraftClient.getInstance();

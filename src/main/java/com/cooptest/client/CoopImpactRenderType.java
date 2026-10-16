@@ -95,7 +95,7 @@ public class CoopImpactRenderType {
             super("coop_dummy", VertexFormats.POSITION, DrawMode.QUADS, 256, false, false, () -> {}, () -> {});
         }
 
-        static RenderLayer build(String name, Identifier texture, Supplier<ShaderProgram> program) {
+        static RenderLayer build(String name, Identifier texture, Supplier<net.minecraft.client.gl.ShaderProgram> program) {
             return RenderLayer.of(
                 name,
                 VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
