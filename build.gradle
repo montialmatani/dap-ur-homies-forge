@@ -23,10 +23,20 @@ loom {
         defaultRefmapName = "coopmoves.refmap.json"
     }
     runs {
+        server {
+            runDir "run-server"
+            if (project.hasProperty("trace")) {
+                vmArgs "-Dcoopmoves.smoke=server"
+            }
+        }
         client {
             if (project.hasProperty("smoke")) {
                 vmArgs "-Dcoopmoves.smoke=true"
                 programArgs "--quickPlaySingleplayer", "world"
+            }
+            if (project.hasProperty("duo")) {
+                vmArgs "-Dcoopmoves.smoke=duo", "-Dcoopmoves.smoke.role=${project.duo}"
+                programArgs "--username", "${project.duo}", "--quickPlayMultiplayer", "localhost:25565"
             }
         }
     }

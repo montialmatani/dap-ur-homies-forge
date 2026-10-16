@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 public final class CoopNetwork {
     private static final Logger LOGGER = LoggerFactory.getLogger("coopmoves/net");
     private static final String PROTOCOL = "1";
+    private static final boolean TRACE = !System.getProperty("coopmoves.smoke", "").isEmpty();
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new Identifier("coopmoves", "main"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
 
@@ -101,6 +102,7 @@ public final class CoopNetwork {
         if (payload == null) return;
         NetworkEvent.Context ctx = ctxSupplier.get();
         Identifier id = payload.getId().id();
+        if (TRACE) LOGGER.info("NET recv {} {}", ctx.getDirection(), id);
         try {
             if (ctx.getDirection() == NetworkDirection.PLAY_TO_SERVER) {
                 ServerPlayerEntity sender = ctx.getSender();
