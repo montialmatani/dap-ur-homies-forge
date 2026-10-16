@@ -31,10 +31,7 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.layered {
-        it.mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
-        it.mappings("dev.architectury:yarn-mappings-patch-forge:${project.yarn_forge_patch}")
-    }
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     forge "net.minecraftforge:forge:${project.forge_version}"
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"))
