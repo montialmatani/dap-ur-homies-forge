@@ -1,0 +1,20 @@
+{
+  "targets": [ "swap" ],
+  "passes": [
+    {
+      "name": "blit",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "uniforms": []
+    },
+    {
+      "name": "cooptest_radialblur",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "uniforms": [
+        { "name": "BlurStrength", "values": [0.035] },
+        { "name": "Samples",      "values": [8.0]   }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+plugins {
+    id "dev.architectury.loom" version "1.7-SNAPSHOT"
+}
+
+version = project.mod_version
+group = "com.cooptest"
+base { archivesName = "dap-ur-homies-forge-1.20.1" }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+loom {
+    silentMojangMappingsLicense()
+    forge {
+        mixinConfigs = [
+                "coopmod.mixins.json",
+                "coopmoves-shim.mixins.json",
+                "coopmoves-anim.mixins.json"
+        ]
+    }
+    mixin {
+        defaultRefmapName = "coopmoves.refmap.json"
+    }
+}
+
+repositories {
+    maven { url "https://maven.architectury.dev/" }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.layered {
+        it.mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+        it.mappings("dev.architectury:yarn-mappings-patch-forge:${project.yarn_forge_patch}")
+    }
+    forge "net.minecraftforge:forge:${project.forge_version}"
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${project.mixinextras_version}"))
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 17
+    options.compilerArgs << "-Xmaxerrs" << "2000"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    from("LICENSE_coopmod")
+    from("NOTICE.md")
+}

@@ -1,0 +1,88 @@
+package com.cooptest;
+
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.registry.Registries;
+
+public class ModSounds {
+    public static final Identifier EPIC_DAP_ID = new Identifier("testcoop", "epic_dap");
+    public static final SoundEvent EPIC_DAP = SoundEvent.of(EPIC_DAP_ID);
+    public static final Identifier EXPLOSION_IMPACT_ID = new Identifier("testcoop", "explosion_impact");
+    public static final SoundEvent EXPLOSION_IMPACT = SoundEvent.of(EXPLOSION_IMPACT_ID);
+    public static final Identifier MAHITO_ID = new Identifier("testcoop", "mahito");
+    public static final SoundEvent MAHITO = SoundEvent.of(MAHITO_ID);
+    public static final Identifier GALACTIC_DAP_ID = new Identifier("testcoop", "galactic_dap");
+    public static final SoundEvent GALACTIC_DAP = SoundEvent.of(GALACTIC_DAP_ID);
+    public static final Identifier TRUE_FRIENDSHIP_ID = new Identifier("testcoop", "true_friendship");
+    public static final SoundEvent TRUE_FRIENDSHIP = SoundEvent.of(TRUE_FRIENDSHIP_ID);
+    public static final Identifier IMPACT_ID = new Identifier("testcoop", "impact");
+    public static final SoundEvent IMPACT = SoundEvent.of(IMPACT_ID);
+    public static final Identifier MARIO_JUMP_ID = new Identifier("testcoop", "mariojump");
+    public static final SoundEvent MARIO_JUMP = SoundEvent.of(MARIO_JUMP_ID);
+    public static final SoundEvent FIRE_IMPACT = SoundEvent.of(new Identifier("testcoop", "fireimpact"));
+    public static final Identifier DAP_MISS_ID = new Identifier("testcoop", "dap.miss");
+    public static final SoundEvent DAP_MISS = SoundEvent.of(DAP_MISS_ID);
+    public static final Identifier DAP_WEAK_ID = new Identifier("testcoop", "dap.weak");
+    public static final SoundEvent DAP_WEAK = SoundEvent.of(DAP_WEAK_ID);
+    public static final Identifier SNAP_ID = new Identifier("testcoop", "snap");
+    public static final SoundEvent SNAP = SoundEvent.of(SNAP_ID);
+    public static final Identifier DAP_HIT_ID = new Identifier("testcoop", "dap.hit");
+    public static final SoundEvent DAP_HIT = SoundEvent.of(DAP_HIT_ID);
+    public static final Identifier SLAP_ID = new Identifier("testcoop", "slap");
+    public static final SoundEvent SLAP = SoundEvent.of(SLAP_ID);
+    public static final Identifier TORTURE_ID = new Identifier("testcoop", "totrute");
+    public static final SoundEvent TORTURE = SoundEvent.of(TORTURE_ID);
+    public static final Identifier FAHH_ID = new Identifier("testcoop", "fahh");
+    public static final SoundEvent FAHH = SoundEvent.of(FAHH_ID);
+    public static final Identifier CLAP_SWAP_ID = new Identifier("testcoop", "clap_swap");
+    public static final SoundEvent CLAP_SWAP = SoundEvent.of(CLAP_SWAP_ID);
+    public static final Identifier PERFECT_DAP_ID = new Identifier("testcoop", "cooldap");
+    public static final SoundEvent PERFECT_DAP = SoundEvent.of(PERFECT_DAP_ID);
+    public static final Identifier CLEAN_DAP_ID = new Identifier("testcoop", "clean_dap");
+    public static final SoundEvent CLEAN_DAP = SoundEvent.of(CLEAN_DAP_ID);
+    public static final Identifier DAP_FOLLOW_ID = new Identifier("testcoop", "dap_follow");
+    public static final SoundEvent DAP_FOLLOW = SoundEvent.of(DAP_FOLLOW_ID);
+    public static final Identifier AURA_ID = new Identifier("testcoop", "aura");
+    public static final SoundEvent AURA = SoundEvent.of(AURA_ID);
+    public static final Identifier HELI_ID = new Identifier("testcoop", "heli");
+    public static final SoundEvent HELI = SoundEvent.of(HELI_ID);
+    public static final SoundEvent CLAP_1 = SoundEvent.of(new Identifier("testcoop", "clap1"));
+    public static final SoundEvent CLAP_2 = SoundEvent.of(new Identifier("testcoop", "clap2"));
+    public static final SoundEvent CLAP_3 = SoundEvent.of(new Identifier("testcoop", "clap3"));
+    public static final SoundEvent CLAP_4 = SoundEvent.of(new Identifier("testcoop", "clap4"));
+    public static final SoundEvent CLAP_5 = SoundEvent.of(new Identifier("testcoop", "clap5"));
+    public static final SoundEvent CLAP_6 = SoundEvent.of(new Identifier("testcoop", "clap6"));
+    public static final SoundEvent[] CLAP_SOUNDS = new SoundEvent[]{CLAP_1, CLAP_2, CLAP_3, CLAP_4, CLAP_5, CLAP_6};
+    public static final Identifier CLEAN_DAP_2_ID = new Identifier("testcoop", "clean_dap2");
+    public static final SoundEvent CLEAN_DAP_2 = SoundEvent.of(CLEAN_DAP_2_ID);
+
+    public static void register() {
+        com.cooptest.forge.CoopRegistries.sound(EPIC_DAP_ID, EPIC_DAP);
+        com.cooptest.forge.CoopRegistries.sound(EXPLOSION_IMPACT_ID, EXPLOSION_IMPACT);
+        com.cooptest.forge.CoopRegistries.sound(MAHITO_ID, MAHITO);
+        com.cooptest.forge.CoopRegistries.sound(GALACTIC_DAP_ID, GALACTIC_DAP);
+        com.cooptest.forge.CoopRegistries.sound(TRUE_FRIENDSHIP_ID, TRUE_FRIENDSHIP);
+        com.cooptest.forge.CoopRegistries.sound(IMPACT_ID, IMPACT);
+        com.cooptest.forge.CoopRegistries.sound(MARIO_JUMP_ID, MARIO_JUMP);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "fireimpact"), FIRE_IMPACT);
+        com.cooptest.forge.CoopRegistries.sound(DAP_MISS_ID, DAP_MISS);
+        com.cooptest.forge.CoopRegistries.sound(DAP_WEAK_ID, DAP_WEAK);
+        com.cooptest.forge.CoopRegistries.sound(SNAP_ID, SNAP);
+        com.cooptest.forge.CoopRegistries.sound(DAP_HIT_ID, DAP_HIT);
+        com.cooptest.forge.CoopRegistries.sound(SLAP_ID, SLAP);
+        com.cooptest.forge.CoopRegistries.sound(TORTURE_ID, TORTURE);
+        com.cooptest.forge.CoopRegistries.sound(FAHH_ID, FAHH);
+        com.cooptest.forge.CoopRegistries.sound(CLAP_SWAP_ID, CLAP_SWAP);
+        com.cooptest.forge.CoopRegistries.sound(HELI_ID, HELI);
+        com.cooptest.forge.CoopRegistries.sound(CLEAN_DAP_ID, CLEAN_DAP);
+        com.cooptest.forge.CoopRegistries.sound(DAP_FOLLOW_ID, DAP_FOLLOW);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap1"), CLAP_1);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap2"), CLAP_2);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap3"), CLAP_3);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap4"), CLAP_4);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap5"), CLAP_5);
+        com.cooptest.forge.CoopRegistries.sound(new Identifier("testcoop", "clap6"), CLAP_6);
+        com.cooptest.forge.CoopRegistries.sound(CLEAN_DAP_2_ID, CLEAN_DAP_2);
+    }
+}

@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="CC0-1.0 (original mod: see LICENSE_coopmod and NOTICE.md)"
+issueTrackerURL="https://www.youtube.com/@anteryo"
+
+[[mods]]
+modId="coopmoves"
+version="${version}"
+displayName="DAP Ur Homie! (Forge 1.20.1 port)"
+authors="Anteryo (original mod); unofficial Forge 1.20.1 port"
+logoFile="assets/testcoop/icon.png"
+description='''
+DAP up UR HOMIES, and MORE! Achieve Perfect Friendship with your friends!
+Unofficial Forge 1.20.1 port of Anteryo's Fabric mod. Player animations are handled by a bundled
+mini animation player modelled on Player Animation Library (ZigyTheBird, MIT), so no extra library is needed.
+'''
+
+[[dependencies.coopmoves]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.coopmoves]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.20.2)"
+    ordering="NONE"
+    side="BOTH"

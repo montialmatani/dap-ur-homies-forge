@@ -1,0 +1,19 @@
+{
+  "targets": [ "swap" ],
+  "passes": [
+    {
+      "name": "blit",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "uniforms": []
+    },
+    {
+      "name": "cooptest_chroma",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "uniforms": [
+        { "name": "ChromaOffset", "values": [0.05] }
+      ]
+    }
+  ]
+}
