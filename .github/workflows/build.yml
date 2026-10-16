@@ -2,7 +2,11 @@ name: build
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -20,12 +24,19 @@ jobs:
         run: |
           set -o pipefail
           gradle build --stacktrace --no-daemon 2>&1 | tee build.log
-      - name: Upload log
+      - name: Publish log and jar to ci-out branch
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
+        run: |
+          mkdir -p /tmp/ci
+          cp build.log /tmp/ci/ || true
+          grep -E "error:|warning: \\[|What went wrong|FAILED|Exception" build.log > /tmp/ci/summary.txt || true
+          cp build/libs/*.jar /tmp/ci/ 2>/dev/null || true
+          echo "${{ github.sha }} run ${{ github.run_id }}" > /tmp/ci/RUN.txt
+          cd /tmp/ci
+          git init -q -b ci-out
+          git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "ci output for ${{ github.sha }}"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" ci-out
       - name: Upload jar
         uses: actions/upload-artifact@v4
         with:
@@ -44,7 +55,10 @@ jobs:
             unzip -p y.jar mappings/mappings.tiny > "yarn-$v.tiny"
           done
           ls -la
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mappings
-          path: out/*.tiny
+      - name: Publish mappings to ci-mappings branch
+        run: |
+          cd out
+          git init -q -b ci-mappings
+          git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "yarn mappings"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" ci-mappings
