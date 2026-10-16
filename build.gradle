@@ -87,7 +87,7 @@ tasks.register("writeLaunchScripts") {
             def t = tasks.getByName(n)
             def rc = loom.runConfigs.getByName(n == "runClient" ? "client" : "server")
             def java = t.javaLauncher.get().executablePath.asFile.absolutePath
-            def realMain = rc.mainClass.get()
+            def realMain = rc.mainClass.get().contains("not been determined") ? "cpw.mods.bootstraplauncher.BootstrapLauncher" : rc.mainClass.get()
             def dli = [
                     "-Dfabric.dli.config=" + file(".gradle/loom-cache/launch.cfg").absolutePath,
                     "-Dfabric.dli.env=" + rc.environment,
